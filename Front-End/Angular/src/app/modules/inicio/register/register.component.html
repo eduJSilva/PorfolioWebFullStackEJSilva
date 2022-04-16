@@ -1,8 +1,51 @@
-<div #inicio class="container-fluid">
+<div  class="text-center">
+<div #inicio class="form-signin">
 
-    <h2>Registrarse</h2>
-    <form [formGroup]="form" class="m-5" (ngSubmit)="onEnviar($event); service.onlyRead=false">
+    <h2 class="h3 mb-3 fw-normal">Registrarse</h2>
+    <form [formGroup]="form" class="form-signin" (ngSubmit)="onEnviar($event); service.onlyRead=false">
+
+      <!--NOMBRE, APELLIDO y USUARIO
       <div class="mb-3">
+        <label for="firstName" class="form-label">Nombre</label>
+        <input type="text" formControlName="first_name" [ngClass]="{'is-invalid': Nombre?.errors && Nombre?.touched, 'is-valid': !Nombre?.errors && Nombre?.touched}" class="form-control" id="firstName" autocomplete="current-first_name">
+        <div *ngIf="Nombre?.errors && Nombre?.touched">
+          <p *ngIf="Nombre?.hasError('required')" class="text-danger">
+            El nombre es requerido.
+          </p>
+          <p *ngIf="Nombre?.errors?.['minlength']" class="text-danger">
+            El nombre debe tener 5 o más caracteres.
+          </p>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="lastName" class="form-label">Apellido</label>
+        <input type="text" formControlName="last_name" [ngClass]="{'is-invalid': Apellido?.errors && Apellido?.touched, 'is-valid': !Apellido?.errors && Apellido?.touched}" class="form-control" id="lastName" autocomplete="current-last_name">
+        <div *ngIf="Apellido?.errors && Apellido?.touched">
+          <p *ngIf="Apellido?.hasError('required')" class="text-danger">
+            El apellido es requerido.
+          </p>
+          <p *ngIf="Apellido?.errors?.['minlength']" class="text-danger">
+            El apellido debe tener 5 o más caracteres.
+          </p>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="username" class="form-label">Nombre de Usuario</label>
+        <input type="text" formControlName="username" [ngClass]="{'is-invalid': Username?.errors && Username?.touched, 'is-valid': !Username?.errors && Username?.touched}" class="form-control" id="username" autocomplete="current-username">
+        <div *ngIf="Username?.errors && Username?.touched">
+          <p *ngIf="Username?.hasError('required')" class="text-danger">
+            El usuario es requerida.
+          </p>
+          <p *ngIf="Username?.errors?.['minlength']" class="text-danger">
+            El usuario debe tener 5 o más caracteres.
+          </p>
+        </div>
+      </div>
+ -->
+
+      <div class="form-floating">
         <label for="exampleInputEmail1" class="form-label">Email</label>
         <input type="email" formControlName="email" [ngClass]="{'is-invalid': Email?.errors && Email?.touched, 'is-valid': !Email?.errors && Email?.touched}" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" autocomplete="username">
         <div *ngIf='Email?.errors && Email?.touched'>
@@ -12,7 +55,7 @@
           </p>
         </div>
       </div>
-      <div class="mb-3">
+      <div class="form-floating">
         <label for="exampleInputPassword1" class="form-label">Password</label>
         <input type="password" formControlName="password" [ngClass]="{'is-invalid': Password?.errors && Password?.touched, 'is-valid': !Password?.errors && Password?.touched}" class="form-control" id="exampleInputPassword1" autocomplete="current-password">
         <div *ngIf="Password?.errors && Password?.touched">
@@ -20,15 +63,16 @@
             La contraseña es requerida.
           </p>
           <p *ngIf="Password?.errors?.['minlength']" class="text-danger">
-            La contraseña debe ser de 8 o más catacteres.
+            La contraseña debe tener 8 o más caracteres.
           </p>
         </div>
       </div>
-     <button type="submit" class="btn btn-primary">Submit</button>
+     <button id="button" [disabled]="form.invalid" type="submit" class="btn btn-primary">Enviar</button>
+     <label *ngIf="form.invalid" for="button">Ingrese todos los datos requeridos por favor</label>
+
     </form>
   
   <div>
-      <h3>Volver al inicio</h3>
       <a routerLink="/inicio"><button (click)="service.onlyRead=true">INICIO</button></a>
   </div>
 </div>

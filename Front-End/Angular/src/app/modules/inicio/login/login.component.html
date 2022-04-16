@@ -1,10 +1,12 @@
+<div  class="text-center">
+<div #inicio class="form-signin">
 
-<div #inicio class="container-fluid">
+      <h2 class="h3 mb-3 fw-normal">Iniciar sesión</h2>
+      <form [formGroup]="form" class="form-signin" (ngSubmit)="onEnviar($event); service.onlyRead=false">
 
-      <h2>Iniciar sesión</h2>
-      <form [formGroup]="form" class="m-5" (ngSubmit)="onEnviar($event); service.onlyRead=false">
-        <div class="mb-3">
-          <label for="exampleInputEmail1" class="form-label">Email</label>
+        <!--EMAIL-->
+        <div class="form-floating">
+          <label for="exampleInputEmail1">Email</label>
           <input type="email" formControlName="email" [ngClass]="{'is-invalid': Email?.errors && Email?.touched, 'is-valid': !Email?.errors && Email?.touched}" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" autocomplete="username">
           <div *ngIf='Email?.errors && Email?.touched'>
             <p class="text-danger">El email es requerido.</p>
@@ -13,29 +15,53 @@
             </p>
           </div>
         </div>
+
+      
+        <!--USERNAME
         <div class="mb-3">
-          <label for="exampleInputPassword1" class="form-label">Password</label>
-          <input type="password" formControlName="password" [ngClass]="{'is-invalid': Password?.errors && Password?.touched, 'is-valid': !Password?.errors && Password?.touched}" class="form-control" id="exampleInputPassword1" autocomplete="current-password">
+          <label for="username" class="form-label">Username</label>
+          <input type="text" formControlName="username" [ngClass]="{'is-invalid': Username?.errors && Username?.touched, 'is-valid': !Username?.errors && Username?.touched}" class="form-control" id="username" autocomplete="current-username">
+          <div *ngIf="Username?.errors && Username?.touched">
+            <p *ngIf="Username?.hasError('required')" class="text-danger">
+              El nombre de usuario es requerido.
+            </p>
+            <p *ngIf="Username?.errors?.['minlength']" class="text-danger">
+              El nombre de usuario debe tener 3 o más caracteres.
+            </p>
+          </div>
+        </div>
+
+        -->
+
+        <div class="form-floating">
+          <label for="exampleInputPassword1">Password</label>
+          <input placeholder="Password" class="form-control" type="password" formControlName="password" [ngClass]="{'is-invalid': Password?.errors && Password?.touched, 'is-valid': !Password?.errors && Password?.touched}" class="form-control" id="exampleInputPassword1" autocomplete="current-password">
           <div *ngIf="Password?.errors && Password?.touched">
             <p *ngIf="Password?.hasError('required')" class="text-danger">
               La contraseña es requerida.
             </p>
             <p *ngIf="Password?.errors?.['minlength']" class="text-danger">
-              La contraseña debe ser de 8 o más catacteres.
+              La contraseña debe tener 8 o más caracteres.
             </p>
           </div>
         </div>
-       <button type="submit" class="btn btn-primary">Submit</button>
+
+       <button type="submit" class="w-100 btn btn-lg btn-primary">Ingresar</button>
+       <p id="incorrecto" *ngIf="service.usuarioNot">{{mensajeIncorrecto}}</p>
       </form>
     
+      <!--REGISTRO DE USUARIO
       <div>
           <br>
         <h2>Si todavia no sos usuario registrate</h2>
         <a routerLink="/inicio/register">Registrarse</a>
     </div>
 
+  -->  
+
     <div>
-        <p>Volver al inicio</p>
-        <a routerLink="/inicio"><button (click)="service.onlyRead=true">INICIO</button></a>
+        <a routerLink="/inicio"><button (click)="service.onlyRead=true; service.usuarioNot = false">INICIO</button></a>
     </div>
+    
+</div>
 </div>

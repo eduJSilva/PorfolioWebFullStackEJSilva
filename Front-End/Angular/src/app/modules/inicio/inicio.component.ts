@@ -8,9 +8,13 @@ import { AppService } from 'src/app/service/app.service';
 })
 export class InicioComponent implements OnInit {
 
-  constructor(public service: AppService) { }
-
+  constructor(public service: AppService) {
+   if(service.sesionFinalizada == true)
+    location.reload();
+   }
+  
   ngOnInit(): void {
+   
   }
 
 }

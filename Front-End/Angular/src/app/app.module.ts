@@ -15,6 +15,8 @@ import { PortfolioComponent } from './modules/inicio/portfolio/portfolio.compone
 import { ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { InterceptorService } from './service/interceptor.service';
+import { RegistroconfirmadoComponent } from './modules/inicio/registroconfirmado/registroconfirmado.component';
+import { SesionExpiredComponent } from './modules/inicio/sesion-expired/sesion-expired.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +26,8 @@ import { InterceptorService } from './service/interceptor.service';
     LoginComponent,
     RegisterComponent,
     PortfolioComponent,
+    RegistroconfirmadoComponent,
+    SesionExpiredComponent,
   ],
   imports: [
     BrowserModule,

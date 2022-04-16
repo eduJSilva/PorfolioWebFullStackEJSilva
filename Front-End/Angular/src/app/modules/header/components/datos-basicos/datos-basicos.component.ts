@@ -1,3 +1,4 @@
+import { formatNumber } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AppService } from 'src/app/service/app.service';
@@ -12,9 +13,10 @@ export class DatosBasicosComponent implements OnInit {
   user!: any;
   userReqres: any[] = [];
   institucionList: any[] = [];
-  edad: number = 0;
   formGroupDirective: any;
+  edad: number = 0;
   direccion: string = '';
+  dni:string = '';
 
   @ViewChild(DatosBasicosFormComponent) formulario: any;
 
@@ -27,34 +29,16 @@ export class DatosBasicosComponent implements OnInit {
     return showAge;
   }
 
-  dni(dni: any) {
-    return (
-      dni[0] +
-      dni[1] +
-      '.' +
-      dni[2] +
-      dni[3] +
-      dni[4] +
-      '.' +
-      dni[5] +
-      dni[6] +
-      dni[7]
-    );
-  }
-
   ngOnInit(): void {
     this.service.getUsers().subscribe((data) => {
-      this.user = data.persona;
-      this.institucionList = data.persona[0].instituciones;
-      this.direccion =
-        this.user[0].address.street +
-        ' Nº' +
-        this.user[0].address.number +
-        ', ' +
-        this.user[0].address.city +
-        '-' +
-        this.user[0].address.province;
-    },
+      console.log(data);
+      this.user = data;
+      let dniString =data[0].documento.toString();
+      this.dni = dniString[0]+dniString[1]+"."+dniString[2]+dniString[3]+dniString[4]+"."+dniString[5]+dniString[6]+dniString[7];
+      this.direccion = data[0].calle+" Nº"+data[0].numero+", "+data[0].ciudad+". "+data[0].provincia
+      this.institucionList = data[0].listaDeInstituciones
+    } 
+    ,
     (err: HttpErrorResponse) => {
       if (err.error instanceof Error){
         console.log('Client-side error');

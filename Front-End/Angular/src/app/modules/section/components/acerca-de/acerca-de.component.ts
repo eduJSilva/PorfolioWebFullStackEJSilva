@@ -8,7 +8,7 @@ import { AcercaDeFormComponent } from './acerca-de-form/acerca-de-form.component
   styleUrls: ['../../section.component.css','./acerca-de.component.css']
 })
 export class AcercaDeComponent implements OnInit {
-acercaDe: string = '';
+acercaDe: string = "Martillero Público, Corredor Público y Corredor Inmobiliario. Mi experiencia se basa en más de 20 años de trabajo en importantes empresas de Argentina como Arlei S.A. Considero que mi fortaleza se basa en la confianza y el vínculo humano. Siempre dispuesto a acompañar proyectos creativos que permitan el crecimiento tanto en lo personal como en lo grupal. Estudio programación de forma autodidacta desde hace mas de 5 años, y ahora pude lograr la certificación en Full Stack Developer Jr. Gracias a Argentina Programa. Tengo un proyecto en Github desarrollado en lenguaje Python con el framework Django, este es el link: https://github.com/Freston2021/dfconfecciones";
 formGroupDirective: any;
 
   @ViewChild(AcercaDeFormComponent) formulario: any;
@@ -16,9 +16,10 @@ formGroupDirective: any;
   constructor(public service: AppService) { }
 
   ngOnInit(): void {
+    /*
     this.service.getUsers().subscribe((data) => {
-      console.log("QUE PASA ACA-->", data)
-      this.acercaDe = data.persona[0].acerca_de;
+      this.acercaDe = data[0].acercaDe;
   });
+  */
   }
 }

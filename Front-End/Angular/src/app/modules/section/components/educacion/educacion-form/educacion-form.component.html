@@ -8,7 +8,7 @@
         </div>
         <legend style="margin-top: 20px; margin-left: 5px;">Educación:</legend>
 
-        <!--Carga de Educación-->
+        <!--Formulario para el Post de Educación-->
         <div style="margin-bottom: 50px;" formArrayName="educaciones">
             <button class="btn btn-outline-dark" type="button" (click)="addEducacion()">+ Agregar Educación</button>
             <div *ngFor="let educacion of educaciones().controls; let i=index">
@@ -40,7 +40,7 @@
                         </div>       
 
                         <div class="col form-check">
-                            <input formControlName="estado" class="form-check-input" type="checkbox" value={{puntaje}} id="flexCheckDefault">
+                            <input formControlName="estado" class="form-check-input" type="checkbox" id="flexCheckDefault">
                             <label class="form-check-label" for="flexCheckDefault">
                                 Grado concluido
                             </label>

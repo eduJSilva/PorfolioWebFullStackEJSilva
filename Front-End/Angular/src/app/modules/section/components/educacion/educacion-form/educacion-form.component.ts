@@ -37,7 +37,8 @@ export class EducacionFormComponent implements OnInit {
       carrera: '',
       puntaje: 0,
       inicio: '',
-      fin:''
+      fin:'',
+      persona:{id:1}
     })
   }
 
@@ -51,15 +52,15 @@ export class EducacionFormComponent implements OnInit {
   */
 
   onSubmit() {
-    this.service.postUsers(this.profileForm.value).subscribe((data) => {
+
+this.profileForm.value.educaciones.forEach((element: any)=>{
+    this.service.postEducacion(element).subscribe((data) => {
       return console.log("POST--> ", data);
     });
-
-    this.service.putUsers(this.profileForm.value).subscribe((data) => {
-      return console.log("PUT--> ", data);
-    });
+  });
 
     alert('Registro ingresado y modificado con exito!');
+    window.location.reload();
   }
 
     //resetear formulario

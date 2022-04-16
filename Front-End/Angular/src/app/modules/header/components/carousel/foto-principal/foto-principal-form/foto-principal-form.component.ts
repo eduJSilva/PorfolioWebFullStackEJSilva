@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormGroupDirective } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AppService } from 'src/app/service/app.service';
 
 @Component({
@@ -18,7 +19,7 @@ export class FotoPrincipalFormComponent implements OnInit {
     fileSource: new FormControl('', [Validators.required]),
   });
 
-  constructor(public service: AppService) {}
+  constructor(public service: AppService, private ruta: Router) {}
 
   get f() {
     return this.myForm.controls;
@@ -26,49 +27,30 @@ export class FotoPrincipalFormComponent implements OnInit {
 
   onFileChange(event: any) {
     if (event.target.files.length > 0) {
-      const file = event.target.files[0];
-      this.fotito1 = file;
+      this.fotito1 = event.target.files[0];
       this.myForm.patchValue({
-        fileSource: file,
+        fileSource:  this.fotito1,
       });
+      const fr = new FileReader();
+      fr.readAsDataURL(this.fotito1);
     }
   }
 
   cambiar_imagenPrincipal() {
-    this.service.postUsers(this.myForm.value).subscribe((data) => {
-      return console.log("POST--> ", data);
-    });
-
-    this.service.putUsers(this.myForm.value).subscribe((data) => {
-      return console.log("PUT--> ", data);
-    });
-
-    try {
-      let reader1 = new FileReader();
-      reader1.readAsDataURL(this.fotito1);
-
-      reader1.onload = function () {
-        let readerResult: any = reader1.result;
-        (<HTMLImageElement>document.getElementById('imagen-principal')).src =
-          readerResult;
-      };
-
-      reader1.onerror = function () {
-        console.log(reader1.error);
-      };
-
-      this.validator = 1;
-    } catch (e) {}
-
-    if (this.validator == 1) {
-      alert('Foto de Perfil modificada con exito!');
-      (<HTMLElement>(
-        document.getElementById('formularioFotoPrincipal')
-      )).style.display = 'none';
-      this.validator = 0;
-    } else {
-      alert('Por favor ingrese 1 foto');
-    }
+    this.service.putFoto(this.fotito1).subscribe(
+      data => {
+       return console.log(data)
+      },
+      err => {
+        console.log("");
+      }
+    );
+  
+    alert('Foto modificada con exito!');
+    alert('En el caso de no ver el cambio por favor volver a cargar la pagina en unos segundos, gracias!');
+    this.ruta.navigate(['portfolio']);
+    location.reload();
+    
   }
 
 

@@ -19,9 +19,15 @@ export class FotoPrincipalComponent implements OnInit {
   @ViewChild(FotoPrincipalFormComponent) formulario: any;
 
   ngOnInit(): void {
+    /*
     this.service.getUsers().subscribe((data) => {
-      this.userFoto = data.persona[0].fotoPerfil;
+      this.userFoto = data[0].fotoPerfil;
     });
-
+    */
+    
+    this.service.getFoto().subscribe((date)=>{
+      this.userFoto = date[date.length-1].imagenUrl;
+     });
+  
   }
 }

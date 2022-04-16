@@ -10,27 +10,27 @@
 
         <div class="card pmd-card bg-dark text-white" style="margin: 5px;">
             <label class="custom-file-label" for="firs-name">Nombre:</label>
-            <input class="custom-file-input" id="first-name" type="text" formControlName="firstName">
+            <input class="custom-file-input" id="first-name" type="text" formControlName="nombre">
         </div>
 
-        <div *ngIf="f['firstName'].touched && f['firstName'].invalid" class="alert alert-danger">
-            <div *ngIf="f['firstName'].errors && f['firstName'].errors['required']">Valor requerido.</div>
-            <div *ngIf="f['firstName'].errors && f['firstName'].errors['minlength']">el nombre debe tener 3 letras o mas
+        <div *ngIf="f['nombre'].touched && f['nombre'].invalid" class="alert alert-danger">
+            <div *ngIf="f['nombre'].errors && f['nombre'].errors['required']">Valor requerido.</div>
+            <div *ngIf="f['nombre'].errors && f['nombre'].errors['minlength']">el nombre debe tener 3 letras o mas
             </div>
-            <div *ngIf="f['firstName'].errors && f['firstName'].errors['pattern']">por favor ingrese un nombre valido.
+            <div *ngIf="f['nombre'].errors && f['nombre'].errors['pattern']">por favor ingrese un nombre valido.
             </div>
         </div>
 
         <div class="card pmd-card bg-dark text-white" style="margin: 5px;">
             <label class="custom-file-label" for="last-name">Apellido:</label>
-            <input class="custom-file-input" id="last-name" type="text" formControlName="lastName">
+            <input class="custom-file-input" id="last-name" type="text" formControlName="apellido">
         </div>
 
-        <div *ngIf="f['lastName'].touched && f['lastName'].invalid" class="alert alert-danger">
-            <div *ngIf="f['lastName'].errors && f['lastName'].errors['required']">Valor requerido.</div>
-            <div *ngIf="f['lastName'].errors && f['lastName'].errors['minlength']">el apellido debe tener 3 letras o mas
+        <div *ngIf="f['apellido'].touched && f['apellido'].invalid" class="alert alert-danger">
+            <div *ngIf="f['apellido'].errors && f['apellido'].errors['required']">Valor requerido.</div>
+            <div *ngIf="f['apellido'].errors && f['apellido'].errors['minlength']">el apellido debe tener 3 letras o mas
             </div>
-            <div *ngIf="f['lastName'].errors && f['lastName'].errors['pattern']">por favor ingrese un apellido valido.
+            <div *ngIf="f['apellido'].errors && f['apellido'].errors['pattern']">por favor ingrese un apellido valido.
             </div>
         </div>
 
@@ -61,14 +61,14 @@
         <div class="card pmd-card bg-dark text-white" style="margin: 5px;">
             <label class="custom-file-label" for="nacimiento">Fecha de nacimiento:</label>
             <input class="custom-file-input" id="nacimiento" type="date" value="1979-04-13" min="1917-01-01"
-                max="2004-12-31" formControlName="fecha_nacimiento">
+                max="2004-12-31" formControlName="fechaNacimiento">
         </div>
 
-        <div *ngIf="f['fecha_nacimiento'].touched && f['fecha_nacimiento'].invalid" class="alert alert-danger">
-            <div *ngIf="f['fecha_nacimiento'].errors && f['fecha_nacimiento'].errors['required']">Valor requerido.</div>
+        <div *ngIf="f['fechaNacimiento'].touched && f['fechaNacimiento'].invalid" class="alert alert-danger">
+            <div *ngIf="f['fechaNacimiento'].errors && f['fechaNacimiento'].errors['required']">Valor requerido.</div>
         </div>
 
-        <div id="direccion" formGroupName="address">
+  <!--      <div id="direccion" formGroupName="address">  -->
             <legend for="direccion" style="margin: 5px;">Dirección:</legend>
             
               <!--Autocompletado Direccion-->
@@ -78,28 +78,28 @@
 </div>
 
             <div class="card pmd-card bg-dark text-white" style="margin: 5px;">
-                <label class="custom-file-label" for="street">Calle:</label>
-                <input class="custom-file-input"  value={{serviceG.calle}} id="street" type="text" formControlName="street">
+                <label class="custom-file-label" for="calle">Calle:</label>
+                <input class="custom-file-input"  value={{serviceG.calle}} id="calle" type="text" formControlName="calle">
             </div>
 
             <div class="card pmd-card bg-dark text-white" style="margin: 5px;">
-                <label class="custom-file-label" for="number">Nro.:</label>
-                <input class="custom-file-input"  value={{serviceG.calleNro}} id="number" type="text" formControlName="number">
+                <label class="custom-file-label" for="numero">Nro.:</label>
+                <input class="custom-file-input"  value={{serviceG.calleNro}} id="numero" type="text" formControlName="numero">
             </div>
 
             <div class="card pmd-card bg-dark text-white" style="margin: 5px;">
-                <label class="custom-file-label" for="locality">Barrio:</label>
-                <input class="custom-file-input"  value={{serviceG.barrio}} id="locality" type="text" formControlName="locality">
+                <label class="custom-file-label" for="localidad">Barrio:</label>
+                <input class="custom-file-input"  value={{serviceG.barrio}} id="localidad" type="text" formControlName="localidad">
             </div>
 
             <div class="card pmd-card bg-dark text-white" style="margin: 5px;">
-                <label class="custom-file-label" for="city">Ciudad:</label>
-                <input class="custom-file-input"  value={{serviceG.ciudad}} id="city" type="text" formControlName="city">
+                <label class="custom-file-label" for="ciudad">Ciudad:</label>
+                <input class="custom-file-input"  value={{serviceG.ciudad}} id="ciudad" type="text" formControlName="ciudad">
             </div>
 
             <div class="card pmd-card bg-dark text-white" style="margin: 5px;">
-                <label class="custom-file-label" for="province">Provincia:</label>
-                <input class="custom-file-input"  value={{serviceG.provincia}} id="province" type="text" formControlName="province">
+                <label class="custom-file-label" for="provincia">Provincia:</label>
+                <input class="custom-file-input"  value={{serviceG.provincia}} id="provincia" type="text" formControlName="provincia">
             </div>
 
             <div class="card pmd-card bg-dark text-white" style="margin: 5px;">
@@ -107,7 +107,7 @@
                 <input class="custom-file-input"  value={{serviceG.codigoPostal}} id="zip" type="text" formControlName="zip">
             </div>
 
-        </div>
+      <!--  </div>  -->
 
         <legend for="contacto" style="margin: 5px;">Datos de Contacto:</legend>
 

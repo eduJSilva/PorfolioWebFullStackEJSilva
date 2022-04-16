@@ -11,11 +11,11 @@
                     </button>
                 </div>
                 <div>
-                    <h1 id="text-nombre" class="card-title">{{user[0].firstName}} {{user[0].lastName}}</h1>
+                    <h1 id="text-nombre" class="card-title">{{user[0].nombre}} {{user[0].apellido}}</h1>
                     <h2 id="text-titulo" class="card-subtitle mb-2 text-muted">{{user[0].puesto}}</h2>
-                    <h3 id="text-dni" class="card-text"><b>Dni: {{dni(user[0].documento)}}</b></h3>
+                    <h3 id="text-dni" class="card-text"><b>Dni:{{dni}}</b></h3>
 
-                    <h3 id="text-date" class="card-text">Edad: {{obtenerEdad(user[0].fecha_nacimiento)}}</h3>
+                    <h3 id="text-date" class="card-text">Edad: {{obtenerEdad(user[0].fechaNacimiento)}}</h3>
                     <h3 id="text-direccion" class="card-text">{{direccion}}</h3>
                 </div>
             </div>

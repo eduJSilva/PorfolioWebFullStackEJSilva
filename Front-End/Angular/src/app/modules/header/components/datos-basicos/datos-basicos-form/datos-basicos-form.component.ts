@@ -13,7 +13,7 @@ export class DatosBasicosFormComponent implements OnInit {
   nuevasInstituciones: [{}]=[{}];
 
   profileForm = this.fb.group({
-    firstName:  [
+    nombre:  [
       '',
       [
         Validators.required,
@@ -22,7 +22,7 @@ export class DatosBasicosFormComponent implements OnInit {
         Validators.pattern('[a-zA-Z][a-zA-Z ]+'),
       ],
     ],
-    lastName: [
+    apellido: [
       '',
       [
         Validators.required,
@@ -44,9 +44,51 @@ export class DatosBasicosFormComponent implements OnInit {
         Validators.pattern('[0-9]+'),
       ],
     ],
-    fecha_nacimiento: ['', Validators.required],
+    fechaNacimiento: ['', Validators.required],
+
+    calle: [
+      '',
+      [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(80),
+      ],
+    ],
+    numero: [
+      '',
+      [Validators.required, Validators.minLength(1), Validators.maxLength(8)],
+    ],
+    localidad: [
+      '',
+      [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(100),
+      ],
+    ],
+    ciudad: [
+      '',
+      [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(100),
+      ],
+    ],
+    provincia: [
+      '',
+      [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(100),
+      ],
+    ],
+    zip: [
+      '',
+      [Validators.required, Validators.minLength(3), Validators.maxLength(10)],
+    ],
+    /*
     address: this.fb.group({
-      street: [
+      calle: [
         '',
         [
           Validators.required,
@@ -54,11 +96,11 @@ export class DatosBasicosFormComponent implements OnInit {
           Validators.maxLength(80),
         ],
       ],
-      number: [
+      numero: [
         '',
         [Validators.required, Validators.minLength(1), Validators.maxLength(8)],
       ],
-      locality: [
+      localidad: [
         '',
         [
           Validators.required,
@@ -66,7 +108,7 @@ export class DatosBasicosFormComponent implements OnInit {
           Validators.maxLength(100),
         ],
       ],
-      city: [
+      ciudad: [
         '',
         [
           Validators.required,
@@ -74,7 +116,7 @@ export class DatosBasicosFormComponent implements OnInit {
           Validators.maxLength(100),
         ],
       ],
-      province: [
+      provincia: [
         '',
         [
           Validators.required,
@@ -87,6 +129,7 @@ export class DatosBasicosFormComponent implements OnInit {
         [Validators.required, Validators.minLength(3), Validators.maxLength(10)],
       ],
     }),
+    */
     telefono: ['', [Validators.required, Validators.pattern('[- +()0-9]+')]],
     email: ['', [Validators.required, Validators.email]],
     instituciones: this.fb.array([]),
@@ -123,107 +166,41 @@ export class DatosBasicosFormComponent implements OnInit {
   setAddress() {
  
     let address= {
-    street: this.serviceG.calle, 
+    calle: this.serviceG.calle, 
 
-    number: this.serviceG.calleNro, 
+    numero: this.serviceG.calleNro, 
 
-    locality: this.serviceG.barrio,
+    localidad: this.serviceG.barrio,
 
-    city: this.serviceG.ciudad,
+    ciudad: this.serviceG.ciudad,
 
-    province: this.serviceG.provincia,
+    provincia: this.serviceG.provincia,
 
     zip: this.serviceG.codigoPostal,
 
     };
   
-    this.profileForm.get("address")!.setValue(address);
+    //this.profileForm.get("address")!.setValue(address);
+    this.profileForm.get("calle")!.setValue(address.calle);
+    this.profileForm.get("numero")!.setValue(address.numero);
+    this.profileForm.get("localidad")!.setValue(address.localidad);
+    this.profileForm.get("ciudad")!.setValue(address.ciudad);
+    this.profileForm.get("provincia")!.setValue(address.provincia);
+    this.profileForm.get("zip")!.setValue(address.zip);
   }
 
 
   onSubmit() {
+    /*
     this.service.postUsers(this.profileForm.value).subscribe((data) => {
       return console.log("POST--> ", data);
     });
-
+*/
+    console.log("Ver acaaaaaa-03-04-22", this.profileForm.value)
     this.service.putUsers(this.profileForm.value).subscribe((data) => {
       return console.log("PUT--> ", data);
     });
 
-    /*
-    //ELIMINAR AL IMPLEMENTAR EL BACKEND
-    (<HTMLElement>document.getElementById('text-nombre')).textContent =
-      this.profileForm.value.firstName + ' ' + this.profileForm.value.lastName;
-    (<HTMLElement>document.getElementById('text-titulo')).textContent =
-      this.profileForm.value.puesto;
-    (<HTMLElement>document.getElementById('text-direccion')).textContent =
-      this.profileForm.value.address.street +
-      ' Nº' +
-      this.profileForm.value.address.number +
-      ', ' +
-      this.profileForm.value.address.locality +
-      ', ' +
-      this.profileForm.value.address.city +
-      ', ' +
-      this.profileForm.value.address.province +
-      '. CP: ' +
-      this.profileForm.value.address.zip;
-
-    (<HTMLElement>document.getElementById('telefono')).textContent =this.profileForm.value.telefono;
-
-    (<HTMLElement>document.getElementById('email')).textContent =
-      this.profileForm.value.email;
-
-    //ELIMINAR AL IMPLEMENTAR EL BACKEND
-    //edad
-    const convertAge = new Date(this.profileForm.value.fecha_nacimiento);
-    const timeDiff = Math.abs(Date.now() - convertAge.getTime());
-    const showAge = Math.floor(timeDiff / (1000 * 3600 * 24) / 365);
-
-    (<HTMLElement>document.getElementById('text-date')).textContent =
-      'Edad: ' + showAge;
-
-//ELIMINAR AL IMPLEMENTAR EL BACKEND
-    //dni
-    let dni = this.profileForm.value.documento;
-    let dniFormato =
-      dni[0] +
-      dni[1] +
-      '.' +
-      dni[2] +
-      dni[3] +
-      dni[4] +
-      '.' +
-      dni[5] +
-      dni[6] +
-      dni[7];
-
-    (<HTMLElement>document.getElementById('text-dni')).textContent =
-      'Dni: ' + dniFormato;
-
-
-//ELIMINAR AL IMPLEMENTAR EL BACKEND
-    //Instituciones
-    for (let institucion of this.profileForm.value.instituciones) {
-      let logo = this.profileForm.value.instituciones[
-          this.profileForm.value.instituciones.indexOf(institucion)
-        ].logo;
-      let nombre =
-        this.profileForm.value.instituciones[
-          this.profileForm.value.instituciones.indexOf(institucion)
-        ].institucion;
-
-        
-      let strin =
-        'insti' + this.profileForm.value.instituciones.indexOf(institucion);
-      let nombreInsti =
-        'nombre' + this.profileForm.value.instituciones.indexOf(institucion);
-
-      (<HTMLImageElement>document.getElementById(strin))['src'] = logo;
-      (<HTMLElement>document.getElementById(nombreInsti)).textContent = nombre;
-
-      
-    }*/
     alert('Registro ingresado y modificado con exito!');
   }
 

@@ -17,6 +17,8 @@ import { GooglePlaceService } from 'src/app/service/google-place.service';
 import { HeaderComponent } from './header.component';
 import { AppService } from 'src/app/service/app.service';
 import { RouterModule } from '@angular/router';
+import { AutenticacionService } from 'src/app/service/autenticacion.service';
+import { PaginaLogoutComponent } from './components/barra-superior/pagina-logout/pagina-logout.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +31,7 @@ import { RouterModule } from '@angular/router';
     DatosBasicosFormComponent,
     BarraNavegacionComponent,
     HeaderComponent,
+    PaginaLogoutComponent,
   ],
   imports: [
     CommonModule,
@@ -40,7 +43,7 @@ import { RouterModule } from '@angular/router';
     GooglePlaceModule,
     RouterModule
   ],
-  providers: [AppService, GooglePlaceService],
+  providers: [AppService, GooglePlaceService, AutenticacionService],
 
   //Exportación de los componentes para ser usados por otros modulos
   exports: [HeaderComponent, DatosBasicosFormComponent],

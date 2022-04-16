@@ -8,16 +8,23 @@ import { Pagina404Component } from './modules/inicio/pagina404/pagina404.compone
 import { PortfolioComponent } from './modules/inicio/portfolio/portfolio.component';
 import { RegisterComponent } from './modules/inicio/register/register.component';
 import { AcercaDeFormComponent } from './modules/section/components/acerca-de/acerca-de-form/acerca-de-form.component';
+import { RegistroconfirmadoComponent } from './modules/inicio/registroconfirmado/registroconfirmado.component';
+import { PaginaLogoutComponent } from './modules/header/components/barra-superior/pagina-logout/pagina-logout.component';
+import { SesionExpiredComponent } from './modules/inicio/sesion-expired/sesion-expired.component';
 
 const routes: Routes = [
-  {path: 'inicio' || '', component: InicioComponent},
+  { path: 'inicio' || '', component: InicioComponent },
   { path: 'inicio/login', component: LoginComponent },
   { path: 'inicio/register', component: RegisterComponent },
-  {path: 'portfolio', component: PortfolioComponent, canActivate:[GuardGuard]},
-  {path:"", redirectTo:'inicio', pathMatch:'full'},
-  {path:'**', component: Pagina404Component},
-  {path:'formdatos', component: DatosBasicosFormComponent},
-  {path:'formacercade', component: AcercaDeFormComponent}
+  { path: 'inicio/register/confirmado', component: RegistroconfirmadoComponent, canActivate: [GuardGuard]},
+  { path: 'inicio/logout', component: PaginaLogoutComponent, canActivate: [GuardGuard] },
+  { path: 'inicio/sesionexpired', component: SesionExpiredComponent, canActivate: [GuardGuard] },
+  {path: 'portfolio', component: PortfolioComponent, canActivate: [GuardGuard],},  
+  { path: '', redirectTo: 'inicio', pathMatch: 'full' },
+  { path: '**', component: Pagina404Component },
+  { path: 'formdatos', component: DatosBasicosFormComponent },
+  { path: 'formacercade', component: AcercaDeFormComponent },
+ 
 ];
 
 @NgModule({

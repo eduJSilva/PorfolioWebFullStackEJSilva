@@ -8,7 +8,9 @@ import { CarouselFormComponent } from './carousel-form/carousel-form.component';
   styleUrls: ['./carousel.component.css'],
 })
 export class CarouselComponent implements OnInit {
-  fotosList: any;
+  portadaUno: any;
+  portadaDos: any;
+  portadaTres: any;
 
 @ViewChild(CarouselFormComponent) formulario: any;
 
@@ -18,8 +20,20 @@ export class CarouselComponent implements OnInit {
   
 
   ngOnInit(): void {
+   /*
     this.service.getUsers().subscribe((date)=>{
-      this.fotosList = date.persona[0].portada;
+      this.portadaUno = date[0].portadaOne;
+      this.portadaDos = date[0].portadaTwo;
+      this.portadaTres = date[0].portadaThree;
     })
+     */
+    
+   this.service.getPortada().subscribe((date)=>{
+    this.portadaUno = date[date.length-3].imagenUrl;
+    this.portadaDos = date[date.length-2].imagenUrl;
+    this.portadaTres = date[date.length-1].imagenUrl;
+   });
+  
   }
+  
 }

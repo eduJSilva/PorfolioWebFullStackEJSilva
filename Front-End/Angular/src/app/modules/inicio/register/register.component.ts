@@ -14,17 +14,29 @@ export class RegisterComponent implements OnInit {
   constructor(public service: AppService, private formBuilder: FormBuilder, private autenticacionService:AutenticacionService, private ruta:Router) {
     this.form=this.formBuilder.group(
       {
+       // first_name:['',[Validators.required,Validators.minLength((5))]],
+       // last_name:['',[Validators.required,Validators.minLength((5))]],
+       // username:['',[Validators.required,Validators.minLength((5))]],
         email:['', [Validators.required,Validators.email]],
         password:['',[Validators.required,Validators.minLength((8))]],
-        deviceId: ["17867868768"],
-        deviceType:["DEVICE-TYPE_ANDROID"],
-        notificationToken:["67657575eececc34"]
-
+        registerAsAdmin: [false]
       }
     );
    }
 
   ngOnInit(): void {
+  }
+
+  get Nombre() {
+    return this.form.get('first_name')
+  }
+
+  get Apellido() {
+    return this.form.get('last_name')
+  }
+
+  get Username() {
+    return this.form.get('username')
   }
 
   get Email(){
@@ -39,9 +51,10 @@ export class RegisterComponent implements OnInit {
   {
     console.log(this.form.value)
     event.preventDefault;
-    this.autenticacionService.iniciarSesion(this.form.value).subscribe(data=>{
+    this.autenticacionService.registrarUsuario(this.form.value).subscribe(data=>{
       console.log("DATA:" + JSON.stringify(data));
-      this.ruta.navigate(['portfolio']);
+      alert("User registered successfully!!!. Check your email for verification.")
+      this.ruta.navigate(['inicio']);
     })
   }
 
