@@ -1,0 +1,61 @@
+<app-carousel-form></app-carousel-form>
+
+<!-- carousel de bootstrap (3 imagenes) -->
+<div *ngIf="fotosList" id="profile-background" class="carousel slide carousel-inner" data-bs-ride="carousel">
+
+    <div class="carousel-indicators">
+        <button type="button" data-bs-target="#profile-background" data-bs-slide-to="0" class="active"
+            aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#profile-background" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#profile-background" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+
+    <div>
+        <div class="carousel-item active">
+            <img [id]="fotosList[0].id" class="img-fluid img1" [src]="fotosList[0].image_background" alt="...">
+        </div>
+
+        <div class="carousel-item">
+            <img [id]="fotosList[1].id" class="img-fluid img2" [src]="fotosList[1].image_background" alt="...">
+        </div>
+
+        <div class="carousel-item">
+            <img [id]="fotosList[2].id" class="img-fluid img3" [src]="fotosList[2].image_background" alt="...">
+        </div>
+
+        <div aria-label="Editar foto de portada" (click)="service.mostrarFormulario('formularioPortada')"
+            id="modificar-carousel" title="modificar-carousel" role="button" tabindex="0">
+            <a href="#">
+                <div>
+
+                    <div id="boton-text">
+
+                        <div id="boton">
+                            <i data-visualcompletion="css-img"
+                                style="background-image: url(&quot;https://static.xx.fbcdn.net/rsrc.php/v3/y2/r/eseo5ZL6wTx.png&quot;); background-size: auto; width: 16px; height: 16px; display: inline-block; background-position: 0px -1112px; background-repeat: no-repeat no-repeat;"></i>
+                        </div>
+
+
+                        <div>
+                            <span dir="auto"><span id="text">Editar foto de portada</span></span>
+                        </div>
+                    </div>
+                    <div data-visualcompletion="ignore"></div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+
+    <button class="carousel-control-prev" type="button" data-bs-target="#profile-background" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+
+    <button class="carousel-control-next" type="button" data-bs-target="#profile-background" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+
+<app-foto-principal></app-foto-principal>

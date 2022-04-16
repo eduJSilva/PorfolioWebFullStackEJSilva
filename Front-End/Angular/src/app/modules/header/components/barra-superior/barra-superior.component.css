@@ -1,0 +1,13 @@
+
+#barrasuperior {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  color: white;
+  margin-bottom: -11px;
+}
+
+#barrasuperior span h3 {
+  color: white;
+  display: inline-block;
+}

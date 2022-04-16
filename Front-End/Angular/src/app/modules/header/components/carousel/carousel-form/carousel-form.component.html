@@ -1,0 +1,58 @@
+<!-- Formulario Portada-->
+<div id= "portadaform" name="formulario-portada" style="position: relative;background-color: azure;margin: 8px;">
+    <form [formGroup]="myForm" (ngSubmit)="cambiarPortada()" class="col-6" id="formularioPortada"
+        style="display: none;">
+            <!-- Botón Salir del formulario-->
+    <div title="Cancelar" id="boton_exit" (click)="exitFormulario()" class="btn-edit" style="margin-top: 20px; position:absolute; left:600px;">
+        <a href="#experiencia" class="btn-right"><i class="far fa-times-circle"></i></a>
+    </div>
+
+        <label style="margin-top: 20px; margin-left: 5px;">Seleccione tres fotos para la portada</label>
+
+        <!--Foto1-->
+        <div class="card pmd-card bg-dark text-white" style="margin: 5px;">
+            <label class="custom-file-label" for="formFile1">Foto 1:</label>
+            <input formControlName="file" type="file" (change)="onFileChange1($event)" id="formFile1"
+                accept=".jpg, .jpeg, .png" class="custom-file-input" />
+            <div class="form-group">
+                <label for="name">Ingrese un nombre para la foto Nro. 1</label>
+                <input formControlName="name" id="name" type="text" class="form-control">
+            </div>
+        </div>
+
+        <!--Foto2-->
+        <div class="card pmd-card bg-dark text-white" style="margin: 5px;">
+            <label class="custom-file-label" for="formFile2">Foto 2:</label>
+            <input formControlName="file" type="file" (change)="onFileChange2($event)" id="formFile2"
+                accept=".jpg, .jpeg, .png" class="custom-file-input" />
+            <div class="form-group">
+                <label for="name">Ingrese un nombre para la foto Nro. 2</label>
+                <input formControlName="name" id="name" type="text" class="form-control">
+            </div>
+        </div>
+
+        <!--Foto3-->
+        <div class="card pmd-card bg-dark text-white" style="margin: 5px;">
+            <label class="custom-file-label" for="formFile3">Foto 3:</label>
+
+            <input formControlName="file" type="file" (change)="onFileChange3($event)" id="formFile3"
+                accept=".jpg, .jpeg, .png" class="custom-file-input" />
+            <div class="form-group">
+                <label for="name">Ingrese un nombre para la foto Nro. 3</label>
+                <input formControlName="name" id="name" type="text" class="form-control">
+            </div>
+        </div>
+
+        <div *ngIf="f['file'].touched && f['file'].invalid" class="alert alert-danger">
+            <div *ngIf="f['file'].errors && f['file'].errors['required']">por favor sube una foto.</div>
+        </div>
+
+        <div *ngIf="f['name'].touched && f['name'].invalid" class="alert alert-danger">
+            <div *ngIf="f['name'].errors && f['name'].errors['required']">El nombre es requerido.</div>
+            <div *ngIf="f['name'].errors && f['name'].errors['minlength']">El nombre debe tener 3 letras o mas.
+            </div>
+
+        </div>
+        <button style="margin:5px;" class="btn btn-primary" [disabled]="myForm.invalid" type="submit">Submit</button>
+    </form>
+</div>

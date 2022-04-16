@@ -1,0 +1,13 @@
+<div *ngIf="user" id="info-img">
+
+        <img id="imagen-principal" [src]="user[0].image_perfil" class="img-fluid" alt="">
+   
+    <button title="Modificar" class="btn fa-stack float-right"
+        (click)="service.mostrarFormulario('formularioFotoPrincipal')"><a href="#profile-image">
+            <i class='fas fa-circle fa-stack-2x'></i>
+            <i class='fas fa-camera fa-stack-1x fa-inverse'></i>
+        </a>
+    </button>
+</div>
+
+<app-foto-principal-form></app-foto-principal-form>

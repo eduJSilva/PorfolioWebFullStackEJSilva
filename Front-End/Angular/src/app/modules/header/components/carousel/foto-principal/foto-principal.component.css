@@ -1,0 +1,24 @@
+#info-img {
+margin-top: -100px;
+ margin-bottom: 50px;
+ margin-left: 50px;
+ z-index: 1;
+position: absolute;
+}
+
+img {
+  border-radius: 50%;
+  width: 152px;
+ height: 152px;
+}
+
+button{
+  position:absolute;
+  margin-top: 90px;
+  margin-left: -50px;
+  
+}
+
+a{
+  text-decoration: none;
+}

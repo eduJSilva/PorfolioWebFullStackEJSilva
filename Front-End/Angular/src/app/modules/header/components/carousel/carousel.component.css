@@ -1,0 +1,35 @@
+
+#profile-background{
+  display: flex;
+}
+
+
+#modificar-carousel{
+  z-index: 2;
+  position:absolute;
+  right:0;
+  bottom:0;
+  display: inline;
+  border-radius: 32px;
+  padding: 5px;
+  background: white;
+  margin: 10px;
+  margin-right: 25px;
+}
+
+#boton-text{
+  display:inline-flex;
+}
+
+#boton{
+  margin-top: 1px;
+  }
+
+#text{
+margin-left: 4px;
+}
+
+a{
+  text-decoration: none;
+  color:black;
+}

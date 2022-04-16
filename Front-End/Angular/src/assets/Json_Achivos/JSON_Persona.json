@@ -1,0 +1,61 @@
+{
+	"persona": [
+		{
+			"id": "1",
+			"nombres": "Eduardo Javier",
+			"apellido": "Silva",
+			"dni": "27226548",
+			"fecha_nacimiento": "1979-04-13T00:00:00.000Z",
+			"nacionalidad": "Argentino",
+			"domicilio": "Florentino Ameghino 567, Avellaneda, Buenos Aires.",
+			"telefono": "1161085258",
+			"mail": "edusilvaupb@gmail.com",
+			"sobre_mi": "Martillero Público, Corredor Público y Corredor Inmobiliario. Mi experiencia se basa en más de 20 años de trabajo en importantes empresas de Argentina como Arlei S.A. Considero que mi fortaleza se basa en la confianza y el vínculo humano. Siempre dispuesto a acompañar proyectos creativos que permitan el crecimiento tanto en lo personal como en lo grupal. Estudio programación de forma autodidacta desde hace mas de 5 años, y ahora pude lograr la certificación en Full Stack Developer Jr. Gracias a Argentina Programa. Tengo un proyecto en Github desarrollado en lenguaje Python con el framework Django, este es el link: https://github.com/Freston2021/dfconfecciones",
+			"ocupacion": "Full Stack Developer Jr.",
+			"image_perfil": "assets/foto_de_perfil/Foto_2021.png",
+			"id_domicilio": "2"
+		},
+		{
+			"id": "2",
+			"nombres": "Daysi Edith",
+			"apellido": "Fernandez",
+			"fecha_nacimiento": "1971-04-13T00:00:00.000Z",
+			"nacionalidad": "Boliviana",
+			"domicilio": "Calderon de la Barca 654, San Antonio, La Paz.",
+			"telefono": "70679838",
+			"mail": "dfdtex@gmail.com",
+			"sobre_mi": "Mi experiencia se basa en más de 20 años de trayectoria en la industria textil. Fuí gerente de producción en Angora Sport S.A., empresa dedicada a la producción textil con estricto control de calidad; sus principales clientes con sedes en :Suiza, EEUU e Italia. Con el mismo control de diseño, producción y calidad de exportación seguimos trabajando para el Mercado Local en la confección de indumentaria industrial e institucional. Espero que la información brindada sea de su agrado, cualquier otra inquietud no dude en contactarse, estaré a su disposición.",
+			"ocupacion": "Diseñadora de Indumentaria",
+			"image_background_header_dos": "https://png.pngtree.com/thumb_back/fw800/background/20190223/ourmid/pngtree-black-shading-red-shard-geometry-banner-background-shadingred-debrisred-glowgeometry-image_80184.jpg",
+			"image_background_header_tres": "https://png.pngtree.com/thumb_back/fw800/background/20190223/ourmid/pngtree-black-shading-red-shard-geometry-banner-background-shadingred-debrisred-glowgeometry-image_80184.jpg",
+			"image_perfil": "https://dfconfecciones.herokuapp.com/static/imagenes/Foto_Daysi.png",
+			"id_domicilio": "3"
+		}
+	],
+	"portada": [
+		{
+			"id": "foto1",
+			"image_background": "assets/portada/Eduardo_Silva_Cursando.jpg"
+		},
+		{
+			"id": "foto2",
+			"image_background": "https://previews.123rf.com/images/dr911/dr9111202/dr911120200027/12377615-%ED%8C%8C%EB%9E%80%EC%83%89-%EC%9D%B4%EC%A7%84-%EC%BD%94%EB%93%9C-%EB%B0%B0%EA%B2%BD.jpg?fj=1"
+		},
+		{
+			"id": "foto3",
+			"image_background": "https://previews.123rf.com/images/peshkov/peshkov1905/peshkov190500374/128578729-abstract-glowing-circuit-coding-background-programming-and-technology-concept-3d-rendering.jpg?fj=1"
+		}
+	],
+	"institucion": [
+		{
+			"id": 1,
+			"imagen": "assets/instituciones/APLogo-20-20.png",
+			"nombre": "Argentina Programa"
+		},
+		{
+			"id": 2,
+			"imagen": "https://www.ubp.edu.ar/wp-content/uploads/2017/02/logo-ubp-vertical.png",
+			"nombre": "Universidad Blas Pascal"
+		}
+	]
+}
