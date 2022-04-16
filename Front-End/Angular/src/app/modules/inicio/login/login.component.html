@@ -1,0 +1,41 @@
+
+<div #inicio class="container-fluid">
+
+      <h2>Iniciar sesión</h2>
+      <form [formGroup]="form" class="m-5" (ngSubmit)="onEnviar($event); service.onlyRead=false">
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Email</label>
+          <input type="email" formControlName="email" [ngClass]="{'is-invalid': Email?.errors && Email?.touched, 'is-valid': !Email?.errors && Email?.touched}" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" autocomplete="username">
+          <div *ngIf='Email?.errors && Email?.touched'>
+            <p class="text-danger">El email es requerido.</p>
+            <p *ngIf="Email?.hasError('email')" class="text-danger">
+              El formato del email debe ser valido.
+            </p>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputPassword1" class="form-label">Password</label>
+          <input type="password" formControlName="password" [ngClass]="{'is-invalid': Password?.errors && Password?.touched, 'is-valid': !Password?.errors && Password?.touched}" class="form-control" id="exampleInputPassword1" autocomplete="current-password">
+          <div *ngIf="Password?.errors && Password?.touched">
+            <p *ngIf="Password?.hasError('required')" class="text-danger">
+              La contraseña es requerida.
+            </p>
+            <p *ngIf="Password?.errors?.['minlength']" class="text-danger">
+              La contraseña debe ser de 8 o más catacteres.
+            </p>
+          </div>
+        </div>
+       <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    
+      <div>
+          <br>
+        <h2>Si todavia no sos usuario registrate</h2>
+        <a routerLink="/inicio/register">Registrarse</a>
+    </div>
+
+    <div>
+        <p>Volver al inicio</p>
+        <a routerLink="/inicio"><button (click)="service.onlyRead=true">INICIO</button></a>
+    </div>
+</div>

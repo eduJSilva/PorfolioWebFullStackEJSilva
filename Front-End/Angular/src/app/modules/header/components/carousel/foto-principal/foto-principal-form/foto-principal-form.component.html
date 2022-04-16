@@ -1,8 +1,8 @@
 <!-- Formulario Foto Principal-->
 <div name="formulario-foto-principal" id="form-foto">
-    <form [formGroup]="myForm" (ngSubmit)="cambiar_imagenPrincipal()" class="col-6" id="formularioFotoPrincipal" style="display: none;">
+    <form [formGroup]="myForm" (ngSubmit)="cambiar_imagenPrincipal(); service.showFormFoto=false" class="col-6" id="formularioFotoPrincipal" *ngIf="service.showFormFoto">
                     <!-- Botón Salir del formulario-->
-    <div title="Cancelar" id="boton_exit" (click)="exitFormulario()" class="btn-edit" style="margin-top: 20px; position:absolute; left:600px;">
+    <div title="Cancelar" id="boton_exit" (click)="service.showFormFoto=false" class="btn-edit" style="margin-top: 20px; position:absolute; left:600px;">
         <a href="#experiencia" class="btn-right"><i class="far fa-times-circle"></i></a>
     </div>
 

@@ -16,7 +16,7 @@
             </span>
 
             <span>
-                <h3>#YoProgramo</h3>
+                <h1>#YoProgramo</h1>
             </span>
 
         </div>
@@ -24,26 +24,28 @@
         <div id="botonessociales">
 
             <span class="logo img-fluid" style="margin-left: 15px;">
-                <a href="" class="navbar-brand has-logo">
+                <a  [href]="github"  class="navbar-brand has-logo">
                     <img src="/assets/logos_redes/GitHub-Mark/PNG/GitHub-Mark-Light-120px-plus.png" alt="Github" width="35" height="35">
                 </a>
             </span>
 
             <span class="logo img-fluid">
-                <a href="" class="navbar-brand has-logo">
+                <a [href]="linkelid" class="navbar-brand has-logo">
                     <img src="/assets/logos_redes/LinkedIn-Logos/LI-In-Bug.png" alt="LinkedIn" width="35" height="35">
                 </a>
             </span>
 
             <span class="logo img-fluid">
-                <a href="" class="navbar-brand has-logo">
+                <a [href]="twitter" class="navbar-brand has-logo">
                     <img src="/assets/logos_redes/Twitter_Logo.png" alt="Twitter" width="35" height="35">
                 </a>
             </span>
 
             <span>
-                <a class="navbar-brand has-logo nav-header-guest__link nav-header-guest__link--login btn btn-primary" href="" target="_self" data-track-action="CLICK" data-track-id="login">Login</a>
-                <a class="navbar-brand has-logo nav-header-guest__link nav-header-guest__link--login btn btn-primary" style="display:none" data-track-action="CLICK" data-track-id="logout">Logout</a>
+                <a  routerLink="/inicio/login" *ngIf="service.onlyRead==true;" (click)='service.onlyRead=false' class="navbar-brand has-logo nav-header-guest__link nav-header-guest__link--login btn btn-primary"  target="_self" data-track-action="CLICK" data-track-id="login">Login</a>
+                
+                <a routerLink="/inicio" *ngIf="service.onlyRead==false;" (click)='service.logOutForm()' class="navbar-brand has-logo nav-header-guest__link nav-header-guest__link--login btn btn-primary" data-track-action="CLICK" data-track-id="logout" id="logout">Logout</a>
             </span>
         </div>
     </nav>
+   

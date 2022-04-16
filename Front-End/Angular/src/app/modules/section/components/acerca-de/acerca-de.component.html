@@ -1,0 +1,19 @@
+<div *ngIf="acercaDe" class="card mat-card">
+    <div id="acerca-de">
+        <div class="card-titles">
+            <h2>Acerca de</h2>
+            <div>
+                <button id="boton_edicion" title="Modificar" class="btn"
+                (click)="service.showFormAcercaDe= true; formulario.resetFormulario()" *ngIf='!service.onlyRead'>
+                <a href="/portfolio#text-acercade"><i class="fa fa-pen"></i></a>
+            </button>
+
+            </div>
+
+        </div>
+        <div>
+            <p id="text-acercade">{{acercaDe}}</p>
+        </div>
+    </div>
+</div>
+<app-acerca-de-form></app-acerca-de-form>

@@ -1,42 +1,66 @@
-div#info-data {
-  display: flex;
-  justify-content: space-between;
-  margin: 10px 8px 10px 0px;
+.container{
+  justify-content:space-between;
 }
 
-div#info-data .card {
+
+#boton_edicion {
+margin-left: -15px;
+}
+
+
+.card{
   border: none;
-  margin-top: 10px;
+
 }
 
-
-div#info-data h1 {
+#datos  h1 {
+  margin-left: -5px;
   font-size: 1.8rem;
   font-weight: 500;
-  line-height: 1.25;
-  word-wrap: break-word;
-}
-
-div#info-data h5 {
-  font-weight: 500;
-  line-height: 1.25;
   word-wrap: break-word;
   word-break: break-word;
 }
 
-div#info-data h6 {
+#datos h2 {
   font-weight: 500;
-  line-height: 1.25;
   word-wrap: break-word;
   word-break: break-word;
 }
 
-#info-details {
-  border-style: dashed;
-  float: right;
-
+#datos h3 {
+  font-weight: 300;
+  word-wrap: break-word;
+  word-break: break-word;
 }
 
+#datos h4 {
+  margin-top: -10px;
+  font-weight: 300;
+  word-wrap: break-word;
+  word-break: break-word;
+}
+
+.card-body a {
+  color:cadetblue;
+  text-decoration: none;
+}
+
+#contacto {
+  height: auto;
+  margin-top: 55px;
+  }
+
+
+  .card-header{
+    font-weight: 500;
+    font-size: 1.2rem;
+  }
+
+
+  #info-details{
+    margin-top: 55px;
+  }
+  
 #info-details li a {
   color: black;
   text-decoration: none;
@@ -48,14 +72,10 @@ div#info-data h6 {
 }
 
 #info-details li a img {
-  width: 32px;
-  height: 32px;
+  width: 44px;
+  height: 48px;
   margin-right: 8px;
 }
 
-#boton_edicion{
-position: absolute;
-top:-10px;
-}
 
 

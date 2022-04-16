@@ -1,0 +1,19 @@
+footer {
+    border: 5px;
+    border-radius: 32px;
+    border-color: royalblue;
+    border-style: ridge;
+    margin: 10px 10px;
+    padding: 20px;
+    text-align: center;
+    color: white;
+  
+    -webkit-box-shadow: inset 12px -11px 21px 5px rgba(0, 0, 0, 0.73);
+    box-shadow: inset 12px -11px 21px 5px rgba(0, 0, 0, 0.73);
+    background-color: #1C6EA4;
+  }
+  
+  footer a {
+    color: white;
+  }
+  

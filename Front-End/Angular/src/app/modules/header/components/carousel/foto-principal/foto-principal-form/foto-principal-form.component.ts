@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormGroup, FormControl, Validators, FormGroupDirective } from '@angular/forms';
+import { AppService } from 'src/app/service/app.service';
 
 @Component({
   selector: 'app-foto-principal-form',
@@ -17,7 +18,7 @@ export class FotoPrincipalFormComponent implements OnInit {
     fileSource: new FormControl('', [Validators.required]),
   });
 
-  constructor() {}
+  constructor(public service: AppService) {}
 
   get f() {
     return this.myForm.controls;
@@ -34,6 +35,14 @@ export class FotoPrincipalFormComponent implements OnInit {
   }
 
   cambiar_imagenPrincipal() {
+    this.service.postUsers(this.myForm.value).subscribe((data) => {
+      return console.log("POST--> ", data);
+    });
+
+    this.service.putUsers(this.myForm.value).subscribe((data) => {
+      return console.log("PUT--> ", data);
+    });
+
     try {
       let reader1 = new FileReader();
       reader1.readAsDataURL(this.fotito1);
@@ -62,10 +71,13 @@ export class FotoPrincipalFormComponent implements OnInit {
     }
   }
 
-  exitFormulario() {
-    (<HTMLElement>(
-      document.getElementById('formularioFotoPrincipal')
-    )).style.display = 'none';
+
+  @ViewChild(FormGroupDirective) formGroupDirective!: FormGroupDirective;
+
+  //resetear formulario
+  resetFormulario(){
+    setTimeout(() => this.formGroupDirective.resetForm(), 200);
+    this.myForm.reset()
   }
 
   ngOnInit(): void {}

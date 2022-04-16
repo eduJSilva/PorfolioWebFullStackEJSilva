@@ -1,0 +1,12 @@
+<div *ngIf="service.login==false" #inicio class="container">
+    <div>
+      <a routerLink="/portfolio"> <button (click)="service.onlyRead=true">VER PORTFOLIO</button></a>
+    </div>
+    <div>
+        <a routerLink="login">Ingresar</a>
+    </div>
+    <div>
+        <a routerLink="register">Registrarse</a>
+    </div>
+</div>
+

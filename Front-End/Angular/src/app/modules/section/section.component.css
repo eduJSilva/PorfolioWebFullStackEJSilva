@@ -1,0 +1,43 @@
+    .mat-card {
+    border-radius: 32px;
+    margin: 10px 10px;
+    padding: 20px;
+  }
+  
+  ul{
+    list-style: none inside;
+  }
+  
+  ul.items-list li {
+    display: inline-block;
+    margin: 10px 0;
+  }
+  
+  ul.items-list li h2 {
+    font-size: 1.2rem;
+    font-weight: 500;
+    align-self: center;
+    vertical-align: baseline;
+  }
+  
+  ul.items-list li h3 {
+    font-size: 1rem;
+    font-weight: 300;
+    align-self: center;
+  
+  }
+  
+  ul.items-list li h4 {
+    text-align: justify;
+    font-size: 1rem;
+    font-weight: 400;
+    align-self: center;
+  
+  }
+  
+  ul.items-list li img {
+    width: 44px;
+    height: 48px;
+    margin-right: 8px;
+    margin-bottom: -10px;
+  }

@@ -1,9 +1,9 @@
-<div *ngIf="user" id="info-img">
+<div *ngIf="userFoto" id="info-img">
 
-        <img id="imagen-principal" [src]="user[0].image_perfil" class="img-fluid" alt="">
+        <img id="imagen-principal" [src]="userFoto" class="img-fluid" alt="">
    
     <button title="Modificar" class="btn fa-stack float-right"
-        (click)="service.mostrarFormulario('formularioFotoPrincipal')"><a href="#profile-image">
+        (click)="formulario.resetFormulario();service.showFormFoto= true" *ngIf='!service.onlyRead'><a href="/portfolio#info-img">
             <i class='fas fa-circle fa-stack-2x'></i>
             <i class='fas fa-camera fa-stack-1x fa-inverse'></i>
         </a>

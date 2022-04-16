@@ -1,9 +1,8 @@
 <!-- Formulario Portada-->
 <div id= "portadaform" name="formulario-portada" style="position: relative;background-color: azure;margin: 8px;">
-    <form [formGroup]="myForm" (ngSubmit)="cambiarPortada()" class="col-6" id="formularioPortada"
-        style="display: none;">
+    <form [formGroup]="myForm" (ngSubmit)="cambiarPortada(); service.showFormCarousel=false" *ngIf="service.showFormCarousel" class="col-6" id="formularioPortada">
             <!-- Botón Salir del formulario-->
-    <div title="Cancelar" id="boton_exit" (click)="exitFormulario()" class="btn-edit" style="margin-top: 20px; position:absolute; left:600px;">
+    <div title="Cancelar" id="boton_exit" (click)='service.showFormCarousel=false' class="btn-edit" style="margin-top: 20px; position:absolute; left:600px;">
         <a href="#experiencia" class="btn-right"><i class="far fa-times-circle"></i></a>
     </div>
 

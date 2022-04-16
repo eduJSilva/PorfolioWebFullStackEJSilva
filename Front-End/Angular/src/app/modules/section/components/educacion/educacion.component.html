@@ -1,0 +1,53 @@
+<article id="educacion">
+    <div *ngIf="educacionList" class="card mat-card">
+        <div class="card-title">
+            <h2>Educación</h2>
+
+            <!--Botones-->
+            <div *ngIf='!service.onlyRead' name="botones_educacion" style="float:right; display:block">
+
+                <div title="Cancelar" onclick="exitEducacion()" class="btn-edit"><a href="/portfolio#educacion"
+                        class="btn-right"><i class="far fa-times-circle"></i></a></div>
+
+                <div title="Agregar" class="btn-edit"><a href="/portfolio#educacion" class="btn-right"><i
+                            class="fa fa-plus"></i></a></div>
+
+                <!--AHORA-->
+                <div title="Modificar" class="btn-edit"
+                    (click)="service.showFormeducacion= true; formulario.resetFormulario()"><a href="/portfolio#listaEducacion"
+                        class="btn-right"><i class="fa fa-pen"></i></a></div>
+
+
+                <div title="Eliminar" class="btn-trash"><a href="/portfolio#educacion" class="btn-right"><i
+                            class="fa fa-trash"></i></a></div>
+            </div>
+
+            <!--Lista Educación-->
+            <div id="info-details" class="col-12">
+                <div class="card-text">
+                    <ul class="list-group list-group-flush items-list">
+
+                        <li *ngFor="let educacion of educacionList; let i=index" class="list-group-item">
+
+                            <h6 id={{educacion.id}}>{{educacion.id}}</h6>
+                            <figure class="figure">
+                                <img [src]="educacion.imagen" class="figure-img position-sticky rounded"
+                                    [alt]="educacion.escuela">
+                                <figcaption style="margin-top: 10px;" class="figure-caption float-end">
+                                    {{educacion.escuela}}
+                                </figcaption>
+                            </figure>
+                            <h2>{{educacion.titulo}}</h2>
+                            <h3>{{educacion.estado}}</h3>
+                            <h3>{{educacion.inicio}} - {{educacion.fin}}</h3>
+                            <h4>{{educacion.carrera}}-{{educacion.nivel}} Promedio: {{educacion.puntaje}}</h4>
+                        </li>
+                    </ul>
+                    <div id='listaEducacion'></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</article>
+
+<app-educacion-form></app-educacion-form>

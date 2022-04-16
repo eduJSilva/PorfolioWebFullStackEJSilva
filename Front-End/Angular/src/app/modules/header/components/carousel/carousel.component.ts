@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { HeaderService } from '../../header.service';
+import { Component, OnInit, ViewChild} from '@angular/core';
+import { AppService } from 'src/app/service/app.service';
+import { CarouselFormComponent } from './carousel-form/carousel-form.component';
 
 @Component({
   selector: 'app-carousel',
@@ -7,15 +8,18 @@ import { HeaderService } from '../../header.service';
   styleUrls: ['./carousel.component.css'],
 })
 export class CarouselComponent implements OnInit {
-
   fotosList: any;
 
-  constructor(public service: HeaderService) {
+@ViewChild(CarouselFormComponent) formulario: any;
+
+  constructor(public service: AppService) {
   }
+
+  
 
   ngOnInit(): void {
     this.service.getUsers().subscribe((date)=>{
-      this.fotosList = date.portada;
+      this.fotosList = date.persona[0].portada;
     })
   }
 }

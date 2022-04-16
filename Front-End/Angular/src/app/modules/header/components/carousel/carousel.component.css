@@ -3,10 +3,13 @@
   display: flex;
 }
 
+.carousel{
+  margin: 0;
+}
 
 #modificar-carousel{
   z-index: 2;
-  position:absolute;
+ position:absolute;
   right:0;
   bottom:0;
   display: inline;
@@ -32,4 +35,15 @@ margin-left: 4px;
 a{
   text-decoration: none;
   color:black;
+}
+
+.container-fullwidth{
+  background-color: black;
+  height: 400px;
+}
+
+.carousel{
+  align-items: center;
+  vertical-align: middle;
+  height: 400px;
 }

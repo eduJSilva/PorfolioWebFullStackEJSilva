@@ -1,0 +1,42 @@
+<article>
+    <div class="card mat-card">
+        <div id="skills">
+            <div class="card-title">
+                <h2>Skills</h2>
+                <div *ngIf='!service.onlyRead'>
+                <button type="button" class="btn btn-light">Añadir una aptitud nueva</button>
+                <button type="button" class="btn btn-light">Hacer un test de aptitudes</button>
+                <div class="btn-edit"><a href="#" class="btn-right"><i class="fa fa-plus"></i></a></div>
+                <div class="btn-edit"><a href="#" class="btn-right"><i class="fa fa-pen"></i></a></div>
+                <div class="btn-trash"><a href="#" class="btn-right"><i class="fa fa-trash"></i></a></div>
+                </div>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 10%"
+                        aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">10%</div>
+                </div>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-striped bg-success" role="progressbar"
+                        style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
+                </div>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: 50%"
+                        aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">50%</div>
+                </div>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-striped bg-warning" role="progressbar"
+                        style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">75%</div>
+                </div>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-striped bg-danger" role="progressbar"
+                        style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">100%</div>
+                </div>
+
+                <div>
+                    <ul class="items-list">
+                        <li></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</article>

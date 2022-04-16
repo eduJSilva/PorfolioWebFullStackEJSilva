@@ -1,0 +1,76 @@
+<div id="educacion-form" name="formulario-educacion" style="position: relative;background-color: azure;margin: 8px;">
+    <form [formGroup]="profileForm" (ngSubmit)="onSubmit(); service.showFormeducacion=false" class="col-6"
+        id="form-educacion" *ngIf="service.showFormeducacion">
+        <!-- Botón Salir del formulario-->
+        <div title="Cancelar" id="boton_exit" (click)="service.showFormeducacion=false;" class="btn-edit"
+            style="margin-top: 20px; position:absolute; left:600px;">
+            <a href="#educacion" class="btn-right"><i class="far fa-times-circle"></i></a>
+        </div>
+        <legend style="margin-top: 20px; margin-left: 5px;">Educación:</legend>
+
+        <!--Carga de Educación-->
+        <div style="margin-bottom: 50px;" formArrayName="educaciones">
+            <button class="btn btn-outline-dark" type="button" (click)="addEducacion()">+ Agregar Educación</button>
+            <div *ngFor="let educacion of educaciones().controls; let i=index">
+                <div [formGroupName]="i">
+                    <div class="form-row">
+                        Nº: {{i + 1}}
+
+                        <div class="col">
+                            <input type="text" class="form-control" placeholder="Carrera" formControlName="carrera">
+                        </div>
+
+                        <div class="col">
+                            <input type="text" class="form-control" placeholder="Título obtenido"
+                                formControlName="titulo">
+                        </div>
+
+                        <div class="col">
+                            <input type="text" class="form-control" placeholder="Grado académico"
+                                formControlName="nivel">
+                        </div>
+
+                        <div class="col">
+                            <input type="text" class="form-control" placeholder="Institución" formControlName="escuela">
+                        </div>
+
+                        <div class="col">
+                            <input type="text" class="form-control" placeholder="Url de la institución"
+                                formControlName="imagen">
+                        </div>       
+
+                        <div class="col form-check">
+                            <input formControlName="estado" class="form-check-input" type="checkbox" value={{puntaje}} id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                Grado concluido
+                            </label>
+                          </div>
+                                          
+
+                        <div class="col">
+                            <label class="form-check-label" for="promedio">Puntaje:</label>
+                            <input type="number" [maxlength]='10' [minlength]='1' class="form-control" placeholder="Puntaje" id="promedio" formControlName="puntaje">
+                        </div>
+
+                        <div class="col">
+                            <label class="form-check-label" for="inicio">Fecha de inicio:</label>
+                            <input type="date" class="form-control" id="inicio" placeholder="Fecha de inicio"
+                                formControlName="inicio">
+                        </div>
+
+                        <div class="col">
+                            <label class="form-check-label" for="fin">Fecha de finalización:</label>
+                            <input type="date" class="form-control" id="fin" placeholder="Fecha de finalización"
+                                formControlName="fin">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button id="button" [disabled]="profileForm.invalid" style="margin:20px 5px;" class="btn btn-success"
+            type="submit">Submit</button>
+        <label *ngIf="profileForm.invalid" for="button"></label>
+    </form>
+
+</div>

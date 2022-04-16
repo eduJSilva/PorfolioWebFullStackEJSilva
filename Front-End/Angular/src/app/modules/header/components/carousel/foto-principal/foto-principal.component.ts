@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { AppService } from 'src/app/service/app.service';
 //import { data } from 'jquery';
-import { HeaderService } from '../../../header.service';
+import { FotoPrincipalFormComponent } from './foto-principal-form/foto-principal-form.component';
 
 @Component({
   selector: 'app-foto-principal',
@@ -8,21 +9,19 @@ import { HeaderService } from '../../../header.service';
   styleUrls: ['./foto-principal.component.css'],
 })
 export class FotoPrincipalComponent implements OnInit {
-  user: any;
+  userFoto: any;
   userAvatar: any;
 
   //fotoPerfil: string = "assets/Foto_2021.png";
 
-  constructor(public service: HeaderService) {}
+  constructor(public service: AppService) {}
+
+  @ViewChild(FotoPrincipalFormComponent) formulario: any;
 
   ngOnInit(): void {
     this.service.getUsers().subscribe((data) => {
-      this.user = data.persona;
-      console.log(data);
+      this.userFoto = data.persona[0].fotoPerfil;
     });
 
-    this.service.getUsersReqres().subscribe((data) => {
-      this.userAvatar = data.data[1].avatar;
-    });
   }
 }

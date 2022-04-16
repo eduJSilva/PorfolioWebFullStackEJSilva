@@ -1,61 +1,164 @@
 {
 	"persona": [
 		{
-			"id": "1",
-			"nombres": "Eduardo Javier",
-			"apellido": "Silva",
-			"dni": "27226548",
+			"documento": "27226548",
+			"firstName": "Eduardo Javier",
+			"lastName": "Silva",
 			"fecha_nacimiento": "1979-04-13T00:00:00.000Z",
-			"nacionalidad": "Argentino",
-			"domicilio": "Florentino Ameghino 567, Avellaneda, Buenos Aires.",
+			"address": {
+				"street": "Florentino Ameghino",
+				"number": "567",
+				"locality": "Avellaneda",
+				"city": "Avellaneda",
+				"province": "Bs.As.",
+				"zip": "1870"
+			},
+			"instituciones": [
+				{
+					"id":1,
+					"logo": "assets/instituciones/APLogo-20-20.png",
+					"institucion": "Argentina Programa"
+				},
+				{
+					"id":2,
+					"logo": "https://www.ubp.edu.ar/wp-content/uploads/2017/02/logo-ubp-vertical.png",
+					"institucion": "Universidad Blas Pascal"
+				}
+			],
 			"telefono": "1161085258",
-			"mail": "edusilvaupb@gmail.com",
-			"sobre_mi": "Martillero Público, Corredor Público y Corredor Inmobiliario. Mi experiencia se basa en más de 20 años de trabajo en importantes empresas de Argentina como Arlei S.A. Considero que mi fortaleza se basa en la confianza y el vínculo humano. Siempre dispuesto a acompañar proyectos creativos que permitan el crecimiento tanto en lo personal como en lo grupal. Estudio programación de forma autodidacta desde hace mas de 5 años, y ahora pude lograr la certificación en Full Stack Developer Jr. Gracias a Argentina Programa. Tengo un proyecto en Github desarrollado en lenguaje Python con el framework Django, este es el link: https://github.com/Freston2021/dfconfecciones",
-			"ocupacion": "Full Stack Developer Jr.",
-			"image_perfil": "assets/foto_de_perfil/Foto_2021.png",
-			"id_domicilio": "2"
-		},
-		{
-			"id": "2",
-			"nombres": "Daysi Edith",
-			"apellido": "Fernandez",
-			"fecha_nacimiento": "1971-04-13T00:00:00.000Z",
-			"nacionalidad": "Boliviana",
-			"domicilio": "Calderon de la Barca 654, San Antonio, La Paz.",
-			"telefono": "70679838",
-			"mail": "dfdtex@gmail.com",
-			"sobre_mi": "Mi experiencia se basa en más de 20 años de trayectoria en la industria textil. Fuí gerente de producción en Angora Sport S.A., empresa dedicada a la producción textil con estricto control de calidad; sus principales clientes con sedes en :Suiza, EEUU e Italia. Con el mismo control de diseño, producción y calidad de exportación seguimos trabajando para el Mercado Local en la confección de indumentaria industrial e institucional. Espero que la información brindada sea de su agrado, cualquier otra inquietud no dude en contactarse, estaré a su disposición.",
-			"ocupacion": "Diseñadora de Indumentaria",
-			"image_background_header_dos": "https://png.pngtree.com/thumb_back/fw800/background/20190223/ourmid/pngtree-black-shading-red-shard-geometry-banner-background-shadingred-debrisred-glowgeometry-image_80184.jpg",
-			"image_background_header_tres": "https://png.pngtree.com/thumb_back/fw800/background/20190223/ourmid/pngtree-black-shading-red-shard-geometry-banner-background-shadingred-debrisred-glowgeometry-image_80184.jpg",
-			"image_perfil": "https://dfconfecciones.herokuapp.com/static/imagenes/Foto_Daysi.png",
-			"id_domicilio": "3"
-		}
-	],
-	"portada": [
-		{
-			"id": "foto1",
-			"image_background": "assets/portada/Eduardo_Silva_Cursando.jpg"
-		},
-		{
-			"id": "foto2",
-			"image_background": "https://previews.123rf.com/images/dr911/dr9111202/dr911120200027/12377615-%ED%8C%8C%EB%9E%80%EC%83%89-%EC%9D%B4%EC%A7%84-%EC%BD%94%EB%93%9C-%EB%B0%B0%EA%B2%BD.jpg?fj=1"
-		},
-		{
-			"id": "foto3",
-			"image_background": "https://previews.123rf.com/images/peshkov/peshkov1905/peshkov190500374/128578729-abstract-glowing-circuit-coding-background-programming-and-technology-concept-3d-rendering.jpg?fj=1"
-		}
-	],
-	"institucion": [
-		{
-			"id": 1,
-			"imagen": "assets/instituciones/APLogo-20-20.png",
-			"nombre": "Argentina Programa"
-		},
-		{
-			"id": 2,
-			"imagen": "https://www.ubp.edu.ar/wp-content/uploads/2017/02/logo-ubp-vertical.png",
-			"nombre": "Universidad Blas Pascal"
+			"email": "edusilvaupb@gmail.com",
+			"puesto": "Full Stack Developer Jr.",
+			"links": [
+				{
+					"id": 1,
+					"github": "https://github.com/Freston2021"
+				},
+				{
+					"id": 2,
+					"linkedin": "https://www.linkedin.com/in/eduardo-javier-silva-8089a5224"
+				},
+				{
+					"id": 3,
+					"twitter": "https://twitter.com/Silvaedujavier"
+				}
+			],
+			"fotoPerfil":"assets/foto_de_perfil/Foto_2021.png",
+			"portada": [
+				{
+					"id": "1",
+					"image_background": "assets/portada/Eduardo_Silva_Cursando.jpg"
+				},
+				{
+					"id": "2",
+					"image_background": "assets/portada/Eduardo_Silva_Cursando.jpg"
+				},
+				{
+					"id": "3",
+					"image_background": "assets/portada/Eduardo_Silva_Cursando.jpg"
+				}
+			],
+			"acerca_de": "Martillero Público, Corredor Público y Corredor Inmobiliario. Mi experiencia se basa en más de 20 años de trabajo en importantes empresas de Argentina como Arlei S.A. Considero que mi fortaleza se basa en la confianza y el vínculo humano. Siempre dispuesto a acompañar proyectos creativos que permitan el crecimiento tanto en lo personal como en lo grupal. Estudio programación de forma autodidacta desde hace mas de 5 años, y ahora pude lograr la certificación en Full Stack Developer Jr. Gracias a Argentina Programa. Tengo un proyecto en Github desarrollado en lenguaje Python con el framework Django, este es el link: https://github.com/Freston2021/dfconfecciones",
+			"experiencia": [
+				{
+					"id": 1,
+					"empresa": "Profesional Independiente",
+					"puesto": "Agente Inmobiliario",
+					"imagen": "assets/experiencia_logos/logo_realestate.png",
+					"descripcion": "Administración de Inmuebles; Servicios de intermediación, asesoramiento y gestión en transacciones inmobiliarias relacionadas con la compraventa, locación, permuta y cesión de bienes inmuebles; Tasaciones; Planificación de Marketing; Diseño y evaluación de proyectos; CRM.",
+					"inicio": "2017",
+					"fin": "presente"
+				},
+				{
+					"id": 2,
+					"empresa": "Quid Research S.R.L.",
+					"puesto": "Coordinador de Campo Cuantitativo",
+					"imagen": "assets/experiencia_logos/logo_quid.png",
+					"descripcion": "Coordinación de equipos de trabajo; Relevamiento de información; Seguimiento del trabajo de campo: control y cumplimiento de cuotas y cronogramas; Revisión de cuestionarios; Generación de reportes del avance de campo; Monitoreo de la calidad del trabajo, evaluaciones periódicas y devoluciones para mejorar los procesos; Reclutamiento y selección de encuestadores; Administración de bases de datos.",
+					"inicio": "2015",
+					"fin": "2016"
+				},
+				{
+					"id": 3,
+					"empresa": "Warhol",
+					"puesto": "Encargado de producción, compras, almacén y distribución",
+					"imagen": "assets/experiencia_logos/logo_warhol.png",
+					"descripcion": "Control de almacenes; Gestión de inventarios; Planificación de la producción y distribución; Optimización de costos; Control de facturación; Administración de compras; Desarrollo de proveedores y negociación de tarifas.",
+					"inicio": "2009",
+					"fin": "2014"
+				},
+				{
+					"id": 4,
+					"empresa": "Curtiembre Arlei S.A",
+					"puesto": "Analista Senior en logística y almacenes",
+					"imagen": "assets/experiencia_logos/logo_ARLEI.png",
+					"descripcion": "Control, administración y seguimiento de cueros y derivados transportados desde frigoríficos a las respectiva plantas, y de las plantas a los clientes (mercado local, exportaciones); optimización de costos de carga, transporte y servicios a clientes; programación de distribución; control de facturación; desarrollo de proveedores y negociación de tarifas. Gestión de inventarios, auditorias internas, planificación de embarques de mercado exterior.",
+					"inicio": "2000",
+					"fin": "2008"
+				}
+				
+			],
+			"education": [
+				{
+					"id": 1,
+					"escuela": "Ministerio de Desarrollo Productivo + Cessi",
+					"titulo": "Full Stack Developer Jr.",
+					"nivel": "Curso",
+					"imagen": "assets/instituciones/APLogo-20-20.png",
+					"carrera": "#YoProgramo-2da.Etapa Argentina Programa",
+					"estado": "Graduado",
+					"puntaje": 9,
+					"inicio": "2021",
+					"fin": "2022"
+				},
+				{
+					"id": 2,
+					"escuela": "Ministerio de Desarrollo Productivo + Cessi",
+					"titulo": "#SéProgramar",
+					"nivel": "Curso",
+					"imagen": "assets/instituciones/APLogo-20-20.png",
+					"carrera": "#SéProgramar-1ra.Etapa Argentina Programa",
+					"estado": "Graduado",
+					"puntaje": 9,
+					"inicio": "2021",
+					"fin": "2021"
+				},
+				{
+					"id": 3,
+					"escuela": "Universidad Blás Pascal",
+					"titulo": "Martillero, corredor público y corredor inmobiliario",
+					"nivel": "Universitario",
+					"imagen": "https://www.ubp.edu.ar/wp-content/uploads/2017/02/logo-ubp-vertical.png",
+					"carrera": "Martillero, corredor público y corredor inmobiliario",
+					"estado": "Graduado",
+					"puntaje": 8,
+					"inicio": "2018",
+					"fin": "2020"
+				},
+				{
+					"id": 4,
+					"escuela": "UBA, Universidad de Buenos Aires",
+					"titulo": "",
+					"nivel": "Universitario",
+					"imagen": "https://museodeladeuda.econ.uba.ar/wp-content/uploads/2014/10/Logo-UBA-nuevo-blanco.png",
+					"carrera": "Ciencias Antropológicas",
+					"estado": "Incompleto",
+					"puntaje": 7,
+					"inicio": "1998",
+					"fin": "2001"
+				},
+				{
+					"id": 5,
+					"escuela": "Colegio Pio XII",
+					"titulo": "Perito Mercantil con especialización contable e impositiva",
+					"nivel": "Secundario",
+					"imagen": "https://pbs.twimg.com/profile_images/663823635522695168/yCUNf7iT_400x400.jpg",
+					"carrera": "Secundario",
+					"estado": "Graduado",
+					"puntaje": 7,
+					"inicio": "1992",
+					"fin": "1996"
+				}
+			]
 		}
 	]
 }

@@ -2,12 +2,48 @@
 #barrasuperior {
   position: sticky;
   top: 0;
-  z-index: 2;
+  z-index: 3;
   color: white;
   margin-bottom: -11px;
 }
 
-#barrasuperior span h3 {
+#barrasuperior span h1 {
+display: inline-flex;
+}
+
+.btn-primary {
+  font-size: 20px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  letter-spacing: 3px;
+  word-spacing: 3.4px;
   color: white;
+  font-weight: normal;
+
+  text-decoration: none;
+  font-style: normal;
+  font-variant: normal;
+  text-transform: none;
+
+  line-height: 17px;
+  padding: 8px;
   display: inline-block;
+}
+
+.btn-primary:hover {
+  border-radius: 32px;
+  border: 2px solid rgb(28, 110, 164);
+}
+
+.btn-primary:active {
+  border-radius: 32px;
+  border: 2px solid rgb(28, 110, 164);
+  background: #1C6EA4;
+  background: -moz-linear-gradient(left, #422c6d 0%,#800080 38%,  #7d2181 100%);
+  background: -webkit-linear-gradient(left, #422c6d 0%, #800080 38%, #7d2181 100%);
+  background: linear-gradient(to right, #422c6d 0%, #800080 38%,  #7d2181 100%);
+
+}
+
+#logout{
+  background: red;
 }

@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormGroup, FormControl, Validators, FormGroupDirective } from '@angular/forms';
+import { AppService } from 'src/app/service/app.service';
+
 
 @Component({
   selector: 'app-carousel-form',
@@ -12,7 +14,7 @@ export class CarouselFormComponent implements OnInit {
   fotito3: any;
   validator: number = 0;
  
-  myForm = new FormGroup({
+    myForm = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.minLength(3)]),
     file: new FormControl('', [Validators.required]),
 
@@ -20,7 +22,7 @@ export class CarouselFormComponent implements OnInit {
   });
 
  
-  constructor() {}
+  constructor(public service: AppService) {}
 
   get f() {
     return this.myForm.controls;
@@ -69,15 +71,15 @@ export class CarouselFormComponent implements OnInit {
 
       reader1.onload = function () {
         let readerResult: any = reader1.result;
-        (<HTMLImageElement>document.getElementById('foto1')).src = readerResult;
+        (<HTMLImageElement>document.getElementById('1')).src = readerResult;
       };
       reader2.onload = function () {
         let readerResult: any = reader2.result;
-        (<HTMLImageElement>document.getElementById('foto2')).src = readerResult;
+        (<HTMLImageElement>document.getElementById('2')).src = readerResult;
       };
       reader3.onload = function () {
         let readerResult: any = reader3.result;
-        (<HTMLImageElement>document.getElementById('foto3')).src = readerResult;
+        (<HTMLImageElement>document.getElementById('3')).src = readerResult;
       };
 
       reader1.onerror = function () {
@@ -96,6 +98,15 @@ export class CarouselFormComponent implements OnInit {
 
     if (this.validator == 1) {
       alert('Portada modificada con exito!');
+
+      this.service.postUsers(this.myForm.value).subscribe((data) => {
+        return console.log("POST--> ", data);
+      });
+  
+      this.service.putUsers(this.myForm.value).subscribe((data) => {
+        return console.log("PUT--> ", data);
+      });
+    
       (<HTMLElement>(
         document.getElementById('formularioPortada')
       )).style.display = 'none';
@@ -105,9 +116,12 @@ export class CarouselFormComponent implements OnInit {
     }
   }
 
-  exitFormulario() {
-    (<HTMLElement>document.getElementById('formularioPortada')).style.display =
-      'none';
+  @ViewChild(FormGroupDirective) formGroupDirective!: FormGroupDirective;
+
+  //resetear formulario
+  resetFormulario(){
+    setTimeout(() => this.formGroupDirective.resetForm(), 200);
+    this.myForm.reset()
   }
 
   ngOnInit(): void {}

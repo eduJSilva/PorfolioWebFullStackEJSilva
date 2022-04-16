@@ -1,61 +1,60 @@
 <!-- Datos básicos-->
-<div *ngIf="user" id="info-data">
-    <div>
-        <div id="datos" class="card mb-3">
-            <!-- Botón de edición Datos básicos-->
-            <button id="boton_edicion" title="Modificar" class="btn"
-                (click)="service.mostrarFormulario('form-datos')"><a href="#text-direccion" class="btn-edit">
-                    <i class="fa fa-pen"></i>
-                </a>
-            </button>
+<div *ngIf="user" id="info-data" class='container'>
+    <div class="row">
+        <div id="datos" class="col-4 card">
             <div class="card-body">
-                <h1 id="text-nombre" class="card-title">{{user[0].nombres}} {{user[0].apellido}}</h1>
-                <h5 id="text-titulo" class="card-subtitle mb-2 text-muted">{{user[0].ocupacion}}</h5>
-                <h6 id="text-dni" class="card-text"><b>Dni: {{dni(user[0].dni)}}</b></h6>
+                <div>
+                    <button id="boton_edicion" title="Modificar" class="btn" (click)="service.showFormDatos= true; formulario.resetFormulario()" *ngIf='!service.onlyRead'><a
+                            href="/portfolio#text-direccion" class="btn-edit">
+                            <i class="fa fa-pen"></i>
+                        </a>
+                    </button>
+                </div>
+                <div>
+                    <h1 id="text-nombre" class="card-title">{{user[0].firstName}} {{user[0].lastName}}</h1>
+                    <h2 id="text-titulo" class="card-subtitle mb-2 text-muted">{{user[0].puesto}}</h2>
+                    <h3 id="text-dni" class="card-text"><b>Dni: {{dni(user[0].documento)}}</b></h3>
 
-                <h6 id="text-date" class="card-text">Edad: {{obtenerEdad(user[0].fecha_nacimiento)}}</h6>
-                <h6 id="text-direccion" class="card-text">{{user[0].domicilio}}</h6>
-            </div>
-
-        </div>
-    </div>
-    <div class="col-3" id="contacto">
-        <div class="card text-dark bg-light col-12">
-            <div style="display: inline-flex;" class="card-header">
-                <h5>
-                    <i class="fa-brands fa-whatsapp"></i>
-                </h5>
-                <h5 id="telefono">{{user[0].telefono}}</h5>
-            </div>
-
-            <div style="display: inline-flex;" class="card-header">
-                <h5>
-                    <i class="fa-duotone fa-at"></i>
-                </h5>
-                <h5 id="email">
-                    {{user[0].mail}}
-                </h5>
+                    <h3 id="text-date" class="card-text">Edad: {{obtenerEdad(user[0].fecha_nacimiento)}}</h3>
+                    <h3 id="text-direccion" class="card-text">{{direccion}}</h3>
+                </div>
             </div>
 
         </div>
 
-    </div>
 
-    <!--Lista de las instituciones vinculadas con la profesión-->
-    <div id="info-details" class="card col-3">
-        <div class="card text">
-            <ul class="list-group list-group-flush">
+        <div id="contacto" class="col-4 card ">
+            <div class="card-header">Contacto:</div>
+            <div class="card-body">
+                <h2 id="telefono" class="card-title"><i class="fa-brands fa-whatsapp"></i>
+                    <a href="https://wa.me/549{{user[0].telefono}}">{{user[0].telefono}}</a>
+                </h2>
+                <h2 id="email" class="card-title"><i class="fa-duotone fa-at"></i>
+                    <a href="mailto:{{user[0].email}}">
+                        {{user[0].email}}</a>
+                </h2>
+            </div>
+        </div>
 
-                <li *ngFor="let institucion of institucionList; let i=index" class="list-group-item">
-                    <a href="#">
-                        <div>
-                            <img #imagenInsti id="insti{{i}}" [src]="institucion.imagen">
-                            <h2 #nombreInsti id="nombre{{i}}" class="card-text">{{institucion.nombre}}</h2>
-                        </div>
-                    </a>
-                </li>
-            </ul>
+        <!--Lista de las instituciones vinculadas con la profesión-->
+        <div id="info-details" class="col-3 card offset-md-1">
+            <div class="card-text">
+                <ul class="list-group list-group-flush">
+
+                    <li *ngFor="let institucion of institucionList; let i=index" class="list-group-item">
+                        <a href="#">
+                            <div style='display:inline-flex'>
+                                <img #imagenInsti id="insti{{i}}" [src]="institucion.logo">
+                                <h2 #nombreInsti id="nombre{{i}}">{{institucion.institucion}}</h2>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </div>
 <app-datos-basicos-form></app-datos-basicos-form>
+
+<!--INVESTIGAR Angular Material-->
+<mat-slider min="1" max="100" step="1" value="50"></mat-slider>
