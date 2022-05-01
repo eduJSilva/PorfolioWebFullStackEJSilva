@@ -20,6 +20,7 @@ import com.portfolio.EduSilva.service.ImagenProyectoService;
 import com.portfolio.EduSilva.service.ImagenService;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.time.Instant;
 import java.util.List;
 import java.util.Map;
 import javax.imageio.ImageIO;
@@ -36,12 +37,12 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 @RestController
-//@RequestMapping("/cloudinary")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://porfolioeduardojsilva.web.app")//@CrossOrigin(origins = "http://localhost:4200")
 public class Controller {
 
     @Autowired
@@ -402,6 +403,12 @@ public class Controller {
     @DeleteMapping("/delete/proyecto/{id}")
     public void borrarProyecto(@PathVariable Long id) {
         proyecServ.borrarProyecto(id);
+    }
+    
+    @GetMapping("/time")
+    @ResponseStatus(HttpStatus.OK)
+    public String getCurrentTime() {
+        return Instant.now().toString();
     }
 
 }
