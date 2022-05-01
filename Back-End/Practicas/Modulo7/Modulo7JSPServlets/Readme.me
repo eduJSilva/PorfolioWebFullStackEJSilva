@@ -1,0 +1,190 @@
+JSP (Java Server Pages) + Servlets + JPA (Java Persistence API)
+CAPAS: JSPServletsLógicaPersistenciaBase de Datos
+
+Procedimiento:
+1.	Crear un nuevo proyecto en NetBeans: Java Web  Web Application ;
+2.	En Web Pages, borrar el index.html y generar un index.jsp;
+3.	En index.jsp realizar los Formularios correspondientes al CRUD(Create , Read, Update, Delete);
+	<h1>Datos de la Persona(Create)</h1>
+        <form action="SvPersona" method="POST">
+            <p><label>Dni: </label> <input type="text" name="dni"></p>
+            <p><label>Nombre: </label> <input type="text" name="nombre"></p>
+            <p><label>Apellido: </label> <input type="text" name="apellido"></p>
+            <p><label>Teléfono: </label> <input type="text" name="telefono"></p>
+            <button type="submit">Enviar</button>
+        </form>
+
+        <h1>Ver lista de Personas(Read)</h1>
+        <p>Si desea ver todas las personas haga click en el botón mostrar personas</p>
+        <form action="SvPersona" method="GET">
+            <button type="submit">Mostrar Personas</button>
+        </form>
+
+         <h1>Modificar Persona(Update)</h1>
+        <p>Ingrese el Id de la persona a modificar</p>
+        <form action="SvModificar" method="POST">
+            <p><label>Id:</label> <input type="text" name="id_modificar"></p>
+            <button type="submit">Modificar</button>
+        </form>
+        
+        <h1>Eliminar Personas(Delete)</h1>
+        <p>Ingrese el Id de la persona a eliminar</p>
+        <form action="SvEliminar" method="POST">
+            <p><label>Id:</label> <input type="text" name="id_eliminar"></p>
+            <button type="submit">Eliminar</button>
+        </form>
+
+4.	En Source Packages  crear 3 paquetes(logica, servlets, persistencia);
+5.	En el paquete logicacrear una class Persona(atributos, constructores, getters and setters);
+
+Configuración de la base de datos
+6.	Crear una base de datos vacía ;
+7.	En la carpeta LibrariesMediante Add Library…incorporar las librerías (eclipselink, persistence);
+8.	En la carpeta LibrariesMediante Add JAR/Folder…incorporar el driver para conectar a la base de datos mysql-connector-java-8.0.27.jar;
+9.	Realizar el mapeo de la class Persona-->
+	@Entity (antes de la clase), @Id+@GeneratedValue(strategy = GenerationType.TABLE) (arriba del atributo id), @Basic (arriba de los demás atributos)
+10.	En el paquete persistencianewPersistence Unit(conector con la base de datos). 11.1. Driver: mysql-connector-java-8.0.27.jar. 11.2. En Databaseponer el nombre de la base de datos creada anteriormente; 
+11.	En Configuration Files/persistence.xml  Añadir la Class Persona (en el apartadoInclude Entity Classes);
+12.	En el paquete persistencia agregar JPA Controller Classes from Entity Classes, -Warning! Guardar en el paquete persistencia-;
+13.	En PersonaJpaController.javareemplazar el constructor por defecto por este  
+	public PersonaJpaController() {
+        emf = Persistence.createEntityManagerFactory("PersonaPU ");};
+14.	Crear la intermediación para comunicarse con la base de datos: En el paquetepersistencia , crear una ClassControladoraPersistencia , en la misma hacer una instancia de PersonaJpaController (PersonaJpaController persJPA = new PersonaJpaController();), 
+
+Crear todos los métodos CRUD:
+public void crearPersona(Persona per) {
+        persJPA.create(per);
+    }
+
+ public List<Persona> traerPersona () {
+        return persJPA.findPersonaEntities();                              
+    }
+    
+public void modificiarPersona(Persona per) {
+        try {
+            persJPA.edit(per);
+        } catch (Exception ex) {
+            Logger.getLogger(ControladoraPersistencia.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void eliminarPersona(int id) {
+        try {
+            persJPA.destroy(id);
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(ControladoraPersistencia.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+      
+public void eliminarPersona (Persona pers) {
+        try {
+            persJPA.destroy(pers.getId());
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(ControladoraPersistencia.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+15.	Crear la intermediación para comunicarse con la logica: En el paquetelogica , crear una ClassControladora , en la misma hacer una instancia de ControladoraPersistencia 
+ControladoraPersistencia  controlPersis = new ControladoraPersistencia (); 
+
+Crear todos los métodos CRUD:
+ public void crearPersona(Persona per) {
+        controlPersis.crearPersona(per);
+    }
+
+public List<Persona> traerPersonas() {
+        return controlPersis.traerPersona();
+    }
+
+public void modificarPersona(int id) {
+        controlPersis.eliminarPersona(id);
+    }
+
+    public void modificarPersona(Persona per) {
+        controlPersis.modificiarPersona(per);
+    }
+
+    public void eliminarPersona(int id) {
+        controlPersis.eliminarPersona(id);
+    }
+
+    public void eliminarPersona(Persona pers) {
+        controlPersis.eliminarPersona(pers);
+    }    
+Fin de la configuración de la base de datos
+
+16.	En el paquete servletscrear un servlets: SvPersona;
+17.	Al principio de la class SvPersonaInstanciar un objeto de tipo Controladora
+	Controladora control = new Controladora();
+
+
+18.	Cargar una Persona a la base de datos: 
+	Vincular el formulario Datos de la Persona (index.jsp) con el método doPost () del servlet SvPersona:
+a.	Crear variables para almacenar lo ingresado en la JSP. Ej.: String dni = request.getParameter("dni");
+b.	En el método doPost()instanciar un objeto de tipo Persona, pasando como argumento las variables anteriormente creadas Persona pers = new Persona(0, dni, nombre, apellido, telefono);
+c.	Usar el método de la Controladora para crear a la persona control. CrearPersona(pers);
+d.	Que el servidor responda redireccionando a la página principal response.sendRedirect("index.jsp");
+
+
+19.	Mostrar la lista de todas las personas que están en la base de datos:
+ 	Vincular el formulario Ver lista de Personas (index.jsp) con el método doGet () del servlet SvPersona:
+a.	Traer todas las personas de la base de datos y cargarlos en una ArrrayList
+ 	List<Persona> listaPersonas = control.traerPersonas();
+b.	Traer la sesión de la request HttpSession miSession = request.getSession();
+ 	y setear listaPersonas como un parámetro para poder utilizarla en cualquier JSP
+        miSession.setAttribute("listaPersonas", listaPersonas);
+c.	Crear una JSP verPersonas.jsp
+	<h1>Lista de Personas</h1>
+        <%-->Utilizamos código Java para traer y recorrer la lista<--%>
+        <% 
+            List<Persona> listaPersonas = (List) request.getSession().getAttribute("listaPersonas");
+            int cont=1;
+        for (Persona per : listaPersonas) {        
+            
+        %>
+        <p><b>Persona N°<%=cont%></b></p>
+        <p><b>Dni: </b> <%=per.getDni()%></p>
+        <p><b>Apellido: </b> <%=per.getApellido() %></p>
+        <p><b>Nombre: </b> <%=per.getNombre()%></p>
+        <p><b>Telefono: </b> <%=per.getTelefono()%></p>
+        <p>----------------------------------------</p>
+        <%-- Incremento el contador, para mostrar correctamente cada num de persona--%>
+        <% cont++;%>
+        <%}%>
+
+d.	Redireccionar (en el método doGet()) a la JSP verPersonas.jsp:
+	response.sendRedirect("verPersonas.jsp");
+
+
+20.	Eliminar una Persona:
+a.	Crear un Servlet para eliminarSvEliminar
+b.	Al principio de la class SvEliminarInstanciar un objeto de tipo Controladora
+	Controladora control = new Controladora();
+c.	En el método doPost()crear una variable que tome el id relacionado a la Persona a eliminar:
+	int id_eliminar = Integer.parseInt(request.getParameter("id_eliminar"));
+d.	Utilizar el método de la Controladora para eliminar que paso como argumento la variable id_eliminar:
+	control.eliminarPersona(id_eliminar);
+e.	Vincular el formulario Eliminar Persona (index.jsp) con el método doPost () del servlet SvEliminar
+
+21.	Modificar datos de una Persona:
+a.	Crear un Servlet para modificarSvModificar
+b.	Al principio de la class SvModificarInstanciar un objeto de tipo Controladora
+	Controladora control = new Controladora();
+c.	En el método doPost()crear una variable que tome el id relacionado a la Persona a modificar:
+	int id_modificar = Integer.parseInt(request.getParameter("id_modificar"));
+f.	Utilizar el método de la Controladora para modificar que paso como argumento la variable id_modificar:
+	control.modificarPersona(id_modificar);
+d.	Vincular el formulario Modificar Persona (index.jsp) con el método doPost () del servlet SvModificar
+e.	Crear una JSP modificarPersonas.jsp
+	<h1>Modificar Persona</h1>
+        <h2>Datos de la Persona</h2>
+        <form action="SvPersona" method="POST">
+            <p><label>Dni: </label> <input type="text" name="dni"></p>
+            <p><label>Nombre: </label> <input type="text" name="nombre"></p>
+            <p><label>Apellido: </label> <input type="text" name="apellido"></p>
+            <p><label>Teléfono: </label> <input type="text" name="telefono"></p>
+            <button type="submit">Enviar</button>
+        </form>
+
+f.	Redireccionar (en el método doPost()) a la JSP modificarPersonas.jsp:
+	response.sendRedirect("modificarPersonas.jsp");
