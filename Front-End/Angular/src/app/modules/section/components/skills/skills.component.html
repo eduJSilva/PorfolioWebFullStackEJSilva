@@ -1,40 +1,460 @@
-<article>
-    <div class="card mat-card">
-        <div id="skills">
-            <div class="card-title">
-                <h2>Skills</h2>
-                <div *ngIf='!service.onlyRead'>
-                <div class="btn-edit"><a href="#" class="btn-right"><i class="fa fa-plus"></i></a></div>
-                <div class="btn-edit"><a href="#" class="btn-right"><i class="fa fa-pen"></i></a></div>
-                <div class="btn-trash"><a href="#" class="btn-right"><i class="fa fa-trash"></i></a></div>
-                </div>
-                <div class="progress">
-                    <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 10%"
-                        aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">10%</div>
-                </div>
-                <div class="progress">
-                    <div class="progress-bar progress-bar-striped bg-success" role="progressbar"
-                        style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25%</div>
-                </div>
-                <div class="progress">
-                    <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: 50%"
-                        aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">50%</div>
-                </div>
-                <div class="progress">
-                    <div class="progress-bar progress-bar-striped bg-warning" role="progressbar"
-                        style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">75%</div>
-                </div>
-                <div class="progress">
-                    <div class="progress-bar progress-bar-striped bg-danger" role="progressbar"
-                        style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">100%</div>
-                </div>
+<article id="skill">
+  <div *ngIf="skillList" class="card mat-card">
+    <div class="card-title">
+      <h2>Skills</h2>
 
-                <div>
-                    <ul class="items-list">
-                        <li></li>
-                    </ul>
-                </div>
-            </div>
+      <!--Botones-->
+      <div
+        *ngIf="!service.onlyRead"
+        name="botones_skills"
+        style="float: right; display: block"
+      >
+        <!-- Botón Salir de todos los formularios-->
+        <div
+          title="Cancelar"
+          (click)="
+          formulario.skills().clear();
+            service.showFormSkill = false;
+            service.showFormSkillModificar = false;
+            service.showFormSkillModificar1 = false;
+            service.showFormSkillDelete = false;
+            formulario.submit = false
+          "
+          class="btn-edit"
+        >
+          <a href="/portfolio#listaEducacion" class="btn-right"
+            ><i class="far fa-times-circle"></i
+          ></a>
         </div>
+
+        <!-- Botón Agregar Skill-->
+        <div
+          title="Agregar"
+          class="btn-edit"
+          (click)="service.showFormSkill = true; formulario.resetFormulario()"
+        >
+          <a href="/portfolio#listaEducacio" class="btn-right"
+            ><i class="fa fa-plus"></i
+          ></a>
+        </div>
+
+        <!-- Botón Modificar Skill-->
+        <div title="Modificar" class="btn-edit">
+          <a
+            href="/portfolio#listaEducacio"
+            class="btn-right"
+            (click)="service.showFormSkillModificar = true; form.reset();skillForm.reset()"
+            ><i class="fa fa-pen"></i
+          ></a>
+        </div>
+
+        <!-- Botón Eliminar Skill-->
+        <div title="Eliminar" class="btn-trash">
+          <a
+            href="/portfolio#listaEducacio"
+            class="btn-right"
+              (click)="borrar=false; skillSeleccionado=false;service.showFormSkillDelete = true; form.reset(); skillForm.reset()"
+            ><i class="fa fa-trash"></i
+          ></a>
+        </div>
+        
+      </div>
     </div>
+
+    <!--Formulario Modificar Skill Get ID-->
+    <div id="formModSkill" *ngIf="service.showFormSkillModificar">
+      <form [formGroup]="form" (ngSubmit)="getId()">
+        <div class="form-row align-items-center">
+          <div class="col-auto my-1">
+            <h2><u>Modificar</u></h2>
+            <label class="mr-sm-2" for="inlineFormCustomSelect"
+              ><strong>Skill a modificar</strong></label
+            >
+            <br />
+
+            <select
+              class="form-select"
+              id="inlineFormCustomSelect"
+              formControlName="nombreSkill"
+              (change)="
+                service.showFormSkillModificar = false;
+                getNombre();
+                service.showFormSkillModificar1 = true
+              "
+            >
+              <option selected>Seleccione...</option>
+
+              <option *ngFor="let skill of skillList">
+                {{ skill.nombreSkill }}
+              </option>
+            </select>
+
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <!--Formulario modificar Skill-->
+    <div *ngIf="service.showFormSkillModificar1">
+      <form
+        [formGroup]="skillForm"
+        (ngSubmit)="modificarSkill(); service.showFormSkillModificar1 = false"
+      >
+        <div class="col">
+          <h2><u>Modificar</u></h2>
+          <label class="form-check-label" for="dominio">
+            Skill seleccionado:
+            <strong>{{ form.value.nombreSkill }}</strong></label
+          >
+          <input
+            type="number"
+            [maxlength]="100"
+            [minlength]="1"
+            class="form-control"
+            placeholder="Dominio"
+            id="dominio"
+            formControlName="dominio"
+          />
+        </div>
+
+        <div class="col">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Skill"
+            formControlName="nombreSkill"
+          />
+        </div>
+
+        <div class="col">
+          <select
+            class="form-select"
+            formControlName="tipoSkill"
+            aria-label="Default select example"
+          >
+            <option disabled value="">Tipo de Skill...</option>
+            <option value="1">soft</option>
+            <option value="2">hard</option>
+          </select>
+        </div>
+
+        <div class="col-auto my-1">
+          <button
+            id="button"
+            [disabled]="skillForm.invalid"
+            style="margin: 20px 5px"
+            class="btn btn-success"
+            type="submit"
+          >
+            Modificar
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!--Formulario Eliminar-->
+    <div *ngIf="service.showFormSkillDelete">
+      <form [formGroup]="form" (ngSubmit)="getIdBorrar()">
+        <div class="form-row align-items-center">
+          <div class="col-auto my-1">
+            <h2><u>Eliminar</u></h2>
+            <label class="form-check-label" for="dominio">
+              <b>Skill a eliminar: </b>
+              <strong *ngIf="skillSeleccionado"><i style="color: darkred;">{{ form.value.nombreSkill }}</i></strong></label>
+              <br />
+            <select
+            *ngIf="skillSeleccionado == false"
+              class="form-select"
+              id="inlineFormCustomSelect"
+              formControlName="nombreSkill"
+              (change)="
+              skillSeleccionado = true;
+                getNombre();
+              "
+            >
+              <option>Seleccione...</option>
+              <option *ngFor="let skill of skillList">
+                {{ skill.nombreSkill }}
+              </option>
+            </select>
+          </div>
+          <div class="col-auto my-1">
+            <button   [disabled]="form.invalid" *ngIf="borrar == false"
+              (click)="borrar = true"
+              type="submit"
+              class="btn btn-primary"
+            >
+              Eliminar
+            </button>
+            <h2 *ngIf="borrar">
+              <strong>Advertencia!!!.</strong>Si oprime "SI", el skill: <u><i>"{{nombreModificar}}"</i></u>, se eliminará definitivamente.
+            </h2>
+            <button
+              *ngIf="borrar"
+              (click)="
+                deleteSkill();
+                service.showFormSkillDelete = false
+              "
+              type="submit"
+              class="btn btn-danger"
+              style="margin: 10px;"
+            >
+              SI
+            </button>
+            <button
+            *ngIf="borrar"
+              (click)="service.showFormSkillDelete = false"
+              type="submit"
+              class="btn btn-primary"
+              style="margin: 10px;"
+            >
+              NO
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <app-skills-form></app-skills-form>
+
+    <hr
+      style="
+        height: 4px;
+        border-width: 0;
+        color: gray;
+        background-color: rgb(28, 49, 20);
+      "
+    />
+
+    <div>
+      <!--Lista Skill-->
+      <div id="info-details" class="col-12">
+        <div class="card-text">
+          <ul class="list-group list-group-flush">
+            <h2>Hard</h2>
+            <li *ngFor="let skill of skillList; let i = index">
+              <div
+                *ngIf="skill.tipoSkill == 'hard'"
+                style="margin-bottom: 15px"
+              >
+                <!--
+                <h6 *ngIf="!service.onlyRead" id="{{ skill.idSkill }}">
+                  {{ skill.idSkill }}
+                </h6>
+                -->
+
+                <div class="progress" style="height: 30px">
+                  <h5 class="text-muted">{{ skill.nombreSkill }}</h5>
+                  <div
+                    *ngIf="skill.dominio >= 0 && skill.dominio <= 30"
+                    class="progress-bar progress-bar-striped bg-warning progress-bar-animated"
+                    role="progressbar"
+                    [ngStyle]="{ width: skill.dominio + '%' }"
+                    aria-valuenow="skill.dominio"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                  >
+                    {{ skill.dominio }}%
+                  </div>
+
+                  <div
+                    *ngIf="skill.dominio >= 31 && skill.dominio <= 50"
+                    class="progress-bar progress-bar-striped bg-info progress-bar-animated"
+                    role="progressbar"
+                    [ngStyle]="{ width: skill.dominio + '%' }"
+                    aria-valuenow="skill.dominio"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                  >
+                    {{ skill.dominio }}%
+                  </div>
+
+                  <div
+                    *ngIf="skill.dominio >= 51 && skill.dominio <= 70"
+                    class="progress-bar progress-bar-striped bg-success progress-bar-animated"
+                    role="progressbar"
+                    [ngStyle]="{ width: skill.dominio + '%' }"
+                    aria-valuenow="skill.dominio"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                  >
+                    {{ skill.dominio }}%
+                  </div>
+
+                  <div
+                    *ngIf="skill.dominio >= 71 && skill.dominio <= 100"
+                    class="progress-bar progress-bar-striped progress-bar-animated"
+                    role="progressbar"
+                    [ngStyle]="{ width: skill.dominio + '%' }"
+                    aria-valuenow="skill.dominio"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                  >
+                    {{ skill.dominio }}%
+                  </div>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <hr
+        style="
+          height: 2px;
+          border-width: 0;
+          color: rgb(161, 167, 107);
+          background-color: rgb(99, 139, 61);
+        "
+      />
+
+      <div id="info-details" class="col-12">
+        <div class="card-text">
+          <ul class="list-group list-group-flush">
+            <h2>Soft</h2>
+            <li *ngFor="let skill of skillList; let i = index">
+              <div
+                *ngIf="skill.tipoSkill == 'soft'"
+                style="margin-bottom: 15px"
+              >
+                <!--
+                <h6 *ngIf="!service.onlyRead" id="{{ skill.idSkill }}">
+                  {{ skill.idSkill }}
+                </h6>
+              -->
+
+                <div class="progress" style="height: 30px">
+                  <h5 class="text-muted">{{ skill.nombreSkill }}</h5>
+                  <div
+                    *ngIf="skill.dominio >= 0 && skill.dominio <= 30"
+                    class="progress-bar progress-bar-striped bg-warning progress-bar-animated"
+                    role="progressbar"
+                    [ngStyle]="{ width: skill.dominio + '%' }"
+                    aria-valuenow="skill.dominio"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                  >
+                    {{ skill.dominio }}%
+                  </div>
+
+                  <div
+                    *ngIf="skill.dominio >= 31 && skill.dominio <= 50"
+                    class="progress-bar progress-bar-striped bg-info progress-bar-animated"
+                    role="progressbar"
+                    [ngStyle]="{ width: skill.dominio + '%' }"
+                    aria-valuenow="skill.dominio"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                  >
+                    {{ skill.dominio }}%
+                  </div>
+
+                  <div
+                    *ngIf="skill.dominio >= 51 && skill.dominio <= 70"
+                    class="progress-bar progress-bar-striped bg-success progress-bar-animated"
+                    role="progressbar"
+                    [ngStyle]="{ width: skill.dominio + '%' }"
+                    aria-valuenow="skill.dominio"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                  >
+                    {{ skill.dominio }}%
+                  </div>
+                  <div
+                    *ngIf="skill.dominio >= 71 && skill.dominio <= 100"
+                    class="progress-bar progress-bar-striped progress-bar-animated"
+                    role="progressbar"
+                    [ngStyle]="{ width: skill.dominio + '%' }"
+                    aria-valuenow="skill.dominio"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                  >
+                    {{ skill.dominio }}%
+                  </div>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div id="listaSkill"></div>
+    </div>
+  </div>
 </article>
+
+<!--
+        <div class="progress">
+          <div
+            class="progress-bar progress-bar-striped"
+            role="progressbar"
+            style="width: 10%"
+            aria-valuenow="10"
+            aria-valuemin="0"
+            aria-valuemax="100"
+          >
+            10%
+          </div>
+        </div>
+
+        <div class="progress">
+          <div
+            class="progress-bar progress-bar-striped bg-success"
+            role="progressbar"
+            style="width: 25%"
+            aria-valuenow="25"
+            aria-valuemin="0"
+            aria-valuemax="100"
+          >
+            25%
+          </div>
+        </div>
+
+        <div class="progress">
+          <div
+            class="progress-bar progress-bar-striped bg-info"
+            role="progressbar"
+            style="width: 50%"
+            aria-valuenow="50"
+            aria-valuemin="0"
+            aria-valuemax="100"
+          >
+            50%
+          </div>
+        </div>
+
+        <div class="progress">
+          <div
+            class="progress-bar progress-bar-striped bg-warning"
+            role="progressbar"
+            style="width: 75%"
+            aria-valuenow="75"
+            aria-valuemin="0"
+            aria-valuemax="100"
+          >
+            75%
+          </div>
+        </div>
+
+        <div class="progress">
+          <div
+            class="progress-bar progress-bar-striped bg-danger"
+            role="progressbar"
+            style="width: 100%"
+            aria-valuenow="100"
+            aria-valuemin="0"
+            aria-valuemax="100"
+          >
+            100%
+          </div>
+        </div>
+
+        <div>
+          <ul class="items-list">
+            <li></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+-->

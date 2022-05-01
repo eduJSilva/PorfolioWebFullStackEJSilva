@@ -12,7 +12,6 @@ import { DatosBasicosFormComponent } from './datos-basicos-form/datos-basicos-fo
 export class DatosBasicosComponent implements OnInit {
   user!: any;
   userReqres: any[] = [];
-  institucionList: any[] = [];
   formGroupDirective: any;
   edad: number = 0;
   direccion: string = '';
@@ -36,7 +35,6 @@ export class DatosBasicosComponent implements OnInit {
       let dniString =data[0].documento.toString();
       this.dni = dniString[0]+dniString[1]+"."+dniString[2]+dniString[3]+dniString[4]+"."+dniString[5]+dniString[6]+dniString[7];
       this.direccion = data[0].calle+" Nº"+data[0].numero+", "+data[0].ciudad+". "+data[0].provincia
-      this.institucionList = data[0].listaDeInstituciones
     } 
     ,
     (err: HttpErrorResponse) => {

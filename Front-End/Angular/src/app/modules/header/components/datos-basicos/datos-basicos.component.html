@@ -5,7 +5,7 @@
             <div class="card-body">
                 <div>
                     <button id="boton_edicion" title="Modificar" class="btn" (click)="service.showFormDatos= true; formulario.resetFormulario()" *ngIf='!service.onlyRead'><a
-                            href="/portfolio#text-direccion" class="btn-edit">
+                            href="/portfolio#datos-form" >
                             <i class="fa fa-pen"></i>
                         </a>
                     </button>
@@ -41,11 +41,20 @@
             <div class="card-text">
                 <ul class="list-group list-group-flush">
 
-                    <li *ngFor="let institucion of institucionList; let i=index" class="list-group-item">
-                        <a href="#">
+                    <li class="list-group-item">
+                        <a href="{{user[0].linkInstitucionUno}}">
                             <div style='display:inline-flex'>
-                                <img #imagenInsti id="insti{{i}}" [src]="institucion.logo">
-                                <h2 #nombreInsti id="nombre{{i}}">{{institucion.institucion}}</h2>
+                                <img src="{{user[0].logoInstitucionUno}}">
+                                <h2>{{user[0].institucionUno}}</h2>
+                            </div>
+                        </a>
+                    </li>
+
+                    <li class="list-group-item">
+                        <a href="{{user[0].linkInstitucionDos}}">
+                            <div style='display:inline-flex'>
+                                <img src="{{user[0].logoInstitucionDos}}">
+                                <h2>{{user[0].institucionDos}}</h2>
                             </div>
                         </a>
                     </li>
@@ -55,6 +64,3 @@
     </div>
 </div>
 <app-datos-basicos-form></app-datos-basicos-form>
-
-<!--INVESTIGAR Angular Material-->
-<mat-slider min="1" max="100" step="1" value="50"></mat-slider>

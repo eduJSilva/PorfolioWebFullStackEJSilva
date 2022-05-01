@@ -1,19 +1,651 @@
-<article>
-    <div class="card mat-card">
-        <div id="logros">
-            <div class="card-title">
-                <h2>Logros</h2>
-                <div *ngIf='!service.onlyRead'>
-                    <div class="btn-edit"><a href="#" class="btn-right"><i class="fa fa-plus"></i></a></div>
-                    <div class="btn-edit"><a href="#" class="btn-right"><i class="fa fa-pen"></i></a></div>
-                    <div class="btn-trash"><a href="#" class="btn-right"><i class="fa fa-trash"></i></a></div>
-                </div>
-            </div>
-            <div>
-                <ul class="items-list">
-                    <li></li>
-                </ul>
-            </div>
+<article >
+  <div class="card mat-card">
+      <div class="card-title">
+        <h2>Proyectos</h2>
+
+        <!--Botones-->
+        <div
+          *ngIf="!service.onlyRead"
+          name="botones_skills"
+          style="float: right; display: block"
+        >
+          <!-- Botón Salir de todos los formularios-->
+          <div
+          *ngIf="proyectoList.length >=0" 
+            title="Cancelar"
+            (click)="
+              service.showFormProyecto = false;
+              formulario.proyectos().clear(); 
+              service.showFormProyectoModificar = false;
+              service.showFormProyectoModificar1 = false;
+              service.showFormProyectoDelete = false;
+              formulario.submit = false
+            "
+            class="btn-edit"
+          >
+            <a href="/portfolio#listaSkill" class="btn-right"
+              ><i class="far fa-times-circle"></i
+            ></a>
+          </div>
+
+          <!-- Botón Agregar Proyecto-->
+          <div
+          *ngIf="proyectoList.length >=0"
+            title="Agregar"
+            class="btn-edit"
+            (click)="
+              service.showFormProyecto = true; formulario.resetFormulario()
+            "
+          >
+            <a href="/portfolio#listaSkill" class="btn-right"
+              ><i class="fa fa-plus"></i
+            ></a>
+          </div>
+
+          <!-- Botón Modificar Proyecto-->
+          <div
+          *ngIf="proyectoList.length >0" 
+          title="Modificar" class="btn-edit">
+            <a
+              href="/portfolio#listaSkill"
+              class="btn-right"
+              (click)="service.showFormProyectoModificar = true; form.reset(); proyectoForm.reset()"
+              ><i class="fa fa-pen"></i
+            ></a>
+          </div>
+
+          <!-- Botón Eliminar Proyecto-->
+          <div
+          *ngIf="proyectoList.length >0"
+          title="Eliminar" class="btn-trash">
+            <a
+              href="/portfolio#listaSkill"
+              class="btn-right"
+              (click)="
+                service.showFormProyectoDelete = true;
+                borrar = false;
+                proyectoSeleccionado = false; ; form.reset(); proyectoForm.reset()
+              "
+              ><i class="fa fa-trash"></i
+            ></a>
+          </div>
         </div>
+      </div>
+
+      <!--Formulario Modificar Proyecto Get ID-->
+      <div id="formModProyecto" *ngIf="service.showFormProyectoModificar">
+        <form [formGroup]="form" (ngSubmit)="getId()">
+          <div class="form-row align-items-center">
+            <div class="col-auto my-1">
+              <h2><u>Modificar</u></h2>
+              <label class="mr-sm-2" for="inlineFormCustomSelect"
+                ><strong>Proyecto a modificar</strong></label
+              >
+              <br />
+              <select
+                class="form-select"
+                id="inlineFormCustomSelect"
+                formControlName="nombreProyecto"
+                (change)="
+                  service.showFormProyectoModificar = false;
+                  getNombre();
+                  service.showFormProyectoModificar1 = true
+                "
+              >
+                <option selected>Seleccione...</option>
+
+                <option *ngFor="let proyecto of proyectoList">
+                  {{ proyecto.nombreProyecto }}
+                </option>
+              </select>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <!--Formulario modificar Proyecto-->
+      <div *ngIf="service.showFormProyectoModificar1">
+        <form
+          [formGroup]="proyectoForm"
+          (ngSubmit)="modificarProyecto(); service.showFormProyectoModificar1 = false"
+        >
+          <div class="col">
+            <h2><u>Modificar</u></h2>
+            <label class="form-check-label" for="nombreProyecto">
+              Proyecto seleccionado:
+              <strong>{{ form.value.nombreProyecto }}</strong></label
+            >
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Nombre del Proyecto"
+              id="nombreProyecto"
+              formControlName="nombreProyecto"
+            />
+          </div>
+
+          <div class="col">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Fecha del proyecto"
+              formControlName="fecha"
+            />
+          </div>
+
+          <div class="col">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Descripción del proyecto"
+              formControlName="descripcion"
+            />
+          </div>
+
+          <div class="col">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Link del proyecto"
+              formControlName="link"
+            />
+          </div>
+
+              <!--IMAGEN-->
+           
+           
+              <div class="input-group mb-3">
+                <input
+                  title="Imagen representativa del proyecto"
+                  text="Imagen representativa del proyecto"
+                  formControlName="file"
+                  type="file"
+                  (change)="onFileChange($event)"
+                  id="formFile1"
+                  accept=".jpg, .jpeg, .png"
+                  class="form-control"
+                />
+              </div> 
+
+        
+          <div class="col-auto my-1">
+            <button
+              id="button"
+              [disabled]="proyectoForm.invalid"
+              style="margin: 20px 5px"
+              class="btn btn-success"
+              type="submit"
+            >
+              Modificar
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!--Formulario Eliminar-->
+      <div *ngIf="service.showFormProyectoDelete">
+        <form [formGroup]="form" (ngSubmit)="getIdBorrar()">
+          <div class="form-row align-items-center">
+            <div class="col-auto my-1">
+              <h2><u>Eliminar</u></h2>
+              <label class="form-check-label" for="dominio">
+                <b>Proyecto a eliminar: </b>
+                <strong *ngIf="proyectoSeleccionado"
+                  ><i style="color: darkred">{{
+                    form.value.nombreProyecto
+                  }}</i></strong
+                ></label
+              >
+              <br />
+              <select
+                *ngIf="proyectoSeleccionado == false"
+                class="form-select"
+                id="inlineFormCustomSelect"
+                formControlName="nombreProyecto"
+                (change)="proyectoSeleccionado = true; getNombre()"
+              >
+                <option>Seleccione...</option>
+                <option *ngFor="let proyecto of proyectoList">
+                  {{ proyecto.nombreProyecto }}
+                </option>
+              </select>
+            </div>
+            <div class="col-auto my-1">
+              <button
+                [disabled]="form.invalid"
+                *ngIf="borrar == false"
+                (click)="borrar = true"
+                type="submit"
+                class="btn btn-primary"
+              >
+                Eliminar
+              </button>
+              <h2 *ngIf="borrar">
+                <strong>Advertencia!!!.</strong>Si oprime "SI", el proyecto:
+                <u
+                  ><i>"{{ nombreModificar }}"</i></u
+                >, se eliminará definitivamente.
+              </h2>
+              <button
+                *ngIf="borrar"
+                (click)="deleteProyecto(); service.showFormProyectoDelete = false"
+                type="submit"
+                class="btn btn-danger"
+                style="margin: 10px"
+              >
+                SI
+              </button>
+              <button
+                *ngIf="borrar"
+                (click)="service.showFormProyectoDelete = false"
+                type="submit"
+                class="btn btn-primary"
+                style="margin: 10px"
+              >
+                NO
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <app-proyectos-form></app-proyectos-form>
+
+      <hr
+        style="
+          height: 4px;
+          border-width: 0;
+          color: gray;
+          background-color: rgb(28, 49, 20);
+        "
+      />
+
+    <!-- Carousel wrapper -->
+    <div
+      *ngIf="proyectoList.length > 0"
+      id="carouselMultiItemExample"
+      class="carousel slide carousel-dark text-center"
+      data-mdb-ride="carousel"
+    >
+      <!-- Controls -->
+      <div
+        *ngIf="proyectoList.length > 0"
+        class="d-flex justify-content-center mb-4"
+      >
+        <button
+          class="carousel-control-prev position-relative"
+          type="button"
+          data-bs-target="#carouselMultiItemExample"
+          data-bs-slide="prev"
+        >
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button
+          class="carousel-control-next position-relative"
+          type="button"
+          data-bs-target="#carouselMultiItemExample"
+          data-bs-slide="next"
+        >
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+      <!-- Inner -->
+      <div *ngIf="proyectoList.length > 0" class="carousel-inner py-4">
+        <!-- Single item1 -->
+        <div *ngIf="proyectoList.length > 0" class="carousel-item active">
+          <div class="container">
+            <div class="row">
+              <div
+                *ngIf="proyectoList.length < 3"
+                [ngClass]="{
+                  'col-lg-4 col-md-3 col-sm-2': proyectoList.length == 1,
+                  'col-lg-1 col-md-1 col-sm-1': proyectoList.length == 2
+                }"
+              ></div>
+              <div
+                *ngIf="proyectoList.length > 0"
+                class="col-lg-4"
+                [ngClass]="{
+                  'col-4 maximo-width1': proyectoList.length == 1,
+                  'col-4 maximo-width': proyectoList.length == 2
+                }"
+              >
+                <div class="card">
+                  <img
+                    [src]="proyectoList[0].listaDeImagenProyectos[0].imagenUrl"
+                    class="card-img-top"
+                    alt="Waterfall"
+                  />
+                  <div class="card-body">
+                    <h2 class="card-title">
+                      {{ proyectoList[0].nombreProyecto }}
+                      <h6 class="card-title">{{ proyectoList[0].fecha }}</h6>
+                    </h2>
+
+                    <p class="card-text">
+                      {{ proyectoList[0].descripcion }}
+                    </p>
+                    <a href="{{ proyectoList[0].link }}" class="btn btn-primary"
+                      >Link</a
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <div
+                *ngIf="proyectoList.length > 1"
+                class="col-lg-4"
+                [ngClass]="{
+                  'col-4 col-sm- maximo-width': proyectoList.length == 2
+                }"
+              >
+                <div class="card">
+                  <img
+                    [src]="proyectoList[1].listaDeImagenProyectos[0].imagenUrl"
+                    class="card-img-top"
+                    alt="Sunset Over the Sea"
+                  />
+                  <div class="card-body">
+                    <h2 class="card-title">
+                      {{ proyectoList[1].nombreProyecto }}
+                      <h6 class="card-title">{{ proyectoList[1].fecha }}</h6>
+                    </h2>
+                    <p class="card-text">
+                      {{ proyectoList[1].descripcion }}
+                    </p>
+                    <a href="{{ proyectoList[1].link }}" class="btn btn-primary"
+                      >Link</a
+                    >
+                  </div>
+                </div>
+              </div>
+              <div
+                *ngIf="proyectoList.length < 3"
+                [ngClass]="{
+                  'col-lg-4': proyectoList.length == 1,
+                  'col-lg-1 col-md-1 col-sm-1': proyectoList.length == 2
+                }"
+              ></div>
+
+              <div
+                *ngIf="proyectoList.length > 2"
+                class="col-lg-4 d-none d-lg-block"
+              >
+                <div class="card">
+                  <img
+                    [src]="proyectoList[2].listaDeImagenProyectos[0].imagenUrl"
+                    class="card-img-top"
+                    alt="Sunset Over the Sea"
+                  />
+                  <div class="card-body">
+                    <h2 class="card-title">
+                      {{ proyectoList[2].nombreProyecto }}
+                      <h6 class="card-title">{{ proyectoList[2].fecha }}</h6>
+                    </h2>
+                    <p class="card-text">
+                      {{ proyectoList[2].descripcion }}
+                    </p>
+                    <a href="{{ proyectoList[2].link }}" class="btn btn-primary"
+                      >Link</a
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Single item2 -->
+        <div *ngIf="proyectoList.length > 3" class="carousel-item">
+          <div class="container">
+            <div class="row">
+              <div *ngIf="proyectoList.length > 3" class="col-lg-4 col-md-12">
+                <div class="card">
+                  <img
+                    [src]="proyectoList[3].listaDeImagenProyectos[0].imagenUrl"
+                    class="card-img-top"
+                    alt="Sunset Over the Sea"
+                  />
+                  <div class="card-body">
+                    <h2 class="card-title">
+                      {{ proyectoList[3].nombreProyecto }}
+                      <h6 class="card-title">{{ proyectoList[3].fecha }}</h6>
+                    </h2>
+                    <p class="card-text">
+                      {{ proyectoList[3].descripcion }}
+                    </p>
+                    <a href="{{ proyectoList[3].link }}" class="btn btn-primary"
+                      >Link</a
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <div
+                *ngIf="proyectoList.length > 4"
+                class="col-lg-4 d-none d-lg-block"
+              >
+                <div class="card">
+                  <img
+                    [src]="proyectoList[4].listaDeImagenProyectos[0].imagenUrl"
+                    class="card-img-top"
+                    alt="Sunset Over the Sea"
+                  />
+                  <div class="card-body">
+                    <h2 class="card-title">
+                      {{ proyectoList[4].nombreProyecto }}
+                      <h6 class="card-title">{{ proyectoList[4].fecha }}</h6>
+                    </h2>
+                    <p class="card-text">
+                      {{ proyectoList[4].descripcion }}
+                    </p>
+                    <a href="{{ proyectoList[4].link }}" class="btn btn-primary"
+                      >Link</a
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <div
+                *ngIf="proyectoList.length > 5"
+                class="col-lg-4 d-none d-lg-block"
+              >
+                <div class="card">
+                  <img
+                    [src]="proyectoList[5].listaDeImagenProyectos[0].imagenUrl"
+                    class="card-img-top"
+                    alt="Sunset Over the Sea"
+                  />
+                  <div class="card-body">
+                    <h2 class="card-title">
+                      {{ proyectoList[5].nombreProyecto }}
+                      <h6 class="card-title">{{ proyectoList[5].fecha }}</h6>
+                    </h2>
+                    <p class="card-text">
+                      {{ proyectoList[5].descripcion }}
+                    </p>
+                    <a href="{{ proyectoList[5].link }}" class="btn btn-primary"
+                      >Link</a
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Single item3 -->
+        <div *ngIf="proyectoList.length > 6" class="carousel-item">
+          <div class="container">
+            <div class="row">
+              <div
+                *ngIf="proyectoList.length > 6"
+                class="col-lg-4 col-md-12 mb-4 mb-lg-0"
+              >
+                <div class="card">
+                  <img
+                    [src]="proyectoList[6].listaDeImagenProyectos[0].imagenUrl"
+                    class="card-img-top"
+                    alt="Sunset Over the Sea"
+                  />
+                  <div class="card-body">
+                    <h2 class="card-title">
+                      {{ proyectoList[6].nombreProyecto }}
+                      <h6 class="card-title">{{ proyectoList[6].fecha }}</h6>
+                    </h2>
+                    <p class="card-text">
+                      {{ proyectoList[6].descripcion }}
+                    </p>
+                    <a href="{{ proyectoList[6].link }}" class="btn btn-primary"
+                      >Link</a
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <div
+                *ngIf="proyectoList.length > 7"
+                class="col-lg-4 mb-4 mb-lg-0 d-none d-lg-block"
+              >
+                <div class="card">
+                  <img
+                    [src]="proyectoList[7].listaDeImagenProyectos[0].imagenUrl"
+                    class="card-img-top"
+                    alt="Sunset Over the Sea"
+                  />
+                  <div class="card-body">
+                    <h2 class="card-title">
+                      {{ proyectoList[7].nombreProyecto }}
+                      <h6 class="card-title">{{ proyectoList[7].fecha }}</h6>
+                    </h2>
+                    <p class="card-text">
+                      {{ proyectoList[7].descripcion }}
+                    </p>
+                    <a href="{{ proyectoList[7].link }}" class="btn btn-primary"
+                      >Link</a
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <div
+                *ngIf="proyectoList.length > 8"
+                class="col-lg-4 mb-4 mb-lg-0 d-none d-lg-block"
+              >
+                <div class="card">
+                  <img
+                    [src]="proyectoList[8].listaDeImagenProyectos[0].imagenUrl"
+                    class="card-img-top"
+                    alt="Sunset Over the Sea"
+                  />
+                  <div class="card-body">
+                    <h2 class="card-title">
+                      {{ proyectoList[8].nombreProyecto }}
+                      <h6 class="card-title">{{ proyectoList[8].fecha }}</h6>
+                    </h2>
+                    <p class="card-text">
+                      {{ proyectoList[8].descripcion }}
+                    </p>
+                    <a href="{{ proyectoList[8].link }}" class="btn btn-primary"
+                      >Link</a
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Single item4 -->
+        <div *ngIf="proyectoList.length > 9" class="carousel-item">
+          <div class="container">
+            <div class="row">
+              <div
+                *ngIf="proyectoList.length > 9"
+                class="col-lg-4 col-md-12 mb-4 mb-lg-0"
+              >
+                <div class="card">
+                  <img
+                    [src]="proyectoList[9].listaDeImagenProyectos[0].imagenUrl"
+                    class="card-img-top"
+                    alt="Sunset Over the Sea"
+                  />
+                  <div class="card-body">
+                    <h2 class="card-title">
+                      {{ proyectoList[9].nombreProyecto }}
+                      <h6 class="card-title">{{ proyectoList[9].fecha }}</h6>
+                    </h2>
+                    <p class="card-text">
+                      {{ proyectoList[9].descripcion }}
+                    </p>
+                    <a href="{{ proyectoList[9].link }}" class="btn btn-primary"
+                      >Link</a
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <div
+                *ngIf="proyectoList.length > 10"
+                class="col-lg-4 mb-4 mb-lg-0 d-none d-lg-block"
+              >
+                <div class="card">
+                  <img
+                    [src]="proyectoList[10].listaDeImagenProyectos[0].imagenUrl"
+                    class="card-img-top"
+                    alt="Sunset Over the Sea"
+                  />
+                  <div class="card-body">
+                    <h2 class="card-title">
+                      {{ proyectoList[10].nombreProyecto }}
+                      <h6 class="card-title">{{ proyectoList[10].fecha }}</h6>
+                    </h2>
+                    <p class="card-text">
+                      {{ proyectoList[10].descripcion }}
+                    </p>
+                    <a
+                      href="{{ proyectoList[10].link }}"
+                      class="btn btn-primary"
+                      >Link</a
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <div
+                *ngIf="proyectoList.length > 11"
+                class="col-lg-4 mb-4 mb-lg-0 d-none d-lg-block"
+              >
+                <div class="card">
+                  <img
+                    [src]="proyectoList[11].listaDeImagenProyectos[0].imagenUrl"
+                    class="card-img-top"
+                    alt="Sunset Over the Sea"
+                  />
+                  <div class="card-body">
+                    <h2 class="card-title">
+                      {{ proyectoList[11].nombreProyecto }}
+                      <h6 class="card-title">{{ proyectoList[11].fecha }}</h6>
+                    </h2>
+                    <p class="card-text">
+                      {{ proyectoList[11].descripcion }}
+                    </p>
+                    <a
+                      href="{{ proyectoList[11].link }}"
+                      class="btn btn-primary"
+                      >Link</a
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Inner -->
     </div>
+    <!-- Carousel wrapper -->
+  </div>
 </article>

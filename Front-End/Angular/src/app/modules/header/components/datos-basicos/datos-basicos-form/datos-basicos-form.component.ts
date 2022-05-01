@@ -10,13 +10,11 @@ import { GooglePlaceService } from 'src/app/service/google-place.service';
 })
 export class DatosBasicosFormComponent implements OnInit {
   edad: any;
-  nuevasInstituciones: [{}]=[{}];
 
   profileForm = this.fb.group({
     nombre:  [
       '',
       [
-        Validators.required,
         Validators.minLength(3),
         Validators.maxLength(60),
         Validators.pattern('[a-zA-Z][a-zA-Z ]+'),
@@ -25,7 +23,6 @@ export class DatosBasicosFormComponent implements OnInit {
     apellido: [
       '',
       [
-        Validators.required,
         Validators.minLength(3),
         Validators.maxLength(60),
         Validators.pattern('[a-zA-Z][a-zA-Z ]+'),
@@ -33,35 +30,32 @@ export class DatosBasicosFormComponent implements OnInit {
     ],
     puesto: [
       '',
-      [Validators.required, Validators.minLength(3), Validators.maxLength(80)],
+      [Validators.minLength(3), Validators.maxLength(80)],
     ],
     documento: [
       '',
       [
-        Validators.required,
         Validators.minLength(8),
         Validators.maxLength(8),
         Validators.pattern('[0-9]+'),
       ],
     ],
-    fechaNacimiento: ['', Validators.required],
+    fechaNacimiento: [''],
 
     calle: [
       '',
       [
-        Validators.required,
         Validators.minLength(3),
         Validators.maxLength(80),
       ],
     ],
     numero: [
       '',
-      [Validators.required, Validators.minLength(1), Validators.maxLength(8)],
+      [Validators.minLength(1), Validators.maxLength(8)],
     ],
     localidad: [
       '',
       [
-        Validators.required,
         Validators.minLength(3),
         Validators.maxLength(100),
       ],
@@ -69,7 +63,6 @@ export class DatosBasicosFormComponent implements OnInit {
     ciudad: [
       '',
       [
-        Validators.required,
         Validators.minLength(3),
         Validators.maxLength(100),
       ],
@@ -77,62 +70,54 @@ export class DatosBasicosFormComponent implements OnInit {
     provincia: [
       '',
       [
-        Validators.required,
         Validators.minLength(3),
         Validators.maxLength(100),
       ],
     ],
     zip: [
       '',
-      [Validators.required, Validators.minLength(3), Validators.maxLength(10)],
+      [Validators.minLength(3), Validators.maxLength(10)],
     ],
-    /*
-    address: this.fb.group({
-      calle: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(3),
-          Validators.maxLength(80),
-        ],
+  
+    telefono: ['', [Validators.pattern('[- +()0-9]+')]],
+    email: ['', [Validators.email]],
+    institucionUno:  [
+      '',
+      [
+        Validators.minLength(3),
       ],
-      numero: [
-        '',
-        [Validators.required, Validators.minLength(1), Validators.maxLength(8)],
+    ],
+    logoInstitucionUno:  [
+      '',
+      [
+        Validators.minLength(3),
       ],
-      localidad: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(3),
-          Validators.maxLength(100),
-        ],
+    ],
+    linkInstitucionUno:  [
+      '',
+      [
+        Validators.minLength(3),
       ],
-      ciudad: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(3),
-          Validators.maxLength(100),
-        ],
+    ],
+    institucionDos:  [
+      '',
+      [
+        Validators.minLength(3),
       ],
-      provincia: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(3),
-          Validators.maxLength(100),
-        ],
+    ],
+    logoInstitucionDos:  [
+      '',
+      [
+        Validators.minLength(3),
       ],
-      zip: [
-        '',
-        [Validators.required, Validators.minLength(3), Validators.maxLength(10)],
+    ],
+    linkInstitucionDos:  [
+      '',
+      [
+        Validators.minLength(3),
       ],
-    }),
-    */
-    telefono: ['', [Validators.required, Validators.pattern('[- +()0-9]+')]],
-    email: ['', [Validators.required, Validators.email]],
-    instituciones: this.fb.array([]),
+    ],
+   
   });
 
   constructor(private fb: FormBuilder, public service: AppService, public serviceG: GooglePlaceService) {
@@ -142,45 +127,16 @@ export class DatosBasicosFormComponent implements OnInit {
     return this.profileForm.controls;
   }
 
-  instituciones(): FormArray {
-    return this.profileForm.get('instituciones') as FormArray;
-  }
-
-  newInstitucion(): FormGroup {
-    return this.fb.group({
-      logo: '',
-      institucion: '',
-    });
-  }
-
-  addInstitucion() {
-    this.instituciones().push(this.newInstitucion());
-  }
-
-  /*
-  removeInstitucion() {
-    this.instituciones().removeAt(i));
-  }
-  */
-
   setAddress() {
- 
     let address= {
     calle: this.serviceG.calle, 
-
     numero: this.serviceG.calleNro, 
-
     localidad: this.serviceG.barrio,
-
     ciudad: this.serviceG.ciudad,
-
     provincia: this.serviceG.provincia,
-
     zip: this.serviceG.codigoPostal,
-
     };
   
-    //this.profileForm.get("address")!.setValue(address);
     this.profileForm.get("calle")!.setValue(address.calle);
     this.profileForm.get("numero")!.setValue(address.numero);
     this.profileForm.get("localidad")!.setValue(address.localidad);
@@ -191,17 +147,13 @@ export class DatosBasicosFormComponent implements OnInit {
 
 
   onSubmit() {
-    /*
-    this.service.postUsers(this.profileForm.value).subscribe((data) => {
-      return console.log("POST--> ", data);
-    });
-*/
     console.log("Ver acaaaaaa-03-04-22", this.profileForm.value)
     this.service.putUsers(this.profileForm.value).subscribe((data) => {
       return console.log("PUT--> ", data);
     });
 
     alert('Registro ingresado y modificado con exito!');
+    location.reload();
   }
 
   //resetear formulario

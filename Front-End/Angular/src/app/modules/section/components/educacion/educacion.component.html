@@ -4,66 +4,101 @@
       <h2>Educación</h2>
 
       <!--Botones-->
-      <div *ngIf='!service.onlyRead' name="botones_educacion" style="float:right; display:block">
+      <div
+        *ngIf="!service.onlyRead"
+        name="botones_educacion"
+        style="float: right; display: block"
+      >
+       <!-- Botón Salir de todos los formularios-->
+        <div 
+        title="Cancelar" 
+        (click)="
+        service.showFormeducacion = false; 
+        formulario.educaciones().clear();
+        service.showFormeducacionModificar = false; 
+        service.showFormeducacionModificar1 = false; 
+        formulario.submit = false;
+        service.showFormeducacionDelete = false" 
+        id="boton_exit_educacion"
+        class="btn-edit">
+          <a href="/portfolio#listaExperiencia" class="btn-right"
+            ><i class="far fa-times-circle"></i
+          ></a>
+        </div>
 
-        <div title="Cancelar" onclick="exitEducacion()" class="btn-edit"><a href="/portfolio#educacion"
-            class="btn-right"><i class="far fa-times-circle"></i></a></div>
+         <!-- Botón Agregar Educación-->
+        <div
+        *ngIf="educacionList.length >= 0"
+          title="Agregar"
+          class="btn-edit"
+          (click)="
+            service.showFormeducacion = true; formulario.resetFormulario()
+          "
+        >
+          <a href="/portfolio#listaExperiencia" class="btn-right"
+            ><i class="fa fa-plus"></i
+          ></a>
+        </div>
 
-        <div title="Agregar" class="btn-edit" (click)="service.showFormeducacion= true; formulario.resetFormulario()"><a
-            href="/portfolio#listaEducacion" class="btn-right"><i class="fa fa-plus"></i></a></div>
+        <!-- Botón Modificar Educación-->
+        <div 
+        *ngIf="educacionList.length > 0"
+        title="Modificar" 
+        class="btn-edit">
+          <a
+            href="/portfolio#listaExperiencia"
+            class="btn-right"
+            (click)="
+            service.showFormeducacionModificar = true;
+            form.reset();
+            educacionForm.reset()
+            "
+            ><i class="fa fa-pen"></i
+          ></a>
+        </div>
 
-
-        <div title="Modificar" class="btn-edit"><a href="/portfolio#listaEducacion" class="btn-right"
-            (click)="service.showFormeducacionModificar= true;"><i class="fa fa-pen"></i></a></div>
-
-
-        <div title="Eliminar" class="btn-trash"><a href="/portfolio#educacion" class="btn-right"
-            (click)="service.showFormeducacionDelete= true;"><i class="fa fa-trash"></i></a></div>
-      </div>
-
-      <!--Lista Educación-->
-      <div id="info-details" class="col-12">
-        <div class="card-text">
-          <ul class="list-group list-group-flush items-list">
-
-            <li *ngFor="let educacion of educacionList; let i=index" class="list-group-item">
-
-              <h6 *ngIf='!service.onlyRead' id={{educacion.idEducacion}}>{{educacion.idEducacion}}</h6>
-              <figure class="figure">
-                <img [src]="educacion.imagen" class="figure-img position-sticky rounded" [alt]="educacion.escuela">
-                <figcaption style="margin-top: 10px;" class="figure-caption float-end">
-                  {{educacion.escuela}}
-                </figcaption>
-              </figure>
-              <h2>{{educacion.titulo}}</h2>
-              <h3>{{educacion.estado}}</h3>
-              <h3>{{educacion.inicio}} -- {{educacion.fin}}</h3>
-              <h4>{{educacion.carrera}}-{{educacion.nivel}} Promedio: {{educacion.puntaje}}</h4>
-            </li>
-          </ul>
-          <div id='listaEducacion'></div>
+         <!-- Botón Eliminar Educación-->
+        <div *ngIf="educacionList.length > 0" title="Eliminar" class="btn-trash">
+          <a
+            href="/portfolio#listaExperiencia"
+            class="btn-right"
+            (click)="
+            service.showFormeducacionDelete = true;
+            borrar = false;
+            educacionSeleccionado = false;
+            form.reset();
+            educacionForm.reset()
+            "
+            ><i class="fa fa-trash"></i
+          ></a>
         </div>
       </div>
-    </div>
-  </div>
-</article>
+
 <!--Formulario Modificar Educacion Get ID-->
-<div *ngIf="service.showFormeducacionModificar">
+<div id="formModEdu" *ngIf="service.showFormeducacionModificar">
   <form [formGroup]="form" (ngSubmit)="getId()">
     <div class="form-row align-items-center">
       <div class="col-auto my-1">
-        <label class="mr-sm-2" for="inlineFormCustomSelect">Educación a modificar</label>
-        <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" formControlName="idSeleccion">
+        <label class="mr-sm-2" for="inlineFormCustomSelect"
+          >Educación a modificar</label
+        >
+        <br />
+        <select
+        class="form-select"
+          id="inlineFormCustomSelect"
+          formControlName="titulo"
+          (change)="
+          service.showFormeducacionModificar = false;
+          getNombre();
+          service.showFormeducacionModificar1 = true
+        "
+        >
           <option selected>Seleccione...</option>
 
-          <option *ngFor="let educacion of educacionList">{{educacion.idEducacion}}</option>
-
+          <option *ngFor="let educacion of educacionList">
+            {{ educacion.titulo }}
+          </option>
         </select>
-      </div>
-      <div class="col-auto my-1">
-        <button
-          (click)="service.showFormeducacionModificar = false; getId(); service.showFormeducacionModificar1 = true "
-          type="submit" class="btn btn-primary">Submit</button>
       </div>
     </div>
   </form>
@@ -71,58 +106,123 @@
 
 <!--Formulario modificar Educacion-->
 <div *ngIf="service.showFormeducacionModificar1">
-  <form [formGroup]="educacionForm" (ngSubmit)="modificarEdu(); service.showFormeducacionModificar1 = false">
+  <form
+    [formGroup]="educacionForm"
+    (ngSubmit)="modificarEdu(); service.showFormeducacionModificar1 = false">
+    <div class="col">
+      <h2><u>Modificar</u></h2>
+      <label class="form-check-label" for="nombreEducacion">
+        Educación seleccionada:
+        <strong>{{ form.value.titulo }}</strong></label
+      >
+    </div>
+
+
     <div class="form-row">
       <div class="col">
-        <input type="text" class="form-control" placeholder="Carrera" formControlName="carrera">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Carrera"
+          id="carreraEducacion"
+          formControlName="carrera"
+        />
       </div>
 
       <div class="col">
-        <input type="text" class="form-control" placeholder="Título obtenido" formControlName="titulo">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Título obtenido"
+          formControlName="titulo"
+        />
       </div>
 
       <div class="col">
-        <input type="text" class="form-control" placeholder="Grado académico" formControlName="nivel">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Grado académico"
+          formControlName="nivel"
+        />
       </div>
 
       <div class="col">
-        <input type="text" class="form-control" placeholder="Institución" formControlName="escuela">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Institución"
+          formControlName="escuela"
+        />
       </div>
 
       <div class="col">
-        <input type="text" class="form-control" placeholder="Url de la institución" formControlName="imagen">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Url de la institución"
+          formControlName="imagen"
+        />
       </div>
 
       <div class="col form-check">
-        <input formControlName="estado" class="form-check-input" type="checkbox" id="flexCheckDefault">
+        <input
+          formControlName="estado"
+          class="form-check-input"
+          type="checkbox"
+          id="flexCheckDefault"
+        />
         <label class="form-check-label" for="flexCheckDefault">
           Grado concluido
         </label>
       </div>
 
-
       <div class="col">
         <label class="form-check-label" for="promedio">Puntaje:</label>
-        <input type="number" [maxlength]='10' [minlength]='1' class="form-control" placeholder="Puntaje" id="promedio"
-          formControlName="puntaje">
+        <input
+          type="number"
+          [maxlength]="10"
+          [minlength]="1"
+          class="form-control"
+          placeholder="Puntaje"
+          id="promedio"
+          formControlName="puntaje"
+        />
       </div>
 
       <div class="col">
         <label class="form-check-label" for="inicio">Fecha de inicio:</label>
-        <input type="date" class="form-control" id="inicio" placeholder="Fecha de inicio" formControlName="inicio">
+        <input
+          type="date"
+          class="form-control"
+          id="inicio"
+          placeholder="Fecha de inicio"
+          formControlName="inicio"
+        />
       </div>
 
       <div class="col">
         <label class="form-check-label" for="fin">Fecha de finalización:</label>
-        <input type="date" class="form-control" id="fin" placeholder="Fecha de finalización" formControlName="fin">
+        <input
+          type="date"
+          class="form-control"
+          id="fin"
+          placeholder="Fecha de finalización"
+          formControlName="fin"
+        />
       </div>
 
       <div class="col-auto my-1">
-
-        <button id="button" [disabled]="educacionForm.invalid" style="margin:20px 5px;" class="btn btn-success"
-        type="submit">Submit</button>
+        <button
+          id="button"
+          [disabled]="educacionForm.invalid"
+          style="margin: 20px 5px"
+          class="btn btn-success"
+          type="submit"
+        >
+          Modificar
+        </button>
       </div>
-
     </div>
   </form>
 </div>
@@ -132,20 +232,106 @@
   <form [formGroup]="form" (ngSubmit)="getIdBorrar()">
     <div class="form-row align-items-center">
       <div class="col-auto my-1">
-        <label class="mr-sm-2" for="inlineFormCustomSelect">Educación a eliminar</label>
-        <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" formControlName="idSeleccion">
+        <h2><u>Eliminar</u></h2>
+              <label class="form-check-label" for="dominio">
+                <b>Educación a eliminar: </b>
+                <strong *ngIf="educacionSeleccionado"
+                  ><i style="color: darkred">{{ form.value.titulo }}</i></strong
+                ></label
+              >
+              <br />
+        <select
+        *ngIf="educacionSeleccionado == false"
+        class="form-select"
+          id="inlineFormCustomSelect"
+          formControlName="titulo"
+          (change)="educacionSeleccionado = true; getNombre()"
+
+        >
           <option selected>Seleccione...</option>
 
-          <option *ngFor="let educacion of educacionList">{{educacion.idEducacion}}</option>
-
+          <option *ngFor="let educacion of educacionList">
+            {{ educacion.titulo }}
+          </option>
         </select>
       </div>
       <div class="col-auto my-1">
-        <button (click)="getIdBorrar();  deleteEdu(); service.showFormeducacionDelete = false" type="submit" class="btn btn-primary">Submit</button>
+        <button
+        [disabled]="form.invalid"
+        *ngIf="borrar == false"
+        (click)="borrar = true"
+        type="submit"
+        class="btn btn-primary"
+        >
+          Eliminar
+        </button>
+        <h2 *ngIf="borrar">
+          <strong>Advertencia!!!.</strong>Si oprime "SI", la educación:
+          <u
+            ><i>"{{ nombreModificar }}"</i></u
+          >, se eliminará definitivamente.
+        </h2>
+        <button
+          *ngIf="borrar"
+          (click)="deleteEdu(); service.showFormeducacionDelete = false"
+          type="submit"
+          class="btn btn-danger"
+          style="margin: 10px"
+        >
+          SI
+        </button>
+        <button
+          *ngIf="borrar"
+          (click)="service.showFormeducacionDelete = false"
+          type="submit"
+          class="btn btn-primary"
+          style="margin: 10px"
+        >
+          NO
+        </button>
       </div>
     </div>
   </form>
 </div>
 
-
 <app-educacion-form></app-educacion-form>
+    </div>
+<hr  style="height:4px;border-width:0;color:gray;background-color:rgb(28, 49, 20)">
+  <div>
+      <!--Lista Educación-->
+      <div id="info-details" class="col-12">
+        <div class="card-text">
+          <ul class="list-group list-group-flush items-list">
+            <li
+              *ngFor="let educacion of educacionList"
+              class="list-group-item"
+            >
+              <figure class="figure">
+                <img
+                  [src]="educacion.imagen"
+                  class="figure-img position-sticky rounded"
+                  style="height: 55px; width:55px;"
+                  [alt]="educacion.escuela"
+                />
+                <figcaption
+                  style="margin-top: 10px"
+                  class="figure-caption float-end"
+                >
+                  {{ educacion.escuela }}
+                </figcaption>
+              </figure>
+              <h2>{{ educacion.titulo }}</h2>
+              <h3>{{ educacion.estado }}</h3>
+              <h3>{{ educacion.inicio }} -- {{ educacion.fin }}</h3>
+              <h4>
+                {{ educacion.carrera }}-{{ educacion.nivel }} Promedio:
+                {{ educacion.puntaje }}
+              </h4>
+            </li>
+          </ul>
+          <div id="listaEducacion"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>

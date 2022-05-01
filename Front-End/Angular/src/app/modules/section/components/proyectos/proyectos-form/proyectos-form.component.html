@@ -1,1 +1,108 @@
-<p>proyectos-form works!</p>
+<div
+  id="proyecto-form"
+  name="formulario-proyecto"
+  style="position: relative; width: 50%"
+>
+  <form
+    [formGroup]="profileForm"
+    (ngSubmit)="onSubmit(); service.showFormProyecto = false; this.submit = false"
+    class="col-6"
+    id="form-proyecto"
+    *ngIf="service.showFormProyecto"
+  >
+    <!-- Botón Salir del formulario-->
+    <div
+      title="Cancelar"
+      id="boton_exit"
+      (click)="proyectos().clear(); service.showFormProyecto = false; this.submit = false"
+      class="btn-edit"
+      style="margin-top: 20px; position: absolute; left: 600px"
+    >
+      <a href="#proyecto" class="btn-right"
+        ><i class="far fa-times-circle"></i
+      ></a>
+    </div>
+
+    <!--Formulario para el Post de Proyecto-->
+    <div style="margin-bottom: 50px" formArrayName="proyectos">
+      <div *ngFor="let proyecto of proyectos().controls; let i = index">
+        <div [formGroupName]="i">
+          <div class="form-row">
+            Nº: {{ i + 1 }}
+
+            <div class="col">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Nombre del Proyecto"
+                formControlName="nombreProyecto"
+              />
+            </div>
+
+            <div class="col">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Fecha del Proyecto"
+                formControlName="fecha"
+              />
+            </div>
+
+            <div class="col">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Descripción del Proyecto"
+                formControlName="descripcion"
+              />
+            </div>
+
+            <div class="col">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Link del Proyecto"
+                formControlName="link"
+              />
+            </div>
+
+            <!--IMAGEN-->
+           
+           
+             <div class="input-group mb-3">
+              <input
+                title="Imagen representativa del proyecto"
+                text="Imagen representativa del proyecto"
+                formControlName="file"
+                type="file"
+                (change)="onFileChange($event)"
+                id="formFile1"
+                accept=".jpg, .jpeg, .png"
+                class="form-control"
+              />
+            </div>     
+          </div>
+        </div>
+      </div>
+      <hr />
+      <button
+        class="btn btn-outline-dark"
+        type="button"
+        (click)="addProyecto(); this.submit = true"
+      >
+        + Agregar Proyecto
+      </button>
+    </div>
+
+    <button
+      *ngIf="this.submit == true"
+      id="button"
+      [disabled]="profileForm.invalid"
+      style="margin: 20px 5px"
+      class="btn btn-success"
+      type="submit"
+    >
+      Submit
+    </button>
+  </form>
+</div>

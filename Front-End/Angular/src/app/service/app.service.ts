@@ -13,6 +13,11 @@ export class AppService {
   //Servidor TomCat de Sprintboot
   url: string = 'http://localhost:8080/';
 
+  github: string = 'https://github.com/Freston2021';
+  linkelid: string =
+    'https://www.linkedin.com/in/eduardo-javier-silva-8089a5224';
+  twitter: string = 'https://twitter.com/Silvaedujavier';
+
   inicioOk = false;
   login: boolean = false;
   goPortfolio = false;
@@ -22,16 +27,34 @@ export class AppService {
 
   datosUsuario: any;
   sesionFinalizada!: boolean;
-  usuarioNot!:boolean;
+  usuarioNot!: boolean;
 
   showFormDatos!: boolean;
   showFormFoto!: boolean;
+  showFormImagenProyecto!: boolean;
+
+  
   showFormCarousel!: boolean;
   showFormAcercaDe!: boolean;
   showFormeducacion!: boolean;
   showFormeducacionModificar!: boolean;
   showFormeducacionModificar1!: boolean;
   showFormeducacionDelete!: boolean;
+
+  showFormexperiencia!: boolean;
+  showFormexperienciaModificar!: boolean;
+  showFormexperienciaModificar1!: boolean;
+  showFormexperienciaDelete!: boolean;
+
+  showFormSkill!: boolean;
+  showFormSkillModificar!: boolean;
+  showFormSkillModificar1!: boolean;
+  showFormSkillDelete!: boolean;
+
+  showFormProyecto!: boolean;
+  showFormProyectoModificar!: boolean;
+  showFormProyectoModificar1!: boolean;
+  showFormProyectoDelete!: boolean;
 
   formGroupDirective!: FormGroupDirective;
 
@@ -53,6 +76,11 @@ export class AppService {
     this.showFormeducacionModificar = false;
     this.showFormeducacionModificar1 = false;
     this.showFormeducacionDelete = false;
+
+    this.showFormexperiencia = false;
+    this.showFormexperienciaModificar = false;
+    this.showFormexperienciaModificar1 = false;
+    this.showFormexperienciaDelete = false;
   }
 
   //CRUD
@@ -66,9 +94,26 @@ export class AppService {
     return this.http.post(this.url + 'new/educacion', educacion);
   }
 
+  postExperiencia(experiencia: any): Observable<any> {
+    return this.http.post(this.url + 'new/experiencia', experiencia);
+  }
+
+  postSkill(skill: any): Observable<any> {
+    return this.http.post(this.url + 'new/skill', skill);
+  }
+
+
+
+  postProyecto(proyecto: any): Observable<any> {
+    return this.http.post(this.url + 'new/proyecto', proyecto);
+  }
+
+//Logout
   logout(): Observable<any> {
     return this.http.post(this.url + 'api/user/logout', this.datosUsuario);
   }
+
+
 
   //Get
 
@@ -91,6 +136,84 @@ export class AppService {
     });
   }
 
+  
+  //Put
+  putUsers(persona: any): Observable<any> {
+    return this.http.patch(this.url + 'modificar/persona', persona);
+  }
+
+  modificarAcercaDe(acercade: any): Observable<any> {
+    return this.http.patch(this.url + 'modificar/acercade/' + 1, acercade);
+  }
+
+  putEducacion(id: any, educacion: any): Observable<any> {
+    return this.http.patch(this.url + 'modificar/educacion/' + id, educacion);
+  }
+
+  putExperiencia(id: any, experiencia: any): Observable<any> {
+    return this.http.patch(this.url + 'modificar/experiencia/' + id, experiencia);
+  }
+
+  putSkill(id: any, skill: any): Observable<any> {
+    return this.http.patch(this.url + 'modificar/skill/' + id, skill);
+  }
+
+  putProyecto(id: any, proyecto: any): Observable<any> {
+    return this.http.patch(this.url + 'modificar/proyecto/' + id, proyecto);
+  }
+
+  //Delete
+  deleteUsers(persona: any): Observable<any> {
+    return this.http.delete('https://reqres.in/api/users/2', persona);
+  }
+
+  deleteEducacion(id: any): Observable<any> {
+    return this.http.delete(this.url + 'delete/educacion/' + id);
+  }
+
+  deleteExperiencia(id: any): Observable<any> {
+    return this.http.delete(this.url + 'delete/experiencia/' + id);
+  }
+
+  deleteSkill(id: any): Observable<any> {
+    return this.http.delete(this.url + 'delete/skill/' + id);
+  }
+
+  deleteProyecto(id: any): Observable<any> {
+    return this.http.delete(this.url + 'delete/proyecto/' + id);
+  }
+
+
+
+  //Imagen Proyecto
+  postImagenProyecto(id: any, imagenproyecto: any): Observable<any> {
+    console.log("Datosde la imagen", imagenproyecto)
+    console.log("ID--------", id)
+   
+    const formData = new FormData();
+    formData.append('multipartFile', imagenproyecto);
+    return this.http.post(this.url + 'upload/imagen-proyecto/'+id, formData);
+  }
+
+  putImagenProyecto(id: any, imagenproyecto: any): Observable<any> {
+    console.log("Datosde la imagen", imagenproyecto)
+    console.log("ID--------", id)
+   
+    const formData = new FormData();
+    formData.append('multipartFile', imagenproyecto);
+    return this.http.put(this.url + 'modificar/imagen-proyecto/'+id, formData);
+  }
+
+  getImagenProyecto(): Observable<any> {
+    return this.http.get(this.url + 'list/imagen-proyectos');
+  }
+
+  public deleteImagenProyecto(id: number): Observable<any> {
+    return this.http.delete<any>(this.url + `delete/imagen-proyecto/${id}`);
+  }
+
+
+
   //Foto Principal
   putFoto(foto: any): Observable<any> {
     const formData = new FormData();
@@ -102,10 +225,10 @@ export class AppService {
     return this.http.get(this.url + 'list/fotos');
   }
 
-
   public deleteFoto(id: number): Observable<any> {
     return this.http.delete<any>(this.url + `delete/foto/${id}`);
   }
+
 
   //Portada
   putPortada(portada: any): Observable<any> {
@@ -118,28 +241,9 @@ export class AppService {
     return this.http.get(this.url + 'list/imagen');
   }
 
-
   public deletePortada(id: number): Observable<any> {
     return this.http.delete<any>(this.url + `delete/imagen/${id}`);
   }
 
-
-
-  //Put
-  putUsers(persona: any): Observable<any> {
-    return this.http.patch(this.url + 'modificar/persona', persona);
-  }
-
-  putEducacion(id: any, educacion: any): Observable<any> {
-    return this.http.put(this.url + 'modificar/educacion/' + id, educacion);
-  }
-
-  //Delete
-  deleteUsers(persona: any): Observable<any> {
-    return this.http.delete('https://reqres.in/api/users/2', persona);
-  }
-
-  deleteEducacion(id: any): Observable<any> {
-    return this.http.delete(this.url + 'delete/educacion/' + id);
-  }
+  
 }

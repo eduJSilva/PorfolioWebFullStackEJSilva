@@ -10,9 +10,6 @@ import { AutenticacionService } from 'src/app/service/autenticacion.service';
   styleUrls: ['./barra-superior.component.css'],
 })
 export class BarraSuperiorComponent implements OnInit {
-  github: string = "https://github.com/Freston2021";
-  linkelid: string = "https://www.linkedin.com/in/eduardo-javier-silva-8089a5224";
-  twitter: string = "https://twitter.com/Silvaedujavier";
 
   login: any = 'login';
 
@@ -27,13 +24,6 @@ export class BarraSuperiorComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    /*
-    this.service.getUsers().subscribe((data) => {
-      this.github = data[0].github;
-      this.linkelid = data[0].linkedin;
-      this.twitter = data[0].twitter;
-    });
-    */
   }
 
    //Borra las cookies plaf plaf plaf!!!!

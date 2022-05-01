@@ -16,7 +16,7 @@ export class CarouselFormComponent implements OnInit {
   listaFotos: [] = [];
  
     myForm = new FormGroup({
-    name: new FormControl('', [Validators.required, Validators.minLength(3)]),
+   // name: new FormControl('', [Validators.required, Validators.minLength(3)]),
     file: new FormControl('', [Validators.required]),
 
     fileSource: new FormControl('', [Validators.required]),

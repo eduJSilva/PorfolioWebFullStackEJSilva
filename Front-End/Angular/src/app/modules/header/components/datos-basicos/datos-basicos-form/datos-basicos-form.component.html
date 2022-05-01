@@ -1,163 +1,420 @@
 <!--Formulario Datos básicos-->
-<div id="datos-form" name="formulario-datos" style="position: relative;background-color: azure;margin: 8px;">
-    <form [formGroup]="profileForm" (ngSubmit)="onSubmit(); service.showFormDatos=false" class="col-6" id="form-datos" *ngIf="service.showFormDatos">
-        <!-- Botón Salir del formulario-->
-        <div title="Cancelar" id="boton_exit" (click)="service.showFormDatos=false;" class="btn-edit"
-            style="margin-top: 20px; position:absolute; left:600px;">
-            <a href="#experiencia" class="btn-right"><i class="far fa-times-circle"></i></a>
-        </div>
-        <legend style="margin-top: 20px; margin-left: 5px;">Ingrese sus datos:</legend>
+<div
+  id="datos-form"
+  name="formulario-datos"
+  style="position: relative; background-color: azure; margin: 8px"
+>
+  <form
+    [formGroup]="profileForm"
+    (ngSubmit)="onSubmit(); service.showFormDatos = false"
+    class="col-6"
+    id="form-datos"
+    *ngIf="service.showFormDatos"
+  >
+    <!-- Botón Salir del formulario-->
+    <div
+      title="Cancelar"
+      id="boton_exit"
+      (click)="service.showFormDatos = false"
+      class="btn-edit"
+      style="margin-top: 20px; position: absolute; left: 600px"
+    >
+      <a href="#experiencia" class="btn-right"
+        ><i class="far fa-times-circle"></i
+      ></a>
+    </div>
+    <legend style="margin-top: 20px; margin-left: 5px">
+      Modificar datos Principales:
+    </legend>
 
-        <div class="card pmd-card bg-dark text-white" style="margin: 5px;">
-            <label class="custom-file-label" for="firs-name">Nombre:</label>
-            <input class="custom-file-input" id="first-name" type="text" formControlName="nombre">
-        </div>
+    <div class="card pmd-card bg-dark text-white" style="margin: 5px">
+      <label class="custom-file-label" for="firs-name">Nombre:</label>
+      <input
+        class="custom-file-input"
+        id="first-name"
+        type="text"
+        formControlName="nombre"
+      />
+    </div>
 
-        <div *ngIf="f['nombre'].touched && f['nombre'].invalid" class="alert alert-danger">
-            <div *ngIf="f['nombre'].errors && f['nombre'].errors['required']">Valor requerido.</div>
-            <div *ngIf="f['nombre'].errors && f['nombre'].errors['minlength']">el nombre debe tener 3 letras o mas
-            </div>
-            <div *ngIf="f['nombre'].errors && f['nombre'].errors['pattern']">por favor ingrese un nombre valido.
-            </div>
-        </div>
+    <div
+      *ngIf="f['nombre'].touched && f['nombre'].invalid"
+      class="alert alert-danger"
+    >
+    <!--
+      <div *ngIf="f['nombre'].errors && f['nombre'].errors['required']">
+        Valor requerido.
+      </div>
+      -->
 
-        <div class="card pmd-card bg-dark text-white" style="margin: 5px;">
-            <label class="custom-file-label" for="last-name">Apellido:</label>
-            <input class="custom-file-input" id="last-name" type="text" formControlName="apellido">
-        </div>
+      <div *ngIf="f['nombre'].errors && f['nombre'].errors['minlength']">
+        el nombre debe tener 3 letras o mas
+      </div>
+      <div *ngIf="f['nombre'].errors && f['nombre'].errors['pattern']">
+        por favor ingrese un nombre valido.
+      </div>
+    </div>
 
-        <div *ngIf="f['apellido'].touched && f['apellido'].invalid" class="alert alert-danger">
-            <div *ngIf="f['apellido'].errors && f['apellido'].errors['required']">Valor requerido.</div>
-            <div *ngIf="f['apellido'].errors && f['apellido'].errors['minlength']">el apellido debe tener 3 letras o mas
-            </div>
-            <div *ngIf="f['apellido'].errors && f['apellido'].errors['pattern']">por favor ingrese un apellido valido.
-            </div>
-        </div>
+    <div class="card pmd-card bg-dark text-white" style="margin: 5px">
+      <label class="custom-file-label" for="last-name">Apellido:</label>
+      <input
+        class="custom-file-input"
+        id="last-name"
+        type="text"
+        formControlName="apellido"
+      />
+    </div>
 
-        <div class="card pmd-card bg-dark text-white" style="margin: 5px;">
-            <label class="custom-file-label" for="puesto">Puesto:</label>
-            <input class="custom-file-input" id="puesto" type="text" formControlName="puesto">
-        </div>
+    <div
+      *ngIf="f['apellido'].touched && f['apellido'].invalid"
+      class="alert alert-danger"
+    >
 
-        <div *ngIf="f['puesto'].touched && f['puesto'].invalid" class="alert alert-danger">
-            <div *ngIf="f['puesto'].errors && f['puesto'].errors['required']">Valor requerido.</div>
-            <div *ngIf="f['puesto'].errors && f['puesto'].errors['minlength']">el puesto debe tener 3 letras o mas
-            </div>  
-        </div>
+  <!--
+      <div *ngIf="f['apellido'].errors && f['apellido'].errors['required']">
+        Valor requerido.
+      </div>
 
-        <div class="card pmd-card bg-dark text-white" style="margin: 5px;">
-            <label class="custom-file-label" for="dni">Documento:</label>
-            <input class="custom-file-input" placeholder="8 digitos -> 05456543" id="dni" type="text"
-                formControlName="documento">
-        </div>
+    -->
+      <div *ngIf="f['apellido'].errors && f['apellido'].errors['minlength']">
+        el apellido debe tener 3 letras o mas
+      </div>
+      <div *ngIf="f['apellido'].errors && f['apellido'].errors['pattern']">
+        por favor ingrese un apellido valido.
+      </div>
+    </div>
 
-        <div *ngIf="f['documento'].touched && f['documento'].invalid" class="alert alert-danger">
-            <div *ngIf="f['documento'].errors && f['documento'].errors['required']">Valor requerido.</div>
-            <div *ngIf="f['documento'].errors && f['documento'].errors['minlength']">El DNI debe tener 8 numeros Ej: 27226548 o 05943234.</div>
-            <div *ngIf="f['documento'].errors && f['documento'].errors['maxlength']">El DNI debe tener 8 numeros Ej: 27226548 o 05943234.</div>
-            <div *ngIf="f['documento'].errors && f['documento'].errors['pattern']">El campo admite solo numeros.</div>
-        </div>
+    <div class="card pmd-card bg-dark text-white" style="margin: 5px">
+      <label class="custom-file-label" for="puesto">Puesto:</label>
+      <input
+        class="custom-file-input"
+        id="puesto"
+        type="text"
+        formControlName="puesto"
+      />
+    </div>
 
-        <div class="card pmd-card bg-dark text-white" style="margin: 5px;">
-            <label class="custom-file-label" for="nacimiento">Fecha de nacimiento:</label>
-            <input class="custom-file-input" id="nacimiento" type="date" value="1979-04-13" min="1917-01-01"
-                max="2004-12-31" formControlName="fechaNacimiento">
-        </div>
+    <div
+      *ngIf="f['puesto'].touched && f['puesto'].invalid"
+      class="alert alert-danger"
+    >
+    <!--
+      <div *ngIf="f['puesto'].errors && f['puesto'].errors['required']">
+        Valor requerido.
+      </div>
 
-        <div *ngIf="f['fechaNacimiento'].touched && f['fechaNacimiento'].invalid" class="alert alert-danger">
-            <div *ngIf="f['fechaNacimiento'].errors && f['fechaNacimiento'].errors['required']">Valor requerido.</div>
-        </div>
+      -->
+      <div *ngIf="f['puesto'].errors && f['puesto'].errors['minlength']">
+        el puesto debe tener 3 letras o mas
+      </div>
+    </div>
 
-  <!--      <div id="direccion" formGroupName="address">  -->
-            <legend for="direccion" style="margin: 5px;">Dirección:</legend>
-            
-              <!--Autocompletado Direccion-->
-  <div class="card pmd-card bg-dark text-white" style="margin: 5px; height: 70px;">
-    <label class="custom-file-label" for="direccion">Dirección:</label>
-    <input style="background-color:rgb(180, 235, 195);height: 60px; font-size:medium;" [options]='serviceG.options' ngx-google-places-autocomplete (onAddressChange)="serviceG.handleAddressChange($event); setAddress();" class="custom-file-input" placeholder="googleApiPlaceAutocomplete" id="direccion" type="text">
+    <div class="card pmd-card bg-dark text-white" style="margin: 5px">
+      <label class="custom-file-label" for="dni">Documento:</label>
+      <input
+        class="custom-file-input"
+        placeholder="8 digitos -> 05456543"
+        id="dni"
+        type="text"
+        formControlName="documento"
+      />
+    </div>
+
+    <div
+      *ngIf="f['documento'].touched && f['documento'].invalid"
+      class="alert alert-danger"
+    >
+    <!--
+      <div *ngIf="f['documento'].errors && f['documento'].errors['required']">
+        Valor requerido.
+      </div>
+      -->
+
+      <div *ngIf="f['documento'].errors && f['documento'].errors['minlength']">
+        El DNI debe tener 8 numeros Ej: 27226548 o 05943234.
+      </div>
+      <div *ngIf="f['documento'].errors && f['documento'].errors['maxlength']">
+        El DNI debe tener 8 numeros Ej: 27226548 o 05943234.
+      </div>
+      <div *ngIf="f['documento'].errors && f['documento'].errors['pattern']">
+        El campo admite solo numeros.
+      </div>
+    </div>
+
+    <div class="card pmd-card bg-dark text-white" style="margin: 5px">
+      <label class="custom-file-label" for="nacimiento"
+        >Fecha de nacimiento:</label
+      >
+      <input
+        class="custom-file-input"
+        id="nacimiento"
+        type="date"
+        value="1979-04-13"
+        min="1917-01-01"
+        max="2004-12-31"
+        formControlName="fechaNacimiento"
+      />
+    </div>
+
+    <div
+      *ngIf="f['fechaNacimiento'].touched && f['fechaNacimiento'].invalid"
+      class="alert alert-danger"
+    >
+    <!--
+      <div
+        *ngIf="
+          f['fechaNacimiento'].errors && f['fechaNacimiento'].errors['required']
+        "
+      >
+        Valor requerido.
+      </div>
+      -->
+    </div>
+
+    <!--      <div id="direccion" formGroupName="address">  -->
+    <legend for="direccion" style="margin: 5px">Dirección:</legend>
+
+    <!--Autocompletado Direccion-->
+    <div
+      class="card pmd-card bg-dark text-white"
+      style="margin: 5px; height: 70px"
+    >
+      <label class="custom-file-label" for="direccion">Dirección:</label>
+      <input
+        style="
+          background-color: rgb(180, 235, 195);
+          height: 60px;
+          font-size: medium;
+        "
+        [options]="serviceG.options"
+        ngx-google-places-autocomplete
+        (onAddressChange)="serviceG.handleAddressChange($event); setAddress()"
+        class="custom-file-input"
+        placeholder="googleApiPlaceAutocomplete"
+        id="direccion"
+        type="text"
+      />
+    </div>
+
+    <div class="card pmd-card bg-dark text-white" style="margin: 5px">
+      <label class="custom-file-label" for="calle">Calle:</label>
+      <input
+        class="custom-file-input"
+        value="{{ serviceG.calle }}"
+        id="calle"
+        type="text"
+        formControlName="calle"
+      />
+    </div>
+
+    <div class="card pmd-card bg-dark text-white" style="margin: 5px">
+      <label class="custom-file-label" for="numero">Nro.:</label>
+      <input
+        class="custom-file-input"
+        value="{{ serviceG.calleNro }}"
+        id="numero"
+        type="text"
+        formControlName="numero"
+      />
+    </div>
+
+    <div class="card pmd-card bg-dark text-white" style="margin: 5px">
+      <label class="custom-file-label" for="localidad">Barrio:</label>
+      <input
+        class="custom-file-input"
+        value="{{ serviceG.barrio }}"
+        id="localidad"
+        type="text"
+        formControlName="localidad"
+      />
+    </div>
+
+    <div class="card pmd-card bg-dark text-white" style="margin: 5px">
+      <label class="custom-file-label" for="ciudad">Ciudad:</label>
+      <input
+        class="custom-file-input"
+        value="{{ serviceG.ciudad }}"
+        id="ciudad"
+        type="text"
+        formControlName="ciudad"
+      />
+    </div>
+
+    <div class="card pmd-card bg-dark text-white" style="margin: 5px">
+      <label class="custom-file-label" for="provincia">Provincia:</label>
+      <input
+        class="custom-file-input"
+        value="{{ serviceG.provincia }}"
+        id="provincia"
+        type="text"
+        formControlName="provincia"
+      />
+    </div>
+
+    <div class="card pmd-card bg-dark text-white" style="margin: 5px">
+      <label class="custom-file-label" for="zip">Codigo Postal:</label>
+      <input
+        class="custom-file-input"
+        value="{{ serviceG.codigoPostal }}"
+        id="zip"
+        type="text"
+        formControlName="zip"
+      />
+    </div>
+
+    <!--  </div>  -->
+
+    <legend for="contacto" style="margin: 5px">Datos de Contacto:</legend>
+
+    <div class="card pmd-card bg-dark text-white" style="margin: 5px">
+      <label class="custom-file-label" for="telefono">Telefono:</label>
+      <input
+        class="custom-file-input"
+        id="telefono"
+        type="text"
+        formControlName="telefono"
+      />
+    </div>
+
+    <div
+      *ngIf="f['telefono'].touched && f['telefono'].invalid"
+      class="alert alert-danger"
+    >
+
+    <!--
+      <div *ngIf="f['telefono'].errors && f['telefono'].errors['required']">
+        Valor requerido.
+      </div>
+      -->
+      <div *ngIf="f['telefono'].errors && f['telefono'].errors['pattern']">
+        Ingrese un numero valido por favor.
+      </div>
+    </div>
+
+    <div class="card pmd-card bg-dark text-white" style="margin: 5px">
+      <label class="custom-file-label" for="email">Email:</label>
+      <input
+        class="custom-file-input"
+        id="email"
+        type="email"
+        formControlName="email"
+      />
+    </div>
+
+    <div
+      *ngIf="f['email'].touched && f['email'].invalid"
+      class="alert alert-danger"
+    >
+    <!--
+      <div *ngIf="f['email'].errors && f['email'].errors['required']">
+        Valor requerido.
+      </div>
+      -->
+      <div *ngIf="f['email'].errors && f['email'].errors['email']">
+        Ingrese un email valido por favor.
+      </div>
+    </div>
+
+    <!--Carga de Instituciones-->
+    <legend for="direccion" style="margin: 5px">
+      Instituciones Educativas:
+    </legend>
+    <div style="margin: 5px">
+      <div>
+        <div class="card pmd-card bg-dark text-white">
+          <div class="col">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Nombre de la institución Nro. Uno"
+              formControlName="institucionUno"
+            />
+          </div>
+          <div class="col">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Link de la institución Nro. Uno"
+              formControlName="linkInstitucionUno"
+            />
+          </div>
+          <div class="col">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Pegar el link del logo de la institución Nro.Uno"
+              formControlName="logoInstitucionUno"
+            />
+            <p>
+              Ejemplo:
+              <a
+                href="https://3dneworld.com/wp-content/uploads/2017/05/logo-universidad-nacional-del-litoral-argentina-UNL.gif"
+                >Link del logo de la UNL</a
+              >
+            </p>
+          </div>
+        </div>
+        <br />
+        <div class="card pmd-card bg-dark text-white">
+          <div class="col">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Nombre de la institución Nro. Dos"
+              formControlName="institucionDos"
+            />
+          </div>
+          <div class="col">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Link de la institución Nro. Dos"
+              formControlName="linkInstitucionDos"
+            />
+          </div>
+          <div class="col">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Pegar el link del logo de la institución Nro.Dos"
+              formControlName="logoInstitucionDos"
+            />
+            <p>
+              Ejemplo:
+              <a
+                href="https://3dneworld.com/wp-content/uploads/2017/05/logo-universidad-nacional-del-litoral-argentina-UNL.gif"
+                >Link del logo de la UNL</a
+              >
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button
+    id="button"
+    style="margin: 20px 5px"
+    class="btn btn-success"
+    type="submit"
+    [disabled]="profileForm.invalid"
+  >
+    Submit
+  </button>
+  
+
+<!--
+    <button
+      id="button"
+      [disabled]="profileForm.invalid"
+      style="margin: 20px 5px"
+      class="btn btn-success"
+      type="submit"
+    >
+      Submit
+    </button>
+    <label *ngIf="profileForm.invalid" for="button"
+      >Debe ingresár todos los datos para habilitar el botón</label
+    >
+  -->
+  </form>
 </div>
-
-            <div class="card pmd-card bg-dark text-white" style="margin: 5px;">
-                <label class="custom-file-label" for="calle">Calle:</label>
-                <input class="custom-file-input"  value={{serviceG.calle}} id="calle" type="text" formControlName="calle">
-            </div>
-
-            <div class="card pmd-card bg-dark text-white" style="margin: 5px;">
-                <label class="custom-file-label" for="numero">Nro.:</label>
-                <input class="custom-file-input"  value={{serviceG.calleNro}} id="numero" type="text" formControlName="numero">
-            </div>
-
-            <div class="card pmd-card bg-dark text-white" style="margin: 5px;">
-                <label class="custom-file-label" for="localidad">Barrio:</label>
-                <input class="custom-file-input"  value={{serviceG.barrio}} id="localidad" type="text" formControlName="localidad">
-            </div>
-
-            <div class="card pmd-card bg-dark text-white" style="margin: 5px;">
-                <label class="custom-file-label" for="ciudad">Ciudad:</label>
-                <input class="custom-file-input"  value={{serviceG.ciudad}} id="ciudad" type="text" formControlName="ciudad">
-            </div>
-
-            <div class="card pmd-card bg-dark text-white" style="margin: 5px;">
-                <label class="custom-file-label" for="provincia">Provincia:</label>
-                <input class="custom-file-input"  value={{serviceG.provincia}} id="provincia" type="text" formControlName="provincia">
-            </div>
-
-            <div class="card pmd-card bg-dark text-white" style="margin: 5px;">
-                <label class="custom-file-label" for="zip">Codigo Postal:</label>
-                <input class="custom-file-input"  value={{serviceG.codigoPostal}} id="zip" type="text" formControlName="zip">
-            </div>
-
-      <!--  </div>  -->
-
-        <legend for="contacto" style="margin: 5px;">Datos de Contacto:</legend>
-
-        <div class="card pmd-card bg-dark text-white" style="margin: 5px;">
-            <label class="custom-file-label" for="telefono">Telefono:</label>
-            <input class="custom-file-input" id="telefono" type="text" formControlName="telefono">
-        </div>
-
-        <div *ngIf="f['telefono'].touched && f['telefono'].invalid" class="alert alert-danger">
-            <div *ngIf="f['telefono'].errors && f['telefono'].errors['required']">Valor requerido.</div>
-            <div *ngIf="f['telefono'].errors && f['telefono'].errors['pattern']">Ingrese un numero valido por favor.</div>
-        </div>
-
-        <div class="card pmd-card bg-dark text-white" style="margin: 5px;">
-            <label class="custom-file-label" for="email">Email:</label>
-            <input class="custom-file-input" id="email" type="email" formControlName="email">
-        </div>
-
-        <div *ngIf="f['email'].touched && f['email'].invalid" class="alert alert-danger">
-            <div *ngIf="f['email'].errors && f['email'].errors['required']">Valor requerido.</div>
-            <div *ngIf="f['email'].errors && f['email'].errors['email']">Ingrese un email valido por favor.</div>
-
-        </div>
-
-        <!--Carga de Instituciones-->
-        <div style="margin-bottom: 50px;" formArrayName="instituciones">
-            <legend for="direccion" style="margin: 5px;">Educación:</legend>
-
-            <button class="btn btn-outline-dark" type="button" (click)="addInstitucion()">+ Agregar Institución</button>
-            <div *ngFor="let institucion of instituciones().controls; let i=index">
-                <!-- The repeated institucion template-->
-                <div [formGroupName]="i">
-                    <div class="form-row">
-                        {{i}}
-                        <div class="col">
-                            <input type="text" class="form-control" placeholder="Logo" formControlName="logo">
-                        </div>
-                        <div class="col">
-                            <input type="text" class="form-control" placeholder="Nombre de la Institución"
-                                formControlName="institucion">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <button id="button" [disabled]="profileForm.invalid" style="margin:20px 5px;" class="btn btn-success"
-        type="submit">Submit</button>
-        <label *ngIf="profileForm.invalid" for="button">Ingrese todos los datos para habilitar el botón</label>
-    </form>
-   
-</div>
-

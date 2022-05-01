@@ -19,15 +19,7 @@ export class CarouselComponent implements OnInit {
 
   
 
-  ngOnInit(): void {
-   /*
-    this.service.getUsers().subscribe((date)=>{
-      this.portadaUno = date[0].portadaOne;
-      this.portadaDos = date[0].portadaTwo;
-      this.portadaTres = date[0].portadaThree;
-    })
-     */
-    
+  ngOnInit(): void { 
    this.service.getPortada().subscribe((date)=>{
     this.portadaUno = date[date.length-3].imagenUrl;
     this.portadaDos = date[date.length-2].imagenUrl;

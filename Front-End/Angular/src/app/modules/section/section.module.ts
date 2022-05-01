@@ -10,7 +10,7 @@ import { AppService } from 'src/app/service/app.service';
 import { AcercaDeFormComponent } from './components/acerca-de/acerca-de-form/acerca-de-form.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatCardModule } from '@angular/material/card';
+import { MatCardModule} from '@angular/material/card';
 import { MatSliderModule } from '@angular/material/slider';
 import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
 import { GooglePlaceService } from 'src/app/service/google-place.service';

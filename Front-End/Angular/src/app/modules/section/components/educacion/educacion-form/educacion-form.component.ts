@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import {FormArray, FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup, FormGroupDirective, Validators} from '@angular/forms';
 import { AppService } from 'src/app/service/app.service';
 
 @Component({
@@ -15,6 +15,7 @@ export class EducacionFormComponent implements OnInit {
   educaciones: this.fb.array([]),
   
   });
+  submit!: boolean;
 
   constructor(private fb: FormBuilder, public service: AppService) {
   }
@@ -30,12 +31,13 @@ export class EducacionFormComponent implements OnInit {
   newEducacion(): FormGroup {
     return this.fb.group({
       escuela:'',
-      titulo: '',
+      titulo: ['',[Validators.required]],
       estado: false,
       nivel: '',
       imagen: '',
       carrera: '',
-      puntaje: 0,
+      puntaje: [0,[ Validators.min(0),
+        Validators.max(10),]],
       inicio: '',
       fin:'',
       persona:{id:1}
@@ -44,12 +46,8 @@ export class EducacionFormComponent implements OnInit {
 
   addEducacion() {
     this.educaciones().push(this.newEducacion());
+    this.submit = true;
   }
-
-
-  /*removeEducacion(){
-    this.educaciones().removeAt(i));}
-  */
 
   onSubmit() {
 

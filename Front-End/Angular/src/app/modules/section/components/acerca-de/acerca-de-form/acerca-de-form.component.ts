@@ -21,6 +21,96 @@ export class AcercaDeFormComponent implements OnInit {
     ]
   });
 
+
+/*
+  profileForm = this.fb.group({
+    nombre:  [
+      '',
+      [
+      
+        Validators.minLength(3),
+        Validators.maxLength(60),
+        Validators.pattern('[a-zA-Z][a-zA-Z ]+'),
+      ],
+    ],
+    apellido: [
+      '',
+      [
+       
+        Validators.minLength(3),
+        Validators.maxLength(60),
+        Validators.pattern('[a-zA-Z][a-zA-Z ]+'),
+      ],
+    ],
+    acercaDe:  [
+      '',
+      [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(1000),
+      ],
+    ],
+    puesto: [
+      '',
+      [Validators.minLength(3), Validators.maxLength(80)],
+    ],
+    documento: [
+      '',
+      [
+       
+        Validators.minLength(8),
+        Validators.maxLength(8),
+        Validators.pattern('[0-9]+'),
+      ],
+    ],
+    fechaNacimiento: ['', ],
+
+    calle: [
+      '',
+      [
+       
+        Validators.minLength(3),
+        Validators.maxLength(80),
+      ],
+    ],
+    numero: [
+      '',
+      [Validators.minLength(1), Validators.maxLength(8)],
+    ],
+    localidad: [
+      '',
+      [
+       
+        Validators.minLength(3),
+        Validators.maxLength(100),
+      ],
+    ],
+    ciudad: [
+      '',
+      [
+      
+        Validators.minLength(3),
+        Validators.maxLength(100),
+      ],
+    ],
+    provincia: [
+      '',
+      [
+       
+        Validators.minLength(3),
+        Validators.maxLength(100),
+      ],
+    ],
+    zip: [
+      '',
+      [ Validators.minLength(3), Validators.maxLength(10)],
+    ],
+
+    telefono: ['', [Validators.pattern('[- +()0-9]+')]],
+    email: ['', [Validators.email]],
+  });
+
+*/
   constructor(private fb: FormBuilder, public service: AppService) {
   }
 
@@ -29,19 +119,13 @@ export class AcercaDeFormComponent implements OnInit {
   }
 
   onSubmit() {
-    this.service.postUsers(this.profileForm.value).subscribe((data) => {
-      return console.log("POST--> ", data);
-    });
-
-    this.service.putUsers(this.profileForm.value).subscribe((data) => {
+    alert(this.profileForm.value.acercaDe)
+  
+    this.service.modificarAcercaDe(this.profileForm.value).subscribe((data) => {
       return console.log("PUT--> ", data);
-    });
-
-    //ELIMINAR AL IMPLEMENTAR EL BACKEND
-    (<HTMLElement>document.getElementById('text-acercade')).textContent =
-      this.profileForm.value.acercaDe
-     
+    });     
     alert('Registro ingresado y modificado con exito!');
+    location.reload();
   }
 
     //resetear formulario

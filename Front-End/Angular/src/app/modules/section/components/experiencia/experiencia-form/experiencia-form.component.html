@@ -1,1 +1,129 @@
-<p>experiencia-form works!</p>
+<div
+  id="experiencia-form"
+  name="formulario-experiencia"
+  style="position: relative; width: 50%"
+>
+  <form
+    [formGroup]="profileForm"
+    (ngSubmit)="
+      onSubmit(); service.showFormexperiencia = false; this.submit = false"
+    class="col-6"
+    id="form-experiencia"
+    *ngIf="service.showFormexperiencia"
+  >
+    <!-- Botón Salir del formulario-->
+    <div
+      title="Cancelar"
+      id="boton_exit"
+      (click)="
+        experiencias().clear();
+        service.showFormexperiencia = false;
+        this.submit = false"
+      class="btn-edit"
+      style="margin-top: 20px; position: absolute; left: 600px"
+    >
+      <a href="#experiencia" class="btn-right"
+        ><i class="far fa-times-circle"></i
+      ></a>
+    </div>
+
+    <!--Formulario para el Post de Experiencia-->
+    <div style="margin-bottom: 50px" formArrayName="experiencias">
+      <div *ngFor="let experiencia of experiencias().controls; let i = index">
+        <div [formGroupName]="i">
+          <div class="form-row">
+            Nº: {{ i + 1 }}
+
+            <div class="col">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="puesto"
+                formControlName="puesto"
+              />
+            </div>
+
+            <div class="col">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="descripción"
+                formControlName="descripcion"
+              />
+            </div>
+
+            <div class="col">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Empresa"
+                formControlName="empresa"
+              />
+            </div>
+
+            <div class="col">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Pegar el link del logo de la empresa"
+                formControlName="imagen"
+              />
+              <p>
+                Ejemplo:
+                <a
+                  href="https://scontent.feze14-1.fna.fbcdn.net/v/t39.30808-6/271299184_4822899901110545_3061435022759078454_n.jpg?_nc_cat=103&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=DsJSHXVhyKYAX-3N7lU&_nc_ht=scontent.feze14-1.fna&oh=00_AT-UdBKiEe6ih2HZwSbImRcykwvgV3rc8n6PXHjNz2p0wA&oe=627191AA"
+                  >Link del logo de INTI</a
+                >
+              </p>
+            </div>
+
+            <div class="col">
+              <label class="form-check-label" for="inicio"
+                >Fecha de inicio:</label
+              >
+              <input
+                type="date"
+                class="form-control"
+                id="inicio"
+                placeholder="Fecha de inicio"
+                formControlName="inicio"
+              />
+            </div>
+
+            <div class="col">
+              <label class="form-check-label" for="fin"
+                >Fecha de finalización:</label
+              >
+              <input
+                type="date"
+                class="form-control"
+                id="fin"
+                placeholder="Fecha de finalización"
+                formControlName="fin"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr />
+      <button
+        class="btn btn-outline-dark"
+        type="button"
+        (click)="addExperiencia(); this.submit = true"
+      >
+        + Agregar Experiencia
+      </button>
+    </div>
+
+    <button
+      *ngIf="this.submit == true"
+      id="button"
+      [disabled]="profileForm.invalid"
+      style="margin: 20px 5px"
+      class="btn btn-success"
+      type="submit"
+    >
+      Submit
+    </button>
+  </form>
+</div>

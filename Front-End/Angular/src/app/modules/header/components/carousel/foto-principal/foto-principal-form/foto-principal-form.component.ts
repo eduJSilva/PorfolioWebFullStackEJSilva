@@ -13,7 +13,7 @@ export class FotoPrincipalFormComponent implements OnInit {
   validator: number = 0;
 
   myForm = new FormGroup({
-    name: new FormControl('', [Validators.required, Validators.minLength(3)]),
+   //name: new FormControl('', [Validators.required, Validators.minLength(3)]),
     file: new FormControl('', [Validators.required]),
 
     fileSource: new FormControl('', [Validators.required]),
@@ -47,10 +47,8 @@ export class FotoPrincipalFormComponent implements OnInit {
     );
   
     alert('Foto modificada con exito!');
-    alert('En el caso de no ver el cambio por favor volver a cargar la pagina en unos segundos, gracias!');
     this.ruta.navigate(['portfolio']);
-    location.reload();
-    
+    location.reload(); 
   }
 
 

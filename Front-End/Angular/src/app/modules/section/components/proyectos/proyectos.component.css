@@ -1,0 +1,18 @@
+.container {
+  margin-right: auto !important;
+  margin-left: auto !important;
+  max-width: 60% !important;
+  
+}
+
+.maximo-width {
+  margin-right: auto !important;
+  margin-left: auto !important;
+  max-width: 40%;
+}
+
+.maximo-width1 {
+  margin-right: auto !important;
+  margin-left: auto !important;
+  max-width: 40%;
+}

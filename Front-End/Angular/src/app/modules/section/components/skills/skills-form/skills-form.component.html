@@ -1,1 +1,85 @@
-<p>skills-form works!</p>
+<div
+  id="skill-form"
+  name="formulario-skill"
+  style="position: relative; width: 50%"
+>
+  <form
+    [formGroup]="profileForm"
+    (ngSubmit)="onSubmit(); service.showFormSkill = false; this.submit = false"
+    class="col-6"
+    id="form-skill"
+    *ngIf="service.showFormSkill"
+  >
+    <!-- Botón Salir del formulario-->
+    <div
+      title="Cancelar"
+      id="boton_exit"
+      (click)="skills().clear();service.showFormSkill = false; this.submit = false"
+      class="btn-edit"
+      style="margin-top: 20px; position: absolute; left: 600px"
+    >
+      <a href="#skill" class="btn-right"><i class="far fa-times-circle"></i></a>
+    </div>
+
+    <!--Formulario para el Post de Skill-->
+    <div style="margin-bottom: 50px" formArrayName="skills">
+      <div *ngFor="let skill of skills().controls; let i = index">
+        <div [formGroupName]="i">
+          <div class="form-row">
+            Nº: {{ i + 1 }}
+
+            <div class="col">
+              <label class="form-check-label" for="dominio">Dominio:</label>
+              <input
+                type="number"
+                [maxlength]="100"
+                [minlength]="1"
+                class="form-control"
+                placeholder="Dominio"
+                id="dominio"
+                formControlName="dominio"
+              />
+            </div>
+
+            <div class="col">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Skill"
+                formControlName="nombreSkill"
+              />
+            </div>
+
+            <div class="col">
+              <select
+                class="form-select"
+                formControlName="tipoSkill"
+                aria-label="Default select example"
+              >
+              <option value="" disabled>Tipo de Skill...</option>
+                <option value="1">soft</option>
+                <option value="2">hard</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr />
+      <button class="btn btn-outline-dark" type="button" (click)="addSkill(); this.submit = true">
+        + Agregar Skill
+      </button>
+    </div>
+
+    <button
+      *ngIf="this.submit == true"
+      id="button"
+      [disabled]="profileForm.invalid"
+      style="margin: 20px 5px"
+      class="btn btn-success"
+      type="submit"
+    >
+      Submit
+    </button>
+  </form>
+
+</div>

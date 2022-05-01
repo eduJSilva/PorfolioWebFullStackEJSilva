@@ -1,216 +1,304 @@
 <article id="experiencia">
-    <div class="card mat-card">
-        <div class="card-title">
-            <h2>Experiencia</h2>
+  <div *ngIf="experienciaList" class="card mat-card">
+    <div class="card-title">
+      <h2>Experiencia</h2>
 
-            <div *ngIf='!service.onlyRead' name="botones_experiencia" style="float:right; display:block">
-                <!-- Botón Salir de todos los formularios-->
-                <div  title="Cancelar" id="boton_exit_experiencia" onclick="accionesGenerales.exitFormularios()"
-                    class="btn-edit">
-                    <a href="/portfolio#experiencia" class="btn-right"><i class="far fa-times-circle"></i></a>
-                </div>
-
-                <!-- Botón Agregar Experiencia-->
-                <div title="Agregar" onclick="creadorExperiencia.mostrarFormulario()" class="btn-edit"><a
-                        href="/portfolio#experiencia" class="btn-right"><i class="fa fa-plus"></i></a></div>
-
-                <!-- Botón Modificar Experiencia-->
-                <div title="Modificar" onclick="modificadorExperiencia.getFormularioValidacionId()" class="btn-edit"><a
-                        href="/portfolio#experiencia" class="btn-right"><i class="fa fa-pen"></i></a>
-                </div>
-
-                <!-- Botón Eliminar Experiencia-->
-                <div title="Eliminar" onclick="eliminadorExperiencia.getFormularioValidacionId()" class="btn-trash"><a
-                        href="/portfolio#experiencia" class="btn-right"><i class="fa fa-trash"></i></a>
-                </div>
-            </div>
-
-            <!--Formulario para agregar una experiencia (con validaciones)-->
-            <form style="display: none; margin-top: 100px;" id="form-agregar_experiencia"
-                class="row g-3 needs-validation" novalidate>
-                <h5 style="color: green">Ingrese la nueva experiencia</h5>
-
-                <div class="col-md-8">
-                    <label for="logo-agregar" class="form-label">Logo de la empresa</label>
-                    <input type="url" class="form-control" id="logo-agregar"
-                        oninput="creadorExperiencia.setLogo(this.value)"
-                        placeholder="Url del logo de la empresa. Ej: https://example.com/logo_empresa.png" required>
-                    <div class="invalid-feedback">
-                        Por favor ingrese la Url del logo de la empresa.
-                    </div>
-                </div>
-
-                <div class="col-md-8">
-                    <label for="empresa-agregar" class="form-label">Nombre de la empresa</label>
-                    <div class="input-group has-validation">
-                        <input oninput="creadorExperiencia.setNombre(this.value)" placeholder="Ej: Empresa S.R.L."
-                            type="text" class="form-control" id="empresa-agregar" aria-describedby="inputGroupPrepend"
-                            required>
-                        <div class="invalid-feedback">
-                            Por favor ingrese el nombre de la empresa.
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-8">
-                    <label for="puesto-agregar" class="form-label">Puesto</label>
-                    <input oninput="creadorExperiencia.setPuesto(this.value)" placeholder="Ej: Full Stack Developer Jr."
-                        type="text" class="form-control" id="puesto-agregar" required>
-                    <div class="invalid-feedback">
-                        Por favor ingrese el puesto.
-                    </div>
-                </div>
-
-                <div class="col-md-8">
-                    <label for="periodo-agregar" class="form-label">Periodo</label>
-                    <input oninput="creadorExperiencia.setPeriodo(this.value)"
-                        placeholder="Ej: mayo 2015 - noviembre 2016" type="text" class="form-control"
-                        id="periodo-agregar" required>
-                    <div class="invalid-feedback">
-                        Por favor ingrese el periodo.
-                    </div>
-                </div>
-
-                <div class="col-md-10">
-                    <label for="descripcion-agregar" class="form-label">Descripción del puesto</label>
-                    <textarea oninput="creadorExperiencia.setDescripcion(this.value)"
-                        placeholder="Administración de Inmuebles; servicios de mediación..." id="descripcion-agregar"
-                        class="form-control" aria-label="With textarea" required></textarea>
-                    <div class="invalid-feedback">
-                        Por favor ingrese una descripción del puesto.
-                    </div>
-                </div>
-
-                <div class="col-12">
-                    <button class="btn btn-primary" type="submit" id="button-addon2" value="no"
-                        onclick="creadorExperiencia.validarCreacion()">Enviar
-                    </button>
-                </div>
-            </form>
-
-
-            <!--Formulario para modificar una experiencia (con validaciones)-->
-            <form style="display: none;margin-top: 100px;" id="form-modificar_experiencia_validacion" class="row g-3">
-                <h5 style="color: orange;">Ingrese el id de la experiencia a modificar</h5>
-
-                <div class="col-2">
-                    <input type="number" class="form-control" oninput="modificadorExperiencia.setIdItem(this.value)"
-                        id="id-modificar" placeholder="Id" required>
-                </div>
-
-                <div class="col-12">
-                    <button class="btn btn-primary"
-                        onclick="modificadorExperiencia.validarId(modificadorExperiencia.getIdItem())" type="submit"
-                        id="button-addon2" value="no">Enviar
-                    </button>
-                </div>
-            </form>
-
-            <form style="display: none; margin-top: 100px;" id="form-modificar_experiencia"
-                class="row g-3 needs-validation_modificar" novalidate>
-                <div class="col-md-8">
-                    <label for="logo-modificar" class="form-label">Logo de la empresa</label>
-                    <input type="url" class="form-control" id="logo-modificar"
-                        oninput="modificadorExperiencia.setLogo(this.value)"
-                        placeholder="Url del logo de la empresa. Ej: https://example.com/logo_empresa.png" required>
-                    <div class="invalid-feedback">
-                        Por favor ingrese la Url del logo de la empresa.
-                    </div>
-                </div>
-
-                <div class="col-md-8">
-                    <label for="empresa-modificar" class="form-label">Nombre de la empresa</label>
-                    <div class="input-group has-validation">
-                        <input oninput="modificadorExperiencia.setNombre(this.value)" placeholder="Ej: Empresa S.R.L."
-                            type="text" class="form-control" id="empresa-modificar" aria-describedby="inputGroupPrepend"
-                            required>
-                        <div class="invalid-feedback">
-                            Por favor ingrese el nombre de la empresa.
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-8">
-                    <label for="puesto-modificar" class="form-label">Puesto</label>
-                    <input oninput="modificadorExperiencia.setPuesto(this.value)"
-                        placeholder="Ej: Full Stack Developer Jr." type="text" class="form-control"
-                        id="puesto-modificar" required>
-                    <div class="invalid-feedback">
-                        Por favor ingrese el puesto.
-                    </div>
-                </div>
-
-                <div class="col-md-8">
-                    <label for="periodo-modificar" class="form-label">Periodo</label>
-                    <input oninput="modificadorExperiencia.setPeriodo(this.value)"
-                        placeholder="Ej: mayo 2015 - noviembre 2016" type="text" class="form-control"
-                        id="periodo-modificar" required>
-                    <div class="invalid-feedback">
-                        Por favor ingrese el periodo.
-                    </div>
-                </div>
-
-                <div class="col-md-10">
-                    <label for="descripcion-modificar" class="form-label">Descripción del puesto</label>
-                    <textarea oninput="modificadorExperiencia.setDescripcion(this.value)"
-                        placeholder="Administración de Inmuebles; servicios de mediación..." id="descripcion-modificar"
-                        class="form-control" aria-label="With textarea" required></textarea>
-                    <div class="invalid-feedback">
-                        Por favor ingrese una descripción del puesto.
-                    </div>
-                </div>
-
-                <div class="col-12">
-                    <button class="btn btn-primary" type="submit" id="boton_modificar_experiencia" value="no"
-                        onclick="modificadorExperiencia.validarModificaciones()">Enviar
-                    </button>
-                </div>
-            </form>
-
-
-            <!--Formulario para eliminar una experiencia por el id-->
-            <form style="display: none;margin-top: 100px" id="form-eliminar_experiencia" class="row g-3">
-                <h5 style="color: red;">Ingrese el id de la experiencia a eliminar</h5>
-
-                <div class="col-2">
-                    <input type="number" class="form-control" oninput="eliminadorExperiencia.setIdItem(this.value)"
-                        id="id-eliminar" placeholder="Id" required>
-                </div>
-
-                <div class="col-12">
-                    <button class="btn btn-primary"
-                        onclick="eliminadorExperiencia.validarId(eliminadorExperiencia.getIdItem())" type="submit"
-                        id="button-addon2" value="no">Enviar
-                    </button>
-                </div>
-            </form>
-
+      <!--Botones-->
+      <div
+        *ngIf="!service.onlyRead"
+        name="botones_experiencia"
+        style="float: right; display: block"
+      >
+        <!-- Botón Salir de todos los formularios-->
+        <div
+          title="Cancelar"
+          (click)="
+            service.showFormexperiencia = false;
+            formulario.experiencias().clear();
+            service.showFormexperienciaModificar = false;
+            service.showFormexperienciaModificar1 = false;
+            formulario.submit = false;
+            service.showFormexperienciaDelete = false"
+          id="boton_exit_experiencia"
+          class="btn-edit">
+          <a href="/portfolio#acerca-de" class="btn-right"
+            ><i class="far fa-times-circle"></i
+          ></a>
         </div>
 
-
-        <!-- Lista Experiencias-->
-        <div id="info-details" class="col-12">
-            <div class="card-text">
-                <ul id="lista_experiencia" class="list-group list-group-flush items-list">
-
-                    <li *ngFor="let experiencia of experienciaList; let i=index" class="list-group-item">
-
-                        <h6 id={{experiencia.id}}>{{experiencia.id}}</h6>
-                        <figure class="figure">
-                            <img [src]="experiencia.imagen" class="figure-img position-sticky rounded"
-                                [alt]="experiencia.empresa">
-                            <figcaption style="margin-top: 10px;" class="figure-caption float-end">
-                                {{experiencia.empresa}}
-                            </figcaption>
-                        </figure>
-                        <h2>{{experiencia.puesto}}</h2>
-                        <h3>{{experiencia.descripcion}}</h3>
-                        <h3>{{experiencia.inicio}} - {{experiencia.fin}}</h3>
-                    </li>
-                </ul>
-                <div id='listaExperiencia'></div>
-            </div>
+        <!-- Botón Agregar Experiencia-->
+        <div
+          *ngIf="experienciaList.length >= 0"
+          title="Agregar"
+          class="btn-edit"
+          (click)="
+            service.showFormexperiencia = true; formulario.resetFormulario()
+          "
+        >
+          <a href="/portfolio#acerca-de" class="btn-right"
+            ><i class="fa fa-plus"></i
+          ></a>
         </div>
 
+        <!-- Botón Modificar Experiencia-->
+        <div
+          *ngIf="experienciaList.length > 0"
+          title="Modificar"
+          class="btn-edit">
+          <a
+            href="/portfolio#acerca-de"
+            class="btn-right"
+            (click)="
+              service.showFormexperienciaModificar = true;
+              form.reset();
+              experienciaForm.reset()
+            "
+            ><i class="fa fa-pen"></i
+          ></a>
+        </div>
+
+        <!-- Botón Eliminar Experiencia-->
+        <div *ngIf="experienciaList.length > 0" title="Eliminar" class="btn-trash">
+          <a
+            href="/portfolio#acerca-de"
+            class="btn-right"
+            (click)="
+              service.showFormexperienciaDelete = true;
+              borrar = false;
+              experienciaSeleccionado = false;
+              form.reset();
+              experienciaForm.reset()
+            "
+            ><i class="fa fa-trash"></i
+          ></a>
+        </div>
+      </div>
+
+      <!--Formulario Modificar Experiencia Get ID-->
+      <div id="formModExperiencia" *ngIf="service.showFormexperienciaModificar">
+        <form [formGroup]="form" (ngSubmit)="getId()">
+          <div class="form-row align-items-center">
+            <div class="col-auto my-1">
+              <label class="mr-sm-2" for="inlineFormCustomSelect"
+                >Experiencia a modificar</label
+              >
+              <br />
+              <select
+                class="form-select"
+                id="inlineFormCustomSelect"
+                formControlName="puesto"
+                (change)="
+                  service.showFormexperienciaModificar = false;
+                  getNombre();
+                  service.showFormexperienciaModificar1 = true
+                "
+              >
+                <option selected>Seleccione...</option>
+
+                <option *ngFor="let experiencia of experienciaList">
+                  {{ experiencia.puesto }}
+                </option>
+              </select>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <!--Formulario modificar Experiencia-->
+      <div *ngIf="service.showFormexperienciaModificar1">
+        <form
+          [formGroup]="experienciaForm"
+          (ngSubmit)="
+            modificarExp(); service.showFormexperienciaModificar1 = false">
+          <div class="col">
+            <h2><u>Modificar</u></h2>
+            <label class="form-check-label" for="nombreExperiencia">
+              Experiencia seleccionada:
+              <strong>{{ form.value.puesto }}</strong></label
+            >
+          </div>
+
+          <div class="form-row">
+            <div class="col"></div>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Nombre de la Experiencia"
+              id="nombreExperiencia"
+              formControlName="puesto"
+            />
+            
+
+            <div class="col">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="descripción"
+                formControlName="descripcion"
+              />
+            </div>
+
+            <div class="col">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Empresa"
+                formControlName="empresa"
+              />
+            </div>
+
+            <div class="col">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Url de la empresa"
+                formControlName="imagen"
+              />
+            </div>
+
+            <div class="col">
+              <label class="form-check-label" for="inicio">Ingreso:</label>
+              <input
+                type="date"
+                class="form-control"
+                id="inicio"
+                placeholder="Fecha de inicio"
+                formControlName="inicio"
+              />
+            </div>
+
+            <div class="col">
+              <label class="form-check-label" for="fin">Egreso:</label>
+              <input
+                type="date"
+                class="form-control"
+                id="fin"
+                placeholder="Fecha de finalización"
+                formControlName="fin"
+              />
+            </div>
+
+            <div class="col-auto my-1">
+              <button
+                id="button"
+                [disabled]="experienciaForm.invalid"
+                style="margin: 20px 5px"
+                class="btn btn-success"
+                type="submit"
+              >
+                Modificar
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <!--Formulario Eliminar-->
+      <div *ngIf="service.showFormexperienciaDelete">
+        <form [formGroup]="form" (ngSubmit)="getIdBorrar()">
+          <div class="form-row align-items-center">
+            <div class="col-auto my-1">
+              <h2><u>Eliminar</u></h2>
+              <label class="form-check-label" for="dominio">
+                <b>Experiencia a eliminar: </b>
+                <strong *ngIf="experienciaSeleccionado"
+                  ><i style="color: darkred">{{ form.value.puesto }}</i></strong
+                ></label
+              >
+              <br />
+
+              <select
+                *ngIf="experienciaSeleccionado == false"
+                class="form-select"
+                id="inlineFormCustomSelect"
+                formControlName="puesto"
+                (change)="experienciaSeleccionado = true; getNombre()"
+              >
+                <option selected>Seleccione...</option>
+
+                <option *ngFor="let experiencia of experienciaList">
+                  {{ experiencia.puesto }}
+                </option>
+              </select>
+            </div>
+            <div class="col-auto my-1">
+              <button
+                [disabled]="form.invalid"
+                *ngIf="borrar == false"
+                (click)="borrar = true"
+                type="submit"
+                class="btn btn-primary"
+              >
+                Eliminar
+              </button>
+              <h2 *ngIf="borrar">
+                <strong>Advertencia!!!.</strong>Si oprime "SI", la experiencia:
+                <u
+                  ><i>"{{ nombreModificar }}"</i></u
+                >, se eliminará definitivamente.
+              </h2>
+              <button
+                *ngIf="borrar"
+                (click)="deleteExp(); service.showFormexperienciaDelete = false"
+                type="submit"
+                class="btn btn-danger"
+                style="margin: 10px"
+              >
+                SI
+              </button>
+              <button
+                *ngIf="borrar"
+                (click)="service.showFormexperienciaDelete = false"
+                type="submit"
+                class="btn btn-primary"
+                style="margin: 10px"
+              >
+                NO
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <app-experiencia-form></app-experiencia-form>
     </div>
+    <hr
+      style="
+        height: 4px;
+        border-width: 0;
+        color: gray;
+        background-color: rgb(28, 49, 20);
+      "
+    />
+    <!-- Lista Experiencias-->
+    <div id="info-details" class="col-12">
+      <div class="card-text">
+        <ul class="list-group list-group-flush items-list">
+          <li
+            *ngFor="let experiencia of experienciaList; let i = index"
+            class="list-group-item"
+          >
+            <figure class="figure">
+              <img
+                [src]="experiencia.imagen"
+                class="figure-img position-sticky rounded"
+                style="height: 55px; width:55px;"
+                [alt]="experiencia.empresa"
+              />
+              <figcaption
+                style="margin-top: 10px"
+                class="figure-caption float-end"
+              >
+                {{ experiencia.empresa }}
+              </figcaption>
+            </figure>
+            <h2>{{ experiencia.puesto }}</h2>
+            <h3>{{ experiencia.descripcion }}</h3>
+            <h3>{{ experiencia.inicio }} - {{ experiencia.fin }}</h3>
+          </li>
+        </ul>
+        <div id="listaExperiencia"></div>
+      </div>
+    </div>
+  </div>
 </article>
