@@ -1,0 +1,143 @@
+{
+	"info": {
+		"_postman_id": "342ef651-0c73-4c22-896e-4c923f7a984c",
+		"name": "Taller de Musica",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "new Instrumento",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id_instrumento\": 1,\n    \"nombre_instrumento\": \"Guitarra\",\n    \"tipo\": \"cuerdas\",\n    \"material\": \"madera\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/new/instrumento",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"new",
+						"instrumento"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "new Alumno",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id_alumno\": 1,\n    \"nombre_alumno\": \"Tessa\",\n    \"apellido_alumno\": \"Gerber\",\n    \"curso\": \"5A\",\n    \"fk_instrumento\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/new/alumno",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"new",
+						"alumno"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Traer todos los Instrumentos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/instrumentos/traer",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"instrumentos",
+						"traer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Traer todos los Alumnos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/alumnos/traer",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"alumnos",
+						"traer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Traer un instrumento en particular",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/instrumentos/traer/Piano",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"instrumentos",
+						"traer",
+						"Piano"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Traer solo los alumnos que toquen un determinado Instrumento",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/alumnosdto/traer/Piano",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"alumnosdto",
+						"traer",
+						"Piano"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

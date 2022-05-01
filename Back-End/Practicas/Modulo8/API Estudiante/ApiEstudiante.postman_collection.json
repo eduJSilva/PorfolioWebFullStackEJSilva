@@ -1,0 +1,303 @@
+{
+	"info": {
+		"_postman_id": "46f5b802-c8c9-4559-99f1-b3efc558e4b5",
+		"name": "ApiEstudiante",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "new Curso sin Listar-->Temas",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nombre\": \"Java para principiantes\",\n    \"tipo_curso\": \"Backend\",\n    \"fecha_finalización\": \"2023-05-29\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/curso/new",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"curso",
+						"new"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "new Curso listando-->Temas",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nombre\": \"Java ULTRAavanzado\",\n    \"tipo_curso\": \"Backend + Base de Datos\",\n    \"fecha_finalización\": \"2022-12-15\",\n    \"listaDeTemas\": [\n        {\n            \"nombre\": \"Posgres\",\n            \"descripcion\": \"Implementacion e Heroku\"\n        },\n          {\n            \"nombre\": \"MySql\",\n            \"descripcion\": \"MAMP\"\n        },\n         {\n            \"nombre\": \"MongoDB\",\n            \"descripcion\": \"Bases no relacionales\"\n        }\n\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/curso/new",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"curso",
+						"new"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "new Tema",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nombre\": \"Html\",\n    \"descripcion\": \"Etiquetado Basico\",\n    \"curso\": {\n        \"id_curso\": 1\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/tema/new",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"tema",
+						"new"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Traer todos los cursos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/cursos/traertodos",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"cursos",
+						"traertodos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener todos los temas de un determinado curso",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/cursos/traertemasdeuncurso/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"cursos",
+						"traertemasdeuncurso",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Traer todos los cursos que contengan como nombre la palabra “Java”",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/cursos/traercursosjava",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"cursos",
+						"traercursosjava"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Modificar los datos de un curso por RequestBody",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id_curso\": 47,\n    \"nombre\": \"Html+Css+JavaScript\",\n    \"tipo_curso\": \"FrontEnd principiante\",\n    \"fecha_finalización\": \"2022-03-11\",\n    \"listaDeTemas\": [\n        {\n            \"id_tema\": 48,\n            \"nombre\": \"Herencia\",\n            \"descripcion\": \"Tipos de herencias\"\n        },\n          {\n             \"id_tema\": 49,  \n            \"nombre\": \"Encapsulamiento\",\n            \"descripcion\": \"Atributos usados\"\n        },\n         {\n              \"id_tema\": 50,\n            \"nombre\": \"Polimorfismo\",\n            \"descripcion\": \"Variables y Funciones compartidas\"\n        },\n         {\n\n            \"nombre\": \"Clases e Interfaces\",\n            \"descripcion\": \"implementacion de interfaces\"\n        }\n\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/curso/modificar",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"curso",
+						"modificar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Modificar los datos de un curso por RequestParam",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/curso/modificar/1?nombre=Pagina Web&tipo_curso=Online&fecha_finalización=2021/03/01&listaDeTemas=",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"curso",
+						"modificar",
+						"1"
+					],
+					"query": [
+						{
+							"key": "nombre",
+							"value": "Pagina Web"
+						},
+						{
+							"key": "tipo_curso",
+							"value": "Online"
+						},
+						{
+							"key": "fecha_finalización",
+							"value": "2021/03/01",
+							"description": "Año/Mes/Dia"
+						},
+						{
+							"key": "listaDeTemas",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Modificar los datos de un determinado tema por RequestParam",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/tema/modificar/30?nombre=Bootstrap&descripcion=App Responsive&curso=2",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"tema",
+						"modificar",
+						"30"
+					],
+					"query": [
+						{
+							"key": "nombre",
+							"value": "Bootstrap"
+						},
+						{
+							"key": "descripcion",
+							"value": "App Responsive"
+						},
+						{
+							"key": "curso",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Modificar los datos de un tema por RequestBody",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id_tema\": 53,\n    \"nombre\": \"Html5\",\n    \"descripcion\": \"Etiquetado Moderno\",\n    \"curso\": {\n        \"id_curso\": 1\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/tema/modificar",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"tema",
+						"modificar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Mover un tema de un curso a otro",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/tema/mover/tema/29/acurso/2",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"tema",
+						"mover",
+						"tema",
+						"29",
+						"acurso",
+						"2"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

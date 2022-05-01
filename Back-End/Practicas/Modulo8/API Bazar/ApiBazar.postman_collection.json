@@ -1,0 +1,243 @@
+{
+	"info": {
+		"_postman_id": "668583bf-0700-4262-8cf2-f2b76bdf6b53",
+		"name": "ApiBazar",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "new Producto",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nombre\": \"Mesa\",\n    \"precio\": 450.50\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/productos/crear",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"productos",
+						"crear"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Traer la Lista de todos los Productos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/productos/traer",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"productos",
+						"traer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar un Producto",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/productos/eliminar/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"productos",
+						"eliminar",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Editar un Producto mediante RequestParam",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n   \"nombre\": \"Mesa de Luz\",\n   \"precio\": 343.25 \n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/productos/editar/2?nombre&precio",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"productos",
+						"editar",
+						"2"
+					],
+					"query": [
+						{
+							"key": "nombre",
+							"value": null
+						},
+						{
+							"key": "precio",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Editar un Producto mediante RequestBody",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id_producto\": 3,\n    \"nombre\": \"Farol\",\n    \"precio\": 45.21\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/productos/editar",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"productos",
+						"editar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Traer un Producto en Particular",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/productos/traer/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"productos",
+						"traer",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Traer el Producto Mas Barato",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/productos/traer/masbarato",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"productos",
+						"traer",
+						"masbarato"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Traer el Producto Mas Caro",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/productos/traer/mascaro",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"productos",
+						"traer",
+						"mascaro"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Productos Ordenados de Barato a Caro",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/productos/traer/ordenadosbaratoacaro",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"productos",
+						"traer",
+						"ordenadosbaratoacaro"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Productos Ordenados de Caro a Barato",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/productos/traer/ordenadoscaroabarato",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"productos",
+						"traer",
+						"ordenadoscaroabarato"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

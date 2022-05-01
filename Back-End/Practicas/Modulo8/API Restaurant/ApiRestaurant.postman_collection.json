@@ -1,0 +1,56 @@
+{
+	"info": {
+		"_postman_id": "b5eb1468-6874-4317-bb61-34f37c3d496e",
+		"name": "ApiRestaurant",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Obtener datos de un determinado Plato del Menú",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/plato/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"plato",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "new Plato",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id_plato\": 1,\n    \"nombre\": \"Ravioles\",\n    \"precio\": 450,\n    \"descripcion\": \"de carne con salsa de tomate\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/new/plato",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"new",
+						"plato"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,0 +1,94 @@
+{
+	"info": {
+		"_postman_id": "50eb31d0-3b2e-44c0-a716-e2832b124b83",
+		"name": "ApiReposteriaCeliacos",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "new Ingrediente",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nombre\": \"Harina de arroz\",\n    \"gluten\": false\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/new/ingrediente",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"new",
+						"ingrediente"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Ver Ingredientes(con o sin Gluten)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/ver/ingredientes",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"ver",
+						"ingredientes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Ver Ingredientes Sin Gluten",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/ver/ingredientessgluten",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"ver",
+						"ingredientessgluten"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Ver Ingredientes Con Gluten",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/ver/ingredientescgluten",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"ver",
+						"ingredientescgluten"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

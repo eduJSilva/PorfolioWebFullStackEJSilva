@@ -1,0 +1,70 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2513
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fswiss\fcharset0 Helvetica-Bold;\f2\fnil\fcharset0 LucidaGrande;
+}
+{\colortbl;\red255\green255\blue255;\red54\green72\blue81;\red255\green255\blue255;\red25\green28\blue31;
+\red0\green0\blue0;\red255\green255\blue10;}
+{\*\expandedcolortbl;;\cssrgb\c27059\c35294\c39216;\cssrgb\c100000\c100000\c100000;\cssrgb\c12941\c14510\c16078;
+\csgray\c0\c0;\cssrgb\c99942\c98555\c0;}
+{\*\listtable{\list\listtemplateid1\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{check\}}{\leveltext\leveltemplateid1\'01\uc0\u10003 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid1}
+{\list\listtemplateid2\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{check\}}{\leveltext\leveltemplateid101\'01\uc0\u10003 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid2}
+{\list\listtemplateid3\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{check\}}{\leveltext\leveltemplateid201\'01\uc0\u10003 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid3}
+{\list\listtemplateid4\listhybrid{\listlevel\levelnfc0\levelnfcn0\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{decimal\}}{\leveltext\leveltemplateid301\'01\'00;}{\levelnumbers\'01;}\fi-360\li720\lin720 }{\listname ;}\listid4}}
+{\*\listoverridetable{\listoverride\listid1\listoverridecount0\ls1}{\listoverride\listid2\listoverridecount0\ls2}{\listoverride\listid3\listoverridecount0\ls3}{\listoverride\listid4\listoverridecount0\ls4}}
+\paperw11900\paperh16840\margl1440\margr1440\vieww25320\viewh6980\viewkind0
+\deftab720
+\pard\pardeftab720\sa160\partightenfactor0
+
+\f0\fs60 \cf2 \cb3 \expnd0\expndtw0\kerning0
+Crear API para estudiante\cb1 \
+\pard\pardeftab720\sa320\partightenfactor0
+
+\f1\b\fs30 \cf4 \cb3 Necesidad:
+\f0\b0 \cb1 \
+\pard\tx220\tx720\pardeftab720\li720\fi-720\sa320\partightenfactor0
+\ls1\ilvl0\cf4 \cb3 \kerning1\expnd0\expndtw0 {\listtext	
+\f2 \uc0\u10003 
+\f0 	}\expnd0\expndtw0\kerning0
+Un estudiante de programaci\'f3n desea llevar control de los temas que aprendi\'f3 en diferentes cursos para luego poderlos incluir en su curriculum vitae. Para ello, cre\'f3 una base de datos llamada cursos.\'a0\cb1 \
+\pard\tx220\tx720\pardeftab720\li720\fi-720\sa320\partightenfactor0
+\ls2\ilvl0\cf4 \cb3 \kerning1\expnd0\expndtw0 {\listtext	
+\f2 \uc0\u10003 
+\f0 	}\expnd0\expndtw0\kerning0
+A partir de la creaci\'f3n de la base de datos, empez\'f3 con el desarrollo de una aplicaci\'f3n en el que realiz\'f3 el modelado de dos clases: Curso y Tema, en donde un curso puede contener varios temas (relaci\'f3n 1 a muchos).\cb1 \
+\pard\pardeftab720\sa320\partightenfactor0
+\cf4 \
+\
+\pard\tx220\tx720\pardeftab720\li720\fi-720\partightenfactor0
+\ls3\ilvl0\cf4 \cb3 \kerning1\expnd0\expndtw0 {\listtext	
+\f2 \uc0\u10003 
+\f0 	}\expnd0\expndtw0\kerning0
+\'a0 La clase Curso, tiene los siguientes atributos( id_curso, nombre, tipo_curso, fecha_finalizaci\'f3n, listaDeTemas)\cb1 \
+\ls3\ilvl0\cb3 \kerning1\expnd0\expndtw0 {\listtext	
+\f2 \uc0\u10003 
+\f0 	}\expnd0\expndtw0\kerning0
+La clase Tema, tiene los siguientes atributos ( id_tema, nombre, descripcion)\cb1 \
+\pard\pardeftab720\sa320\partightenfactor0
+\cf4 \
+\pard\pardeftab720\sa320\partightenfactor0
+\cf4 \cb3 A partir de esto, el estudiante desea desarrollar una API que le permita realizar las siguientes acciones:\cb1 \
+\
+\pard\tx220\tx720\pardeftab720\li720\fi-720\partightenfactor0
+\ls4\ilvl0\cf4 \cb5 \kerning1\expnd0\expndtw0 {\listtext	1	}\cb6 \expnd0\expndtw0\kerning0
+Crear un nuevo tema\cb1 \
+\ls4\ilvl0\cb5 \kerning1\expnd0\expndtw0 {\listtext	2	}\cb6 \expnd0\expndtw0\kerning0
+Crear un nuevo curso\cb1 \
+\ls4\ilvl0\cb3 \kerning1\expnd0\expndtw0 {\listtext	\cb5 3	}\cb6 \expnd0\expndtw0\kerning0
+Obtener todos los cursos\cb1 \
+\ls4\ilvl0\cb3 \kerning1\expnd0\expndtw0 {\listtext	4	}\cb6 \expnd0\expndtw0\kerning0
+Obtener todos los temas de un determinado curso\cb5 \
+\ls4\ilvl0\cb3 \kerning1\expnd0\expndtw0 {\listtext	5	}\cb6 \expnd0\expndtw0\kerning0
+Obtener todos los cursos que contengan como nombre la palabra \'93Java\'94 (puede contener otras palabras, por ejemplo, Introducci\'f3n a Java, Java avanzado, Java para principiantes, etc).\
+\ls4\ilvl0\kerning1\expnd0\expndtw0 {\listtext	6	}\expnd0\expndtw0\kerning0
+Modificar los datos de un curso\cb1 \
+\ls4\ilvl0\cb3 \kerning1\expnd0\expndtw0 {\listtext	7	}\expnd0\expndtw0\kerning0
+Modificar los datos de un determinado tema\cb1 \
+\pard\pardeftab720\sa320\partightenfactor0
+\cf4 \
+\
+\
+\pard\pardeftab720\sa320\partightenfactor0
+\cf4 \cb3 Para realizar cada uno de los endpoints considerar los m\'e9todos HTTP correspondientes seg\'fan la acci\'f3n que sea necesaria llevar a cabo. Al mismo tiempo, contemplar el uso de DTOs para las respuestas y todas las buenas pr\'e1cticas que puedan ser aplicadas.}

@@ -1,0 +1,28 @@
+{
+	"info": {
+		"_postman_id": "fa3f4ae1-58d2-463e-8883-2caf2b64e270",
+		"name": "ApiCoversorTemperatura",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Conversor Fahrenheit a Celsius",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/fahrenheit/91",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"fahrenheit",
+						"91"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

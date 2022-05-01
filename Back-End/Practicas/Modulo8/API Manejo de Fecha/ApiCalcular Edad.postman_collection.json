@@ -1,0 +1,30 @@
+{
+	"info": {
+		"_postman_id": "98f53356-6d7b-4ff5-abbb-ea513b7a2793",
+		"name": "ApiCalcular Edad",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Calculo de Edad",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/calcularedad/13/04/1979",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"calcularedad",
+						"13",
+						"04",
+						"1979"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
