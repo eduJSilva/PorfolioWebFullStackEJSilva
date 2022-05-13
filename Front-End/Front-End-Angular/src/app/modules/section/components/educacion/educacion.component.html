@@ -10,15 +10,15 @@
         style="float: right; display: block"
       >
        <!-- Botón Salir de todos los formularios-->
-        <div 
-        title="Cancelar" 
+        <div
+        title="Cancelar"
         (click)="
-        service.showFormeducacion = false; 
+        service.showFormeducacion = false;
         formulario.educaciones().clear();
-        service.showFormeducacionModificar = false; 
-        service.showFormeducacionModificar1 = false; 
+        service.showFormeducacionModificar = false;
+        service.showFormeducacionModificar1 = false;
         formulario.submit = false;
-        service.showFormeducacionDelete = false" 
+        service.showFormeducacionDelete = false"
         id="boton_exit_educacion"
         class="btn-edit">
           <a href="/portfolio#listaExperiencia" class="btn-right"
@@ -35,15 +35,15 @@
             service.showFormeducacion = true; formulario.resetFormulario()
           "
         >
-          <a href="/portfolio#listaExperiencia" class="btn-right"
+          <a  href="/portfolio#listaExperiencia" class="btn-right"
             ><i class="fa fa-plus"></i
           ></a>
         </div>
 
         <!-- Botón Modificar Educación-->
-        <div 
+        <div
         *ngIf="educacionList.length > 0"
-        title="Modificar" 
+        title="Modificar"
         class="btn-edit">
           <a
             href="/portfolio#listaExperiencia"
@@ -79,10 +79,9 @@
   <form [formGroup]="form" (ngSubmit)="getId()">
     <div class="form-row align-items-center">
       <div class="col-auto my-1">
-        <label class="mr-sm-2" for="inlineFormCustomSelect"
-          >Educación a modificar</label
-        >
-        <br />
+        <h2><u>Modificar</u></h2>
+        <label class="mr-sm-2" for="inlineFormCustomSelect"><strong>Educación a modificar</strong></label>
+        <br>
         <select
         class="form-select"
           id="inlineFormCustomSelect"
@@ -330,6 +329,7 @@
             </li>
           </ul>
           <div id="listaEducacion"></div>
+          <div id="idlistaskill"></div>
         </div>
       </div>
     </div>

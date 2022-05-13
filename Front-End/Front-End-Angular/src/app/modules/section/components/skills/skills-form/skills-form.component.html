@@ -1,12 +1,11 @@
 <div
   id="skill-form"
   name="formulario-skill"
-  style="position: relative; width: 50%"
 >
   <form
     [formGroup]="profileForm"
     (ngSubmit)="onSubmit(); service.showFormSkill = false; this.submit = false"
-    class="col-6"
+    class="col-12"
     id="form-skill"
     *ngIf="service.showFormSkill"
   >
@@ -16,7 +15,7 @@
       id="boton_exit"
       (click)="skills().clear();service.showFormSkill = false; this.submit = false"
       class="btn-edit"
-      style="margin-top: 20px; position: absolute; left: 600px"
+      style="left: 5px"
     >
       <a href="#skill" class="btn-right"><i class="far fa-times-circle"></i></a>
     </div>
@@ -29,6 +28,15 @@
             Nº: {{ i + 1 }}
 
             <div class="col">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Skill"
+                formControlName="nombreSkill"
+              />
+            </div>
+
+            <div class="col">
               <label class="form-check-label" for="dominio">Dominio:</label>
               <input
                 type="number"
@@ -38,15 +46,6 @@
                 placeholder="Dominio"
                 id="dominio"
                 formControlName="dominio"
-              />
-            </div>
-
-            <div class="col">
-              <input
-                type="text"
-                class="form-control"
-                placeholder="Skill"
-                formControlName="nombreSkill"
               />
             </div>
 
@@ -65,7 +64,7 @@
         </div>
       </div>
       <hr />
-      <button class="btn btn-outline-dark" type="button" (click)="addSkill(); this.submit = true">
+      <button type="button" class="btn btn-outline-success" (click)="addSkill(); this.submit = true">
         + Agregar Skill
       </button>
     </div>

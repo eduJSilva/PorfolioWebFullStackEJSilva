@@ -1,16 +1,4 @@
-/*
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+
 package com.portfolio.EduSilva.controller;
 
 import com.portfolio.EduSilva.event.OnGenerateResetLinkEvent;
@@ -59,11 +47,11 @@ import java.util.Optional;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
+//@CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "https://porfolioeduardojsilva.web.app")
 @RequestMapping("/api/auth")
 @Api(value = "Authorization Rest API", description = "Defines endpoints that can be hit only when the user is not logged in. It's not secured by default.")
-
 public class AuthController {
 
     private static final Logger logger = Logger.getLogger(AuthController.class);
@@ -137,7 +125,7 @@ public class AuthController {
                     OnUserRegistrationCompleteEvent onUserRegistrationCompleteEvent = new OnUserRegistrationCompleteEvent(user, urlBuilder);
                     applicationEventPublisher.publishEvent(onUserRegistrationCompleteEvent);
                     logger.info("Registered User returned [API[: " + user);
-                    return ResponseEntity.ok(new ApiResponse(true, "User registered successfully. Check your email for verification"));
+                    return ResponseEntity.ok(new ApiResponse(true, "Usuario registrado correctamente!!!. Revisa tu correo electrónico para la verificación."));
                 })
                 .orElseThrow(() -> new UserRegistrationException(registrationRequest.getEmail(), "Missing user object in database"));
     }
@@ -167,7 +155,6 @@ public class AuthController {
      * Receives a new passwordResetRequest and sends the acknowledgement after
      * changing the password to the user's mail through the event.
      */
-
     @PostMapping("/password/reset")
     @ApiOperation(value = "Reset the password after verification and publish an event to send the acknowledgement " +
             "email")
@@ -187,11 +174,10 @@ public class AuthController {
      * Confirm the email verification token generated for the user during
      * registration. If token is invalid or token is expired, report error.
      */
-   
     @GetMapping("/registrationConfirmation")
     @ApiOperation(value = "Confirms the email verification token that has been generated for the user during registration")
     public ResponseEntity confirmRegistration(@ApiParam(value = "the token that was sent to the user email") @RequestParam("token") String token, HttpServletResponse response) throws IOException {
- response.sendRedirect("http://localhost:4200/inicio/register/confirmado");
+ response.sendRedirect("https://porfolioeduardojsilva.web.app/inicio/register/confirmado");
         return authService.confirmEmailRegistration(token)
                 .map(user -> ResponseEntity.ok(new ApiResponse(true, "Registro de usuario confirmado!")))
                 .orElseThrow(() -> new InvalidTokenRequestException("Email Verification Token", token, "Failed to confirm. Please generate a new email verification request"));
@@ -241,4 +227,6 @@ public class AuthController {
                 })
                 .orElseThrow(() -> new TokenRefreshException(tokenRefreshRequest.getRefreshToken(), "Unexpected error during token refresh. Please logout and login again."));
     }
+    
+    
 }

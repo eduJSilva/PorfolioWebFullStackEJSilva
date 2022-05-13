@@ -33,13 +33,15 @@
           class="btn-edit"
           (click)="service.showFormSkill = true; formulario.resetFormulario()"
         >
-          <a href="/portfolio#listaEducacio" class="btn-right"
+          <a  href="/portfolio#listaEducacio" class="btn-right"
             ><i class="fa fa-plus"></i
           ></a>
         </div>
 
         <!-- Botón Modificar Skill-->
-        <div title="Modificar" class="btn-edit">
+        <div
+        *ngIf="skillList.length > 0"
+        title="Modificar" class="btn-edit">
           <a
             href="/portfolio#listaEducacio"
             class="btn-right"
@@ -49,7 +51,8 @@
         </div>
 
         <!-- Botón Eliminar Skill-->
-        <div title="Eliminar" class="btn-trash">
+        <div  *ngIf="skillList.length > 0"
+        title="Eliminar" class="btn-trash">
           <a
             href="/portfolio#listaEducacio"
             class="btn-right"
@@ -57,7 +60,7 @@
             ><i class="fa fa-trash"></i
           ></a>
         </div>
-        
+
       </div>
     </div>
 
@@ -106,15 +109,6 @@
             Skill seleccionado:
             <strong>{{ form.value.nombreSkill }}</strong></label
           >
-          <input
-            type="number"
-            [maxlength]="100"
-            [minlength]="1"
-            class="form-control"
-            placeholder="Dominio"
-            id="dominio"
-            formControlName="dominio"
-          />
         </div>
 
         <div class="col">
@@ -123,6 +117,18 @@
             class="form-control"
             placeholder="Skill"
             formControlName="nombreSkill"
+          />
+        </div>
+
+        <div class="col">
+          <input
+            type="number"
+            [maxlength]="100"
+            [minlength]="1"
+            class="form-control"
+            placeholder="Dominio"
+            id="dominio"
+            formControlName="dominio"
           />
         </div>
 
@@ -214,7 +220,6 @@
         </div>
       </form>
     </div>
-
     <app-skills-form></app-skills-form>
 
     <hr
@@ -378,6 +383,7 @@
         </div>
       </div>
       <div id="listaSkill"></div>
+      <div id="idlistaproyectos"></div>
     </div>
   </div>
 </article>

@@ -1,12 +1,11 @@
 <div
   id="educacion-form"
   name="formulario-educacion"
-  style="position: relative; width: 50%"
 >
   <form
     [formGroup]="profileForm"
     (ngSubmit)="onSubmit(); service.showFormeducacion = false;this.submit = false"
-    class="col-6"
+    class="col-12"
     id="form-educacion"
     *ngIf="service.showFormeducacion"
   >
@@ -19,7 +18,7 @@
       service.showFormeducacion = false;
       this.submit = false"
       class="btn-edit"
-      style="margin-top: 20px; position: absolute; left: 600px"
+      style="left: 5px"
     >
       <a href="#educacion" class="btn-right"
         ><i class="far fa-times-circle"></i
@@ -69,7 +68,7 @@
               />
             </div>
 
-            
+
             <div class="col">
                 <input
                   type="text"
@@ -141,8 +140,7 @@
       </div>
       <hr />
       <button
-        class="btn btn-outline-dark"
-        type="button"
+      type="button" class="btn btn-outline-success"
         (click)="addEducacion(); this.submit = true"
       >
         + Agregar Educación

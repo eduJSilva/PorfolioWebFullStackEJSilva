@@ -1,12 +1,7 @@
 .container{
+  margin-top: 20px;
   justify-content:space-between;
 }
-
-
-#boton_edicion {
-margin-left: -15px;
-}
-
 
 .card{
   border: none;
@@ -46,8 +41,8 @@ margin-left: -15px;
 }
 
 #contacto {
+    margin-top: 4%;
   height: auto;
-  margin-top: 55px;
   }
 
 
@@ -56,11 +51,10 @@ margin-left: -15px;
     font-size: 1.2rem;
   }
 
+#info-details {
+  margin-top: 2%;
+}
 
-  #info-details{
-    margin-top: 55px;
-  }
-  
 #info-details li a {
   color: black;
   text-decoration: none;
@@ -74,8 +68,39 @@ margin-left: -15px;
 #info-details li a img {
   width: 44px;
   height: 48px;
-  margin-right: 8px;
 }
+
+
+/* X-Small devices (portrait phones, less than 576px)
+/ No media query for `xs` since this is the default in Bootstrap*/
+
+/* Small devices (landscape phones, 576px and up)*/
+@media (max-width: 767px) {
+  #info-data{
+    margin-top:auto !important;
+    justify-content:space-between;
+  }
+ }
+
+/* Medium devices (tablets, 768px and up)*/
+@media (min-width: 768px) and (max-width: 991px)  {
+
+}
+
+/* Large devices (desktops, 992px and up)*/
+@media (min-width: 992px) and (max-width: 1199px) {
+
+ }
+
+/* X-Large devices (large desktops, 1200px and up)*/
+@media (min-width: 1200px) and (max-width: 1399px) {
+
+ }
+
+/* XX-Large devices (larger desktops, 1400px and up)*/
+@media (min-width: 1400px) {
+
+ }
 
 
 

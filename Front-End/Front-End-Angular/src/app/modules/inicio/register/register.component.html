@@ -47,31 +47,31 @@
 
       <div class="form-floating">
         <label for="exampleInputEmail1" class="form-label">Email</label>
-        <input type="email" formControlName="email" [ngClass]="{'is-invalid': Email?.errors && Email?.touched, 'is-valid': !Email?.errors && Email?.touched}" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" autocomplete="username">
+        <input (ngModelChange)="service.usuarioYaRegistrado = false" type="email" formControlName="email" [ngClass]="{'is-invalid': (Email?.errors && Email?.touched) || (service.usuarioYaRegistrado && Email?.touched), 'is-valid': (!Email?.errors && Email?.touched) || (!service.usuarioYaRegistrado && Email?.touched)}" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" autocomplete="username">
         <div *ngIf='Email?.errors && Email?.touched'>
           <p class="text-danger">El email es requerido.</p>
-          <p *ngIf="Email?.hasError('email')" class="text-danger">
+          <p class="alert alert-info" *ngIf="Email?.hasError('email')" class="text-danger">
             El formato del email debe ser valido.
           </p>
         </div>
+
       </div>
       <div class="form-floating">
         <label for="exampleInputPassword1" class="form-label">Password</label>
         <input type="password" formControlName="password" [ngClass]="{'is-invalid': Password?.errors && Password?.touched, 'is-valid': !Password?.errors && Password?.touched}" class="form-control" id="exampleInputPassword1" autocomplete="current-password">
         <div *ngIf="Password?.errors && Password?.touched">
-          <p *ngIf="Password?.hasError('required')" class="text-danger">
+          <p class="alert alert-info" *ngIf="Password?.hasError('required')" class="text-danger">
             La contraseña es requerida.
           </p>
-          <p *ngIf="Password?.errors?.['minlength']" class="text-danger">
+          <p class="alert alert-info" *ngIf="Password?.errors?.['minlength']" class="text-danger">
             La contraseña debe tener 8 o más caracteres.
           </p>
         </div>
       </div>
      <button id="button" [disabled]="form.invalid" type="submit" class="btn btn-primary">Enviar</button>
-     <label *ngIf="form.invalid" for="button">Ingrese todos los datos requeridos por favor</label>
-
+     <p class="alert alert-danger" id="incorrecto" *ngIf="service.usuarioYaRegistrado && Email?.touched">{{mensajeIncorrecto}}</p>
     </form>
-  
+
   <div>
       <a routerLink="/inicio"><button (click)="service.onlyRead=true">INICIO</button></a>
   </div>

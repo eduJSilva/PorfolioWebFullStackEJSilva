@@ -1,66 +1,89 @@
 <!-- Datos básicos-->
-<div *ngIf="user" id="info-data" class='container'>
-    <div class="row">
-        <div id="datos" class="col-4 card">
-            <div class="card-body">
-                <div>
-                    <button id="boton_edicion" title="Modificar" class="btn" (click)="service.showFormDatos= true; formulario.resetFormulario()" *ngIf='!service.onlyRead'><a
-                            href="/portfolio#datos-form" >
-                            <i class="fa fa-pen"></i>
-                        </a>
-                    </button>
-                </div>
-                <div>
-                    <h1 id="text-nombre" class="card-title">{{user[0].nombre}} {{user[0].apellido}}</h1>
-                    <h2 id="text-titulo" class="card-subtitle mb-2 text-muted">{{user[0].puesto}}</h2>
-                    <h3 id="text-dni" class="card-text"><b>Dni:{{dni}}</b></h3>
+<div *ngIf="user" id="info-data" class="card mat-card">
+    <div class="container">
+  <div class="row">
 
-                    <h3 id="text-date" class="card-text">Edad: {{obtenerEdad(user[0].fechaNacimiento)}}</h3>
-                    <h3 id="text-direccion" class="card-text">{{direccion}}</h3>
-                </div>
-            </div>
+    <div id="datos" class="card col-12 col-md-4">
+        <div>
+            <button
+              id="boton_edicion"
+              title="Modificar"
+              class="btn"
+              (click)="service.showFormDatos = true; formulario.resetFormulario()"
+              *ngIf="!service.onlyRead"
+            >
+              <a href="/portfolio#findatosbasicos">
+                <i class="fa fa-pen"></i>
+              </a>
+            </button>
+          </div>
+      <div class="card-body">
 
+        <div>
+          <h1 id="text-nombre" class="card-title">
+            {{ user[0].nombre }} {{ user[0].apellido }}
+          </h1>
+          <h2 id="text-titulo" class="card-subtitle mb-2 text-muted">
+            {{ user[0].puesto }}
+          </h2>
+          <h3 id="text-dni" class="card-text">
+            <b>Dni:{{ dni }}</b>
+          </h3>
+
+          <h3 id="text-date" class="card-text">
+            Edad: {{ obtenerEdad(user[0].fechaNacimiento) }}
+          </h3>
+          <h3 id="text-direccion" class="card-text">{{ direccion }}</h3>
         </div>
-
-
-        <div id="contacto" class="col-4 card ">
-            <div class="card-header">Contacto:</div>
-            <div class="card-body">
-                <h2 id="telefono" class="card-title"><i class="fa-brands fa-whatsapp"></i>
-                    <a href="https://wa.me/549{{user[0].telefono}}">{{user[0].telefono}}</a>
-                </h2>
-                <h2 id="email" class="card-title"><i class="fa-duotone fa-at"></i>
-                    <a href="mailto:{{user[0].email}}">
-                        {{user[0].email}}</a>
-                </h2>
-            </div>
-        </div>
-
-        <!--Lista de las instituciones vinculadas con la profesión-->
-        <div id="info-details" class="col-3 card offset-md-1">
-            <div class="card-text">
-                <ul class="list-group list-group-flush">
-
-                    <li class="list-group-item">
-                        <a href="{{user[0].linkInstitucionUno}}">
-                            <div style='display:inline-flex'>
-                                <img src="{{user[0].logoInstitucionUno}}">
-                                <h2>{{user[0].institucionUno}}</h2>
-                            </div>
-                        </a>
-                    </li>
-
-                    <li class="list-group-item">
-                        <a href="{{user[0].linkInstitucionDos}}">
-                            <div style='display:inline-flex'>
-                                <img src="{{user[0].logoInstitucionDos}}">
-                                <h2>{{user[0].institucionDos}}</h2>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
+      </div>
     </div>
+
+    <div id="contacto" class="card col-12 col-md-4">
+      <div class="card-header">Contacto:</div>
+      <div class="card-body">
+        <h2 id="telefono" class="card-title">
+          <i class="fa-brands fa-whatsapp"></i>
+          <a href="https://wa.me/549{{ user[0].telefono }}">{{
+            user[0].telefono
+          }}</a>
+        </h2>
+        <h2 id="email" class="card-title">
+          <i class="fa-duotone fa-at"></i>
+          <a href="mailto:{{ user[0].email }}"> {{ user[0].email }}</a>
+        </h2>
+      </div>
+    </div>
+
+    <!--Lista de las instituciones vinculadas con la profesión-->
+
+    <div id="info-details" class="card col-12 col-md-4">
+      <div class="card-text">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">
+            <a href="{{ user[0].linkInstitucionUno }}">
+              <div>
+                <img src="{{ user[0].logoInstitucionUno }}" />
+                <h2>{{ user[0].institucionUno }}</h2>
+              </div>
+            </a>
+          </li>
+
+          <li class="list-group-item">
+            <a href="{{ user[0].linkInstitucionDos }}">
+              <div>
+                <img src="{{ user[0].logoInstitucionDos }}" />
+                <h2>{{ user[0].institucionDos }}</h2>
+              </div>
+            </a>
+          </li>
+        </ul>
+      </div>
+<div id="findatosbasicos"></div>
+    </div>
+
+    <app-datos-basicos-form>
+    </app-datos-basicos-form>
+  </div>
 </div>
-<app-datos-basicos-form></app-datos-basicos-form>
+
+</div>

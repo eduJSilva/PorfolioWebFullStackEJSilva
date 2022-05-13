@@ -10,6 +10,7 @@ import { AutenticacionService } from 'src/app/service/autenticacion.service';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
+  mensajeIncorrecto: string = "Este usuario ya se encuentra registrado!"
   form: FormGroup;
   constructor(public service: AppService, private formBuilder: FormBuilder, private autenticacionService:AutenticacionService, private ruta:Router) {
     this.form=this.formBuilder.group(
@@ -53,7 +54,7 @@ export class RegisterComponent implements OnInit {
     event.preventDefault;
     this.autenticacionService.registrarUsuario(this.form.value).subscribe(data=>{
       console.log("DATA:" + JSON.stringify(data));
-      alert("User registered successfully!!!. Check your email for verification.")
+      alert("Usuario registrado correctamente!!!. Revisa tu correo electrónico para la verificación.")
       this.ruta.navigate(['inicio']);
     })
   }

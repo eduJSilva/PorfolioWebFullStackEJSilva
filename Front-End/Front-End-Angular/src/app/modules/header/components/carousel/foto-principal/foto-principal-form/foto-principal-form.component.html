@@ -1,21 +1,23 @@
 <!-- Formulario Foto Principal-->
-<div name="formulario-foto-principal" id="form-foto">
-    <form [formGroup]="myForm" (ngSubmit)="cambiar_imagenPrincipal(); service.showFormFoto=false" class="col-6" id="formularioFotoPrincipal" *ngIf="service.showFormFoto">
+<div
+[ngStyle]="{'margin-bottom': (service.showFormFoto== true) ? '50px' : '0px'}"
+class="card mat-card" name="formulario-foto-principal" id="form-foto">
+    <form [formGroup]="myForm" (ngSubmit)="cambiar_imagenPrincipal(); service.showFormFoto=false"  id="formularioFotoPrincipal" *ngIf="service.showFormFoto">
                     <!-- Botón Salir del formulario-->
-    <div title="Cancelar" id="boton_exit" (click)="service.showFormFoto=false" class="btn-edit" style="margin-top: 20px; position:absolute; left:600px;">
+    <div title="Cancelar" id="boton_exit" (click)="fotito1 = null; service.showFormFoto=false" class="btn-edit">
         <a href="#experiencia" class="btn-right"><i class="far fa-times-circle"></i></a>
     </div>
 
-        <label style="margin-top: 20px; margin-left: 5px;">Suba una foto para su Portfolio</label>
-
+        <label>Suba una foto para su Portfolio</label>
         <!--Foto-->
-        <div class="card pmd-card bg-dark text-white" style="margin: 5px;">
+        <div class="card pmd-card bg-dark text-white">
             <label class="custom-file-label" for="formFile1">Foto de perfil:</label>
             <input formControlName="file" type="file" (change)="onFileChange($event)" id="formFile1"
                 accept=".jpg, .jpeg, .png" class="custom-file-input" />
         </div>
-
-        <button style="margin:5px;" class="btn btn-primary" [disabled]="myForm.invalid" type="submit">Submit</button>
+        <p class="alert alert-danger" *ngIf="this.fotito1 && this.fotito1.size >150000">Por favor
+          inserte una imagen que no exceda los 150kb</p>
+        <button *ngIf="this.fotito1" class="btn btn-primary" [disabled]="myForm.invalid || this.fotito1.size >150000" type="submit">Submit</button>
 
     </form>
 </div>

@@ -37,7 +37,7 @@ export class ProyectosComponent implements OnInit {
 
   borrar: boolean =false;
   proyectoSeleccionado: boolean=false;
- 
+
   form = this.fb.group({
     nombreProyecto: [
       '',
@@ -60,21 +60,21 @@ export class ProyectosComponent implements OnInit {
   });
 
   constructor(public service: AppService, private fb: FormBuilder) {
- 
+
   }
 
   /*CARGAR IMAGEN del proyecto
    */
   onFileChange(event: any) {
     if (event.target.files.length > 0) {
-     
+
       this.fotito1 = event.target.files[0];
       this.form.patchValue({
        fileSource: this.fotito1,
       });
         const fr = new FileReader();
         fr.readAsDataURL(this.fotito1);
-     
+
 
       console.log('datos Fotito1:----♠: ', this.fotito1);
     }
@@ -134,7 +134,7 @@ export class ProyectosComponent implements OnInit {
   }
 
   @ViewChild(ProyectosFormComponent) formulario: any;
- 
+
 
 
   ngOnInit(): void {

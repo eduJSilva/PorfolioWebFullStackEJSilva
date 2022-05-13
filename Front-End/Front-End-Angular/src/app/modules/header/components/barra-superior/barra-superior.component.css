@@ -1,11 +1,11 @@
-
-#barrasuperior {
+.barranav{
   position: sticky;
   top: 0;
   z-index: 3;
   color: white;
   margin-bottom: -11px;
 }
+
 
 #barrasuperior span h1 {
 display: inline-flex;
@@ -46,4 +46,139 @@ display: inline-flex;
 
 #logout{
   background: red;
+}
+
+
+#imginti{
+  width:130px;
+  height:75px
+}
+
+#imgargentinap{
+  width:200px;
+  height:60px
+}
+
+h1{
+
+}
+
+
+#imggit{
+  width:35px;
+  height:35px
+}
+
+#imglinkelid{
+  width:35px;
+  height:35px
+}
+
+#imgtwitter{
+  width:35px;
+  height:35px
+}
+
+
+
+/* Small devices (landscape phones, 576px and up)*/
+@media (max-width: 767px) {
+
+
+  .barranav {
+    /*width:400px;*/
+    position: sticky;
+    top: 0;
+    z-index: 3;
+    color: white;
+
+  }
+
+  #barrasuperior span h1 {
+  display:inline-block
+  }
+
+  .btn-primary {
+    font-size: 20px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    letter-spacing: 3px;
+    word-spacing: 3.4px;
+    color: white;
+    font-weight: normal;
+
+    text-decoration: none;
+    font-style: normal;
+    font-variant: normal;
+    text-transform: none;
+
+    line-height: 17px;
+    padding: 8px;
+    display: inline-block;
+  }
+
+  .btn-primary:hover {
+    border-radius: 32px;
+    border: 2px solid rgb(28, 110, 164);
+  }
+
+  .btn-primary:active {
+    border-radius: 32px;
+    border: 2px solid rgb(28, 110, 164);
+    background: #1C6EA4;
+    background: -moz-linear-gradient(left, #422c6d 0%,#800080 38%,  #7d2181 100%);
+    background: -webkit-linear-gradient(left, #422c6d 0%, #800080 38%, #7d2181 100%);
+    background: linear-gradient(to right, #422c6d 0%, #800080 38%,  #7d2181 100%);
+
+  }
+
+  #logout{
+    background: red;
+  }
+
+#imginti{
+  margin-left: 10px;
+  width:100px;
+  height:70px
+}
+
+#imgargentinap{
+  width:100px;
+  height:30px
+}
+
+h1{
+font-size: 12px;
+}
+
+
+#imggit{
+  margin-left: 5px;
+  width:30px;
+  height:30px
+}
+
+#imglinkelid{
+  width:30px;
+  height:30px
+}
+
+#imgtwitter{
+  width:30px;
+  height:30px
+}
+
+#login{
+  font-size: 14px;
+  width: 77px;
+  height:auto;
+  margin-left: 40px;
+}
+
+#logout{
+  font-size: 14px;
+  width: 77px;
+  height:auto;
+  margin-left: 40px;
+}
+
 }

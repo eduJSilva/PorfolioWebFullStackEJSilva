@@ -2,12 +2,11 @@
 <div
   id="datos-form"
   name="formulario-datos"
-  style="position: relative; background-color: azure; margin: 8px"
 >
   <form
     [formGroup]="profileForm"
     (ngSubmit)="onSubmit(); service.showFormDatos = false"
-    class="col-6"
+    class="col-12"
     id="form-datos"
     *ngIf="service.showFormDatos"
   >
@@ -17,13 +16,13 @@
       id="boton_exit"
       (click)="service.showFormDatos = false"
       class="btn-edit"
-      style="margin-top: 20px; position: absolute; left: 600px"
     >
       <a href="#experiencia" class="btn-right"
         ><i class="far fa-times-circle"></i
       ></a>
     </div>
-    <legend style="margin-top: 20px; margin-left: 5px">
+    <br>
+    <legend>
       Modificar datos Principales:
     </legend>
 
@@ -172,6 +171,7 @@
     </div>
 
     <!--      <div id="direccion" formGroupName="address">  -->
+      <br>
     <legend for="direccion" style="margin: 5px">Dirección:</legend>
 
     <!--Autocompletado Direccion-->
@@ -263,7 +263,7 @@
     </div>
 
     <!--  </div>  -->
-
+    <br>
     <legend for="contacto" style="margin: 5px">Datos de Contacto:</legend>
 
     <div class="card pmd-card bg-dark text-white" style="margin: 5px">
@@ -316,6 +316,7 @@
     </div>
 
     <!--Carga de Instituciones-->
+    <br>
     <legend for="direccion" style="margin: 5px">
       Instituciones Educativas:
     </legend>
@@ -400,7 +401,7 @@
   >
     Submit
   </button>
-  
+
 
 <!--
     <button
@@ -417,4 +418,5 @@
     >
   -->
   </form>
+  <br>
 </div>

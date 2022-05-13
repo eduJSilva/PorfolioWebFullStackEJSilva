@@ -2,10 +2,11 @@
     <div id="acerca-de">
         <div class="card-titles">
             <h2>Acerca de</h2>
+            <div id="idform-acercade"></div>
             <div>
                 <button id="boton_edicion" title="Modificar" class="btn"
                 (click)="service.showFormAcercaDe= true; formulario.resetFormulario()" *ngIf='!service.onlyRead'>
-                <a href="/portfolio#text-acercade"><i class="fa fa-pen"></i></a>
+                <a href="/portfolio#idform-acercade"><i class="fa fa-pen"></i></a>
             </button>
 
             </div>
@@ -16,4 +17,6 @@
         </div>
     </div>
 </div>
-<app-acerca-de-form></app-acerca-de-form>
+<app-acerca-de-form id="idagregarexperiencia">
+
+</app-acerca-de-form>

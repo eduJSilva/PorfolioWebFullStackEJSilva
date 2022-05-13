@@ -1,9 +1,6 @@
 <!-- Formulario Portada-->
-<div
-  id="portadaform"
-  name="formulario-portada"
-  style="position: relative; background-color: azure; margin: 8px"
->
+
+<div class="card" name="formulario-portada" id="portadaform">
   <form
     [formGroup]="myForm"
     (ngSubmit)="cambiarPortada(); service.showFormCarousel = false"
@@ -15,21 +12,18 @@
     <div
       title="Cancelar"
       id="boton_exit"
-      (click)="service.showFormCarousel = false"
+      (click)="this.fotito1 = null;this.fotito2 = null;this.fotito3 = null;service.showFormCarousel = false"
       class="btn-edit"
-      style="margin-top: 20px; position: absolute; left: 600px"
     >
       <a href="#experiencia" class="btn-right"
         ><i class="far fa-times-circle"></i
       ></a>
     </div>
 
-    <label style="margin-top: 20px; margin-left: 5px"
-      >Seleccione imagenes para la portada</label
-    >
+    <label>Seleccione tres imagenes para la portada</label>
 
     <!--Foto1-->
-    <div class="card pmd-card bg-dark text-white" style="margin: 5px">
+    <div class="card pmd-card bg-dark text-white">
       <label class="custom-file-label" for="formFile1">Imagen uno:</label>
       <input
         formControlName="file"
@@ -39,11 +33,12 @@
         accept=".jpg, .jpeg, .png"
         class="custom-file-input"
       />
-
+      <p class="alert alert-danger" *ngIf="this.fotito1 && this.fotito1.size >150000">Por favor
+        inserte una imagen que no exceda los 150kb</p>
     </div>
 
     <!--Foto2-->
-    <div class="card pmd-card bg-dark text-white" style="margin: 5px">
+    <div class="card pmd-card bg-dark text-white">
       <label class="custom-file-label" for="formFile2">Imagen dos:</label>
       <input
         formControlName="file"
@@ -53,10 +48,12 @@
         accept=".jpg, .jpeg, .png"
         class="custom-file-input"
       />
+      <p class="alert alert-danger" *ngIf="this.fotito2 && this.fotito2.size >150000">Por favor
+        inserte una imagen que no exceda los 150kb</p>
     </div>
 
     <!--Foto3-->
-    <div class="card pmd-card bg-dark text-white" style="margin: 5px">
+    <div class="card pmd-card bg-dark text-white">
       <label class="custom-file-label" for="formFile3">Imagen tres:</label>
 
       <input
@@ -67,6 +64,8 @@
         accept=".jpg, .jpeg, .png"
         class="custom-file-input"
       />
+      <p class="alert alert-danger" *ngIf="this.fotito3 && this.fotito3.size >150000">Por favor
+        inserte una imagen que no exceda los 150kb</p>
     </div>
 
     <div
@@ -78,12 +77,7 @@
       </div>
     </div>
 
-    <button
-      style="margin: 5px"
-      class="btn btn-primary"
-      [disabled]="myForm.invalid"
-      type="submit"
-    >
+    <button *ngIf="this.fotito1 && this.fotito2 && fotito3 && (this.fotito1.size <150000 || this.fotito2.size <150000 || this.fotito3.size <150000)" class="btn btn-primary" [disabled]="myForm.invalid || this.fotito1.size >150000 || this.fotito2.size >150000 || this.fotito3.size >150000" type="submit">
       Submit
     </button>
   </form>

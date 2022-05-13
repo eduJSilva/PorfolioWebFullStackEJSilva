@@ -14,7 +14,7 @@ export class CarouselFormComponent implements OnInit {
   validator: number = 0;
 
   listaFotos: [] = [];
- 
+
     myForm = new FormGroup({
    // name: new FormControl('', [Validators.required, Validators.minLength(3)]),
     file: new FormControl('', [Validators.required]),
@@ -22,7 +22,9 @@ export class CarouselFormComponent implements OnInit {
     fileSource: new FormControl('', [Validators.required]),
   });
 
-  constructor(public service: AppService, private fb:FormBuilder) {}
+  constructor(public service: AppService, private fb:FormBuilder) {
+    console.log("Imagen 1 de la protada: ", this.fotito1)
+  }
 
   get f() {
     return this.myForm.controls;
@@ -61,7 +63,7 @@ export class CarouselFormComponent implements OnInit {
     }
   }
 
-  
+
   cambiarPortada(): void {
     console.log("Listado de fotos-->>>",this.listaFotos)
     this.service.putPortada(this.fotito1).subscribe(
@@ -94,8 +96,8 @@ export class CarouselFormComponent implements OnInit {
     window.location.reload();
   }
 
-  
- 
+
+
   @ViewChild(FormGroupDirective) formGroupDirective!: FormGroupDirective;
 
   //resetear formulario

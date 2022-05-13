@@ -11,9 +11,11 @@ export class AppService {
   //url:string="https://aaa164e8-8475-49ce-be43-906818021ef8.mock.pstmn.io/"
 
   //Servidor TomCat de Sprintboot
-  url: string = 'http://localhost:8080/';
+  //url: string = 'http://localhost:8080/';
 
-  github: string = 'https://github.com/Freston2021';
+  url: string = 'https://porfolioeduardojsilva.herokuapp.com/';
+
+  github: string = 'https://github.com/eduJSilva';
   linkelid: string =
     'https://www.linkedin.com/in/eduardo-javier-silva-8089a5224';
   twitter: string = 'https://twitter.com/Silvaedujavier';
@@ -28,12 +30,12 @@ export class AppService {
   datosUsuario: any;
   sesionFinalizada!: boolean;
   usuarioNot!: boolean;
+  usuarioYaRegistrado!: boolean;
 
   showFormDatos!: boolean;
   showFormFoto!: boolean;
   showFormImagenProyecto!: boolean;
 
-  
   showFormCarousel!: boolean;
   showFormAcercaDe!: boolean;
   showFormeducacion!: boolean;
@@ -102,21 +104,16 @@ export class AppService {
     return this.http.post(this.url + 'new/skill', skill);
   }
 
-
-
   postProyecto(proyecto: any): Observable<any> {
     return this.http.post(this.url + 'new/proyecto', proyecto);
   }
 
-//Logout
+  //Logout
   logout(): Observable<any> {
     return this.http.post(this.url + 'api/user/logout', this.datosUsuario);
   }
 
-
-
   //Get
-
   /*
   //DATOS DESDE EL JSON
   getUsers(): Observable<any> {
@@ -136,8 +133,7 @@ export class AppService {
     });
   }
 
-  
-  //Put
+  //Patch
   putUsers(persona: any): Observable<any> {
     return this.http.patch(this.url + 'modificar/persona', persona);
   }
@@ -151,7 +147,10 @@ export class AppService {
   }
 
   putExperiencia(id: any, experiencia: any): Observable<any> {
-    return this.http.patch(this.url + 'modificar/experiencia/' + id, experiencia);
+    return this.http.patch(
+      this.url + 'modificar/experiencia/' + id,
+      experiencia
+    );
   }
 
   putSkill(id: any, skill: any): Observable<any> {
@@ -183,67 +182,63 @@ export class AppService {
     return this.http.delete(this.url + 'delete/proyecto/' + id);
   }
 
+  //Imagen Proyecto -->CRUD
+  getImagenProyecto(): Observable<any> {
+    return this.http.get(this.url + 'list/imagen-proyectos');
+  }
 
-
-  //Imagen Proyecto
   postImagenProyecto(id: any, imagenproyecto: any): Observable<any> {
-    console.log("Datosde la imagen", imagenproyecto)
-    console.log("ID--------", id)
-   
+    console.log('Datosde la imagen', imagenproyecto);
+    console.log('ID--------', id);
+
     const formData = new FormData();
     formData.append('multipartFile', imagenproyecto);
-    return this.http.post(this.url + 'upload/imagen-proyecto/'+id, formData);
+    return this.http.post(this.url + 'upload/imagen-proyecto/' + id, formData);
   }
 
   putImagenProyecto(id: any, imagenproyecto: any): Observable<any> {
-    console.log("Datosde la imagen", imagenproyecto)
-    console.log("ID--------", id)
-   
+    console.log('Datosde la imagen', imagenproyecto);
+    console.log('ID--------', id);
+
     const formData = new FormData();
     formData.append('multipartFile', imagenproyecto);
-    return this.http.put(this.url + 'modificar/imagen-proyecto/'+id, formData);
-  }
-
-  getImagenProyecto(): Observable<any> {
-    return this.http.get(this.url + 'list/imagen-proyectos');
+    return this.http.put(
+      this.url + 'modificar/imagen-proyecto/' + id,
+      formData
+    );
   }
 
   public deleteImagenProyecto(id: number): Observable<any> {
     return this.http.delete<any>(this.url + `delete/imagen-proyecto/${id}`);
   }
 
+  //Foto Principal -->RUD
+  getFoto(): Observable<any> {
+    return this.http.get(this.url + 'list/fotos');
+  }
 
-
-  //Foto Principal
   putFoto(foto: any): Observable<any> {
     const formData = new FormData();
     formData.append('multipartFile', foto);
     return this.http.post(this.url + 'upload/foto', formData);
   }
 
-  getFoto(): Observable<any> {
-    return this.http.get(this.url + 'list/fotos');
-  }
-
   public deleteFoto(id: number): Observable<any> {
     return this.http.delete<any>(this.url + `delete/foto/${id}`);
   }
 
+  //Portada -->-->RUD
+  getPortada(): Observable<any> {
+    return this.http.get(this.url + 'list/imagen');
+  }
 
-  //Portada
   putPortada(portada: any): Observable<any> {
     const formData = new FormData();
     formData.append('multipartFile', portada);
     return this.http.post(this.url + 'upload/imagen', formData);
   }
 
-  getPortada(): Observable<any> {
-    return this.http.get(this.url + 'list/imagen');
-  }
-
   public deletePortada(id: number): Observable<any> {
     return this.http.delete<any>(this.url + `delete/imagen/${id}`);
   }
-
-  
 }

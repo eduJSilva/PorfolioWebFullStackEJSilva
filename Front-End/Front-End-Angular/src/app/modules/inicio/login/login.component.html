@@ -7,7 +7,7 @@
         <!--EMAIL-->
         <div class="form-floating">
           <label for="exampleInputEmail1">Email</label>
-          <input type="email" formControlName="email" [ngClass]="{'is-invalid': Email?.errors && Email?.touched, 'is-valid': !Email?.errors && Email?.touched}" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" autocomplete="username">
+          <input (ngModelChange)="service.usuarioNot = false" type="email" formControlName="email" [ngClass]="{'is-invalid': Email?.errors && Email?.touched, 'is-valid': !Email?.errors && Email?.touched}" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" autocomplete="username">
           <div *ngIf='Email?.errors && Email?.touched'>
             <p class="text-danger">El email es requerido.</p>
             <p *ngIf="Email?.hasError('email')" class="text-danger">
@@ -16,7 +16,7 @@
           </div>
         </div>
 
-      
+
         <!--USERNAME
         <div class="mb-3">
           <label for="username" class="form-label">Username</label>
@@ -35,7 +35,7 @@
 
         <div class="form-floating">
           <label for="exampleInputPassword1">Password</label>
-          <input placeholder="Password" class="form-control" type="password" formControlName="password" [ngClass]="{'is-invalid': Password?.errors && Password?.touched, 'is-valid': !Password?.errors && Password?.touched}" class="form-control" id="exampleInputPassword1" autocomplete="current-password">
+          <input (ngModelChange)="service.usuarioNot = false" placeholder="Password" class="form-control" type="password" formControlName="password" [ngClass]="{'is-invalid': Password?.errors && Password?.touched, 'is-valid': !Password?.errors && Password?.touched}" class="form-control" id="exampleInputPassword1" autocomplete="current-password">
           <div *ngIf="Password?.errors && Password?.touched">
             <p *ngIf="Password?.hasError('required')" class="text-danger">
               La contraseña es requerida.
@@ -47,9 +47,9 @@
         </div>
 
        <button type="submit" class="w-100 btn btn-lg btn-primary">Ingresar</button>
-       <p id="incorrecto" *ngIf="service.usuarioNot">{{mensajeIncorrecto}}</p>
+       <p class="alert alert-danger" id="incorrecto" *ngIf="service.usuarioNot">{{mensajeIncorrecto}}</p>
       </form>
-    
+
       <!--REGISTRO DE USUARIO
       <div>
           <br>
@@ -57,11 +57,11 @@
         <a routerLink="/inicio/register">Registrarse</a>
     </div>
 
-  -->  
+  -->
 
     <div>
         <a routerLink="/inicio"><button (click)="service.onlyRead=true; service.usuarioNot = false">INICIO</button></a>
     </div>
-    
+
 </div>
 </div>

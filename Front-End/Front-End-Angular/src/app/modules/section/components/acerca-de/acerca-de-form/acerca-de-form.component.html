@@ -1,8 +1,8 @@
-<div id="acercaDe-form" name="formulario-acercaDe" style="position: relative;background-color: azure;margin: 8px;">
-    <form [formGroup]="profileForm" (ngSubmit)="onSubmit(); service.showFormAcercaDe=false" class="col-6" id="form-acercaDe" *ngIf="service.showFormAcercaDe">
+<div id="acercaDe-form" name="formulario-acercaDe">
+    <form [formGroup]="profileForm" (ngSubmit)="onSubmit(); service.showFormAcercaDe=false" class="col-12" id="form-acercaDe" *ngIf="service.showFormAcercaDe">
         <!-- Botón Salir del formulario-->
         <div title="Cancelar" id="boton_exit" (click)="service.showFormAcercaDe=false;" class="btn-edit"
-            style="margin-top: 20px; position:absolute; left:600px;">
+        style="left: 5px">
             <a href="#experiencia" class="btn-right"><i class="far fa-times-circle"></i></a>
         </div>
         <legend style="margin-top: 20px; margin-left: 5px;">Acerca De:</legend>
@@ -16,10 +16,10 @@
             <div *ngIf="f['acercaDe'].errors && f['acercaDe'].errors['minlength']">tres letras o mas
             </div>
         </div>
-        
+
         <button id="button" [disabled]="profileForm.invalid" style="margin:20px 5px;" class="btn btn-success"
         type="submit">Submit</button>
         <label *ngIf="profileForm.invalid" for="button"></label>
     </form>
-   
+    <div id="acercadefin"></div>
 </div>

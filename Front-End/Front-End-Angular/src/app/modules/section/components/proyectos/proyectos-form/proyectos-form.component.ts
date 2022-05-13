@@ -15,7 +15,6 @@ import { AppService } from 'src/app/service/app.service';
   styleUrls: ['./proyectos-form.component.css'],
 })
 export class ProyectosFormComponent implements OnInit {
-
   submit: boolean = false;
 
   /*CARGAR IMAGENES
@@ -35,6 +34,8 @@ export class ProyectosFormComponent implements OnInit {
   conta!: number;
 
   agregarDisable:boolean = false;
+
+
 
   constructor(
     private fb: FormBuilder,
@@ -84,14 +85,13 @@ export class ProyectosFormComponent implements OnInit {
           Validators.required,
           Validators.minLength(3),
           Validators.maxLength(60),
-          Validators.pattern('[a-zA-Z][a-zA-Z ]+'),
         ],
       ],
       fecha: ['', [Validators.required]],
       descripcion: ['', [Validators.required]],
       link: ['', [Validators.required]],
       // imagen: ['', [Validators.required]],
-      file: '',
+      file: ['',[Validators.required]],
       fileSource: '',
       persona: { id: 1 },
     });
@@ -120,7 +120,7 @@ export class ProyectosFormComponent implements OnInit {
     alert('Registro ingresado y modificado con exito!');
     window.location.reload();
     this.fotito1 = [];
-    
+
   }
 
   //resetear formulario

@@ -10,9 +10,11 @@ import { AppService } from './app.service';
 export class AutenticacionService {
 //url="https://reqres.in/api/login";
 //url="https://aaa164e8-8475-49ce-be43-906818021ef8.mock.pstmn.io/login";
-url="http://localhost:8080/api/auth/login";
-urlRegistro="http://localhost:8080/api/auth/register";
+//url="http://localhost:8080/api/auth/login";
+//urlRegistro="http://localhost:8080/api/auth/register";
 
+url="https://porfolioeduardojsilva.herokuapp.com/api/auth/login";
+urlRegistro="https://porfolioeduardojsilva.herokuapp.com/api/auth/register";
 
 currentUserSubject: BehaviorSubject<any>;
 
@@ -23,7 +25,7 @@ currentUserSubject: BehaviorSubject<any>;
 
    registrarUsuario(credenciales:any): Observable<any> {
     return this.http.post(this.urlRegistro, credenciales).pipe(map(data=>{
-     sessionStorage.setItem('currentUser', JSON.stringify(data)); 
+     sessionStorage.setItem('currentUser', JSON.stringify(data));
      this.currentUserSubject.next(data);
      this.service.datosUsuario = credenciales;
      return data;
@@ -33,7 +35,7 @@ currentUserSubject: BehaviorSubject<any>;
 
    iniciarSesion(credenciales:any): Observable<any> {
      return this.http.post(this.url, credenciales).pipe(map(data=>{
-      sessionStorage.setItem('currentUser', JSON.stringify(data)); 
+      sessionStorage.setItem('currentUser', JSON.stringify(data));
       this.currentUserSubject.next(data);
       return data;
      }))

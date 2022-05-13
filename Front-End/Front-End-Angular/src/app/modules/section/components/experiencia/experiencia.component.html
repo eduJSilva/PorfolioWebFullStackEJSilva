@@ -79,10 +79,9 @@
         <form [formGroup]="form" (ngSubmit)="getId()">
           <div class="form-row align-items-center">
             <div class="col-auto my-1">
-              <label class="mr-sm-2" for="inlineFormCustomSelect"
-                >Experiencia a modificar</label
-              >
-              <br />
+              <h2><u>Modificar</u></h2>
+              <label class="mr-sm-2" for="inlineFormCustomSelect"><strong>Experiencia a modificar</strong></label>
+              <br>
               <select
                 class="form-select"
                 id="inlineFormCustomSelect"
@@ -127,7 +126,7 @@
               id="nombreExperiencia"
               formControlName="puesto"
             />
-            
+
 
             <div class="col">
               <input
@@ -259,7 +258,7 @@
           </div>
         </form>
       </div>
-
+<div></div>
       <app-experiencia-form></app-experiencia-form>
     </div>
     <hr
@@ -298,6 +297,7 @@
           </li>
         </ul>
         <div id="listaExperiencia"></div>
+        <div id="idlistaExperiencia"></div>
       </div>
     </div>
   </div>

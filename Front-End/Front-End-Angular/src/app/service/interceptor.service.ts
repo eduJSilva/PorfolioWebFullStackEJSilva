@@ -51,6 +51,10 @@ export class InterceptorService implements HttpInterceptor {
           this.service.usuarioNot = true;
         }
 
+        if (error.status == 409) {
+          this.service.usuarioYaRegistrado = true;
+        }
+
         return throwError(error.status);
       })
     );

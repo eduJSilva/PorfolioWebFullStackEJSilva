@@ -1,13 +1,12 @@
 <div
   id="experiencia-form"
   name="formulario-experiencia"
-  style="position: relative; width: 50%"
 >
   <form
     [formGroup]="profileForm"
     (ngSubmit)="
       onSubmit(); service.showFormexperiencia = false; this.submit = false"
-    class="col-6"
+    class="col-12"
     id="form-experiencia"
     *ngIf="service.showFormexperiencia"
   >
@@ -20,7 +19,7 @@
         service.showFormexperiencia = false;
         this.submit = false"
       class="btn-edit"
-      style="margin-top: 20px; position: absolute; left: 600px"
+      style="left: 5px"
     >
       <a href="#experiencia" class="btn-right"
         ><i class="far fa-times-circle"></i
@@ -71,7 +70,7 @@
               <p>
                 Ejemplo:
                 <a
-                  href="https://scontent.feze14-1.fna.fbcdn.net/v/t39.30808-6/271299184_4822899901110545_3061435022759078454_n.jpg?_nc_cat=103&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=DsJSHXVhyKYAX-3N7lU&_nc_ht=scontent.feze14-1.fna&oh=00_AT-UdBKiEe6ih2HZwSbImRcykwvgV3rc8n6PXHjNz2p0wA&oe=627191AA"
+                  href="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/INTI_Logo_2019.png/800px-INTI_Logo_2019.png"
                   >Link del logo de INTI</a
                 >
               </p>
@@ -107,8 +106,7 @@
       </div>
       <hr />
       <button
-        class="btn btn-outline-dark"
-        type="button"
+      type="button" class="btn btn-outline-success"
         (click)="addExperiencia(); this.submit = true"
       >
         + Agregar Experiencia

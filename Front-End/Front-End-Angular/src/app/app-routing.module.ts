@@ -16,15 +16,15 @@ const routes: Routes = [
   { path: 'inicio' || '', component: InicioComponent },
   { path: 'inicio/login', component: LoginComponent },
   { path: 'inicio/register', component: RegisterComponent },
-  { path: 'inicio/register/confirmado', component: RegistroconfirmadoComponent, canActivate: [GuardGuard]},
+  { path: 'inicio/register/confirmado', component: RegistroconfirmadoComponent},
   { path: 'inicio/logout', component: PaginaLogoutComponent, canActivate: [GuardGuard] },
   { path: 'inicio/sesionexpired', component: SesionExpiredComponent, canActivate: [GuardGuard] },
-  {path: 'portfolio', component: PortfolioComponent, canActivate: [GuardGuard],},  
+  {path: 'portfolio', component: PortfolioComponent, canActivate: [GuardGuard],},
   { path: '', redirectTo: 'inicio', pathMatch: 'full' },
   { path: '**', component: Pagina404Component },
   { path: 'formdatos', component: DatosBasicosFormComponent },
   { path: 'formacercade', component: AcercaDeFormComponent },
- 
+
 ];
 
 @NgModule({
