@@ -17,12 +17,6 @@ export class LoginComponent implements OnInit {
   private errorMessage: number = 0;
   mensajeIncorrecto: any = "Usuario/Contraseña-->Incorrecto";
   loading = false;
-  currentTime = 0;
-  interval = setInterval(() => {
-    this.currentTime = this.currentTime + 10;
-    console.log(this.currentTime);
-}, 1000);
-
 
   constructor(
     public service: AppService,
@@ -59,7 +53,6 @@ export class LoginComponent implements OnInit {
 
 
   onEnviar(event: Event) {
-    clearInterval(this.interval);
     console.log(this.form.value);
     this.service.datosUsuario = this.form.value;
     event.preventDefault;
