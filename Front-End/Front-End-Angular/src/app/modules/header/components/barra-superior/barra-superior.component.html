@@ -45,10 +45,10 @@
             </span>
 
             <span>
-                <a  routerLink="/inicio/login" *ngIf="service.onlyRead==true;" (click)='service.onlyRead=false; service.usuarioNot = false' class="navbar-brand has-logo nav-header-guest__link nav-header-guest__link--login btn btn-primary"  target="_self" data-track-action="CLICK" data-track-id="login">Admin Login</a>
+                <a  routerLink="/inicio/login" *ngIf="service.onlyRead==true;" (click)=' this.service.loading = false; service.onlyRead=false; service.usuarioNot = false' class="navbar-brand has-logo nav-header-guest__link nav-header-guest__link--login btn btn-primary"  target="_self" data-track-action="CLICK" data-track-id="login">Admin Login</a>
 
            <!--     <a routerLink="/inicio" *ngIf="service.onlyRead==false;" (click)='service.logOutForm(); logOut()' class="navbar-brand has-logo nav-header-guest__link nav-header-guest__link--login btn btn-primary" data-track-action="CLICK" data-track-id="logout" id="logout">Logout</a>  -->
-                <a routerLink="/inicio" *ngIf="service.onlyRead==false;" (click)='service.logOutForm(); logout(); service.usuarioNot = false' class="navbar-brand has-logo nav-header-guest__link nav-header-guest__link--login btn btn-primary" data-track-action="CLICK" data-track-id="logout" id="logout">Logout</a>
+                <a routerLink="/inicio" *ngIf="service.onlyRead==false;" (click)=' this.service.loading = false; service.logOutForm(); logout(); service.usuarioNot = false' class="navbar-brand has-logo nav-header-guest__link nav-header-guest__link--login btn btn-primary" data-track-action="CLICK" data-track-id="logout" id="logout">Logout</a>
 
             </span>
         </div>

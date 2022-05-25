@@ -57,6 +57,8 @@ export class AppService {
   showFormProyectoModificar1!: boolean;
   showFormProyectoDelete!: boolean;
 
+  loading = false;
+
   formGroupDirective!: FormGroupDirective;
 
   constructor(private http: HttpClient) {}

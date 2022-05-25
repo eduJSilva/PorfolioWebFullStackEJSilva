@@ -58,7 +58,16 @@
       </div>
       <div class="form-floating">
         <label for="exampleInputPassword1" class="form-label">Password</label>
-        <input type="password" formControlName="password" [ngClass]="{'is-invalid': Password?.errors && Password?.touched, 'is-valid': !Password?.errors && Password?.touched}" class="form-control" id="exampleInputPassword1" autocomplete="current-password">
+
+        <div class="input-group">
+        <input type="password" formControlName="password" [ngClass]="{'is-invalid': Password?.errors && Password?.touched, 'is-valid': !Password?.errors && Password?.touched}" class="form-control" id="exampleInputPassword1" autocomplete="current-password" #vercontrasenia>
+
+        <div class="input-group-append">
+          <button id="show_password" class="btn btn-primary" type="button" (click)="mostrarPassword()"> <span
+              class="fa fa-eye-slash icon"></span> </button>
+        </div>
+      </div>
+
         <div *ngIf="Password?.errors && Password?.touched">
           <p class="alert alert-info" *ngIf="Password?.hasError('required')" class="text-danger">
             La contraseña es requerida.
@@ -73,6 +82,6 @@
     </form>
 
   <div>
-      <a routerLink="/inicio"><button (click)="service.onlyRead=true">INICIO</button></a>
+      <a routerLink="/inicio"><button (click)=" this.service.loading = false; service.onlyRead=true">INICIO</button></a>
   </div>
 </div>

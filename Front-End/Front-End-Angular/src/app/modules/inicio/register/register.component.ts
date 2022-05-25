@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AppService } from 'src/app/service/app.service';
@@ -12,6 +12,10 @@ import { AutenticacionService } from 'src/app/service/autenticacion.service';
 export class RegisterComponent implements OnInit {
   mensajeIncorrecto: string = "Este usuario ya se encuentra registrado!"
   form: FormGroup;
+
+  @ViewChild('vercontrasenia') vercontrasenia!: ElementRef;
+
+
   constructor(public service: AppService, private formBuilder: FormBuilder, private autenticacionService:AutenticacionService, private ruta:Router) {
     this.form=this.formBuilder.group(
       {
@@ -47,6 +51,16 @@ export class RegisterComponent implements OnInit {
   get Password() {
     return this.form.get('password')
   }
+
+  mostrarPassword(){
+		if(this.vercontrasenia.nativeElement.type == "password"){
+			this.vercontrasenia.nativeElement.type = "text";
+			$('.icon').removeClass('fa fa-eye-slash').addClass('fa fa-eye');
+		}else{
+			this.vercontrasenia.nativeElement.type = "password";
+			$('.icon').removeClass('fa fa-eye').addClass('fa fa-eye-slash');
+		}
+	}
 
   onEnviar(event:Event)
   {

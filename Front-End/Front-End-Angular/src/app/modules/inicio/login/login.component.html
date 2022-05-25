@@ -1,23 +1,26 @@
-<div  class="text-center">
-<div #inicio class="form-signin">
+<div class="text-center">
+  <div #inicio class="form-signin">
 
-      <h2 class="h3 mb-3 fw-normal">Iniciar sesión</h2>
-      <form [formGroup]="form" class="form-signin" (ngSubmit)="onEnviar($event); service.onlyRead=false">
+    <h2 class="h3 mb-3 fw-normal">Iniciar sesión</h2>
+    <form [formGroup]="form" class="form-signin" (ngSubmit)="onEnviar($event); service.onlyRead=false">
 
-        <!--EMAIL-->
-        <div class="form-floating">
-          <label for="exampleInputEmail1">Email</label>
-          <input (ngModelChange)="this.loading=false; service.usuarioNot = false" type="email" formControlName="email" [ngClass]="{'is-invalid': Email?.errors && Email?.touched, 'is-valid': !Email?.errors && Email?.touched}" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" autocomplete="username">
-          <div *ngIf='Email?.errors && Email?.touched'>
-            <p class="text-danger">El email es requerido.</p>
-            <p *ngIf="Email?.hasError('email')" class="text-danger">
-              El formato del email debe ser valido.
-            </p>
-          </div>
+      <!--EMAIL-->
+      <div class="form-floating">
+        <label for="exampleInputEmail1">Email</label>
+        <input (ngModelChange)="this.service.loading=false; service.usuarioNot = false" type="email"
+          formControlName="email"
+          [ngClass]="{'is-invalid': Email?.errors && Email?.touched, 'is-valid': !Email?.errors && Email?.touched}"
+          class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" autocomplete="username">
+        <div *ngIf='Email?.errors && Email?.touched'>
+          <p class="text-danger">El email es requerido.</p>
+          <p *ngIf="Email?.hasError('email')" class="text-danger">
+            El formato del email debe ser valido.
+          </p>
         </div>
+      </div>
 
 
-        <!--USERNAME
+      <!--USERNAME
         <div class="mb-3">
           <label for="username" class="form-label">Username</label>
           <input type="text" formControlName="username" [ngClass]="{'is-invalid': Username?.errors && Username?.touched, 'is-valid': !Username?.errors && Username?.touched}" class="form-control" id="username" autocomplete="current-username">
@@ -33,29 +36,41 @@
 
         -->
 
-        <div class="form-floating">
-          <label for="exampleInputPassword1">Password</label>
-          <input (ngModelChange)="this.loading=false; service.usuarioNot = false" placeholder="Password" class="form-control" type="password" formControlName="password" [ngClass]="{'is-invalid': Password?.errors && Password?.touched, 'is-valid': !Password?.errors && Password?.touched}" class="form-control" id="exampleInputPassword1" autocomplete="current-password">
-          <div *ngIf="Password?.errors && Password?.touched">
-            <p *ngIf="Password?.hasError('required')" class="text-danger">
-              La contraseña es requerida.
-            </p>
-            <p *ngIf="Password?.errors?.['minlength']" class="text-danger">
-              La contraseña debe tener 8 o más caracteres.
-            </p>
+      <div class="form-floating">
+        <label for="exampleInputPassword1">Password</label>
+
+        <div class="input-group">
+          <input (ngModelChange)="this.service.loading=false; service.usuarioNot = false" placeholder="Password"
+            class="form-control" type="password" formControlName="password"
+            [ngClass]="{'is-invalid': Password?.errors && Password?.touched, 'is-valid': !Password?.errors && Password?.touched}"
+            class="form-control" id="exampleInputPassword1" autocomplete="current-password" #vercontrasenia>
+          <div class="input-group-append">
+            <button id="show_password" class="btn btn-primary" type="button" (click)="mostrarPassword()"> <span
+                class="fa fa-eye-slash icon"></span> </button>
           </div>
         </div>
-        <div style="text-align:center">
-       <button type="submit" class="w-100 btn btn-lg btn-primary" [disabled]="loading">Ingresar</button>
+
+
+
+        <div *ngIf="Password?.errors && Password?.touched">
+          <p *ngIf="Password?.hasError('required')" class="text-danger">
+            La contraseña es requerida.
+          </p>
+          <p *ngIf="Password?.errors?.['minlength']" class="text-danger">
+            La contraseña debe tener 8 o más caracteres.
+          </p>
+        </div>
       </div>
 
-      <div *ngIf="this.loading== true" [class.spinner]="loading">
+      <div style="text-align:center">
+        <button type="submit" class="w-100 btn btn-lg btn-primary" [class.spinner]="this.service.loading"
+          [disabled]="this.service.loading">Ingresar</button>
       </div>
 
-       <p class="alert alert-danger" id="incorrecto" *ngIf="service.usuarioNot">{{mensajeIncorrecto}}</p>
-      </form>
+      <p class="alert alert-danger" id="incorrecto" *ngIf="service.usuarioNot">{{mensajeIncorrecto}}</p>
+    </form>
 
-      <!--REGISTRO DE USUARIO
+    <!--REGISTRO DE USUARIO
       <div>
           <br>
         <h2>Si todavia no sos usuario registrate</h2>
@@ -65,8 +80,8 @@
   -->
 
     <div>
-        <a routerLink="/inicio"><button (click)="service.onlyRead=true; service.usuarioNot = false">INICIO</button></a>
+      <a routerLink="/inicio"><button (click)=" this.service.loading = false; service.onlyRead=true; service.usuarioNot = false">INICIO</button></a>
     </div>
 
-</div>
+  </div>
 </div>

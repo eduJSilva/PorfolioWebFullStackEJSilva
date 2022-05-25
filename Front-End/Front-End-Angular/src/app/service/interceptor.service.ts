@@ -29,6 +29,7 @@ export class InterceptorService implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     var currentUser = this.autenticacionServicio.UsuarioAutenticado;
     if (currentUser && currentUser.accessToken) {
+      this.service.loading = true;
       console.log('todo ok!');
       req = req.clone({
         setHeaders: {
@@ -48,6 +49,7 @@ export class InterceptorService implements HttpInterceptor {
           return throwError(error);
         }
         if (error.status == 417) {
+          this.service.loading = false;
           this.service.usuarioNot = true;
         }
 
