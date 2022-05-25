@@ -8,13 +8,18 @@ import { AppService } from './app.service';
   providedIn: 'root'
 })
 export class AutenticacionService {
+  //Pruebas con reqres y mock de postman...
 //url="https://reqres.in/api/login";
 //url="https://aaa164e8-8475-49ce-be43-906818021ef8.mock.pstmn.io/login";
-//url="http://localhost:8080/api/auth/login";
-//urlRegistro="http://localhost:8080/api/auth/register";
 
+
+//url="http://localhost:8080/api/auth/login";
 url="https://porfolioeduardojsilva.herokuapp.com/api/auth/login";
+
+
+//urlRegistro="http://localhost:8080/api/auth/register";
 urlRegistro="https://porfolioeduardojsilva.herokuapp.com/api/auth/register";
+
 
 currentUserSubject: BehaviorSubject<any>;
 

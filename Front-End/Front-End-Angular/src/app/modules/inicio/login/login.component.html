@@ -7,7 +7,7 @@
         <!--EMAIL-->
         <div class="form-floating">
           <label for="exampleInputEmail1">Email</label>
-          <input (ngModelChange)="service.usuarioNot = false" type="email" formControlName="email" [ngClass]="{'is-invalid': Email?.errors && Email?.touched, 'is-valid': !Email?.errors && Email?.touched}" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" autocomplete="username">
+          <input (ngModelChange)="this.loading=false; service.usuarioNot = false" type="email" formControlName="email" [ngClass]="{'is-invalid': Email?.errors && Email?.touched, 'is-valid': !Email?.errors && Email?.touched}" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" autocomplete="username">
           <div *ngIf='Email?.errors && Email?.touched'>
             <p class="text-danger">El email es requerido.</p>
             <p *ngIf="Email?.hasError('email')" class="text-danger">
@@ -35,7 +35,7 @@
 
         <div class="form-floating">
           <label for="exampleInputPassword1">Password</label>
-          <input (ngModelChange)="service.usuarioNot = false" placeholder="Password" class="form-control" type="password" formControlName="password" [ngClass]="{'is-invalid': Password?.errors && Password?.touched, 'is-valid': !Password?.errors && Password?.touched}" class="form-control" id="exampleInputPassword1" autocomplete="current-password">
+          <input (ngModelChange)="this.loading=false; service.usuarioNot = false" placeholder="Password" class="form-control" type="password" formControlName="password" [ngClass]="{'is-invalid': Password?.errors && Password?.touched, 'is-valid': !Password?.errors && Password?.touched}" class="form-control" id="exampleInputPassword1" autocomplete="current-password">
           <div *ngIf="Password?.errors && Password?.touched">
             <p *ngIf="Password?.hasError('required')" class="text-danger">
               La contraseña es requerida.
@@ -45,8 +45,13 @@
             </p>
           </div>
         </div>
+        <div style="text-align:center">
+       <button type="submit" class="w-100 btn btn-lg btn-primary" [disabled]="loading">Ingresar</button>
+      </div>
 
-       <button type="submit" class="w-100 btn btn-lg btn-primary">Ingresar</button>
+      <div *ngIf="this.loading== true" [class.spinner]="loading">
+      </div>
+
        <p class="alert alert-danger" id="incorrecto" *ngIf="service.usuarioNot">{{mensajeIncorrecto}}</p>
       </form>
 

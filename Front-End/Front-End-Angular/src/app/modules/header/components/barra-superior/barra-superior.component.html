@@ -8,13 +8,13 @@
 
             <span>
                 <a href="https://argentinaprograma.inti.gob.ar" class="navbar-brand has-logo">
-                    <img id="imginti" src="/assets/logos_argentinaPrograma/APLogo-20-20.png" alt="Argentinaprograma">
+                    <img id="imginti" src="/assets/logos_argentinaPrograma/APLogo-20-20.png" alt="Argentinaprograma" target="_blank">
                 </a>
             </span>
 
             <span>
                 <a href="https://argentinaprograma.inti.gob.ar" class="navbar-brand has-logo">
-                    <img id="imgargentinap" src="/assets/logos_argentinaPrograma/LogosInti.png" alt="Inti">
+                    <img id="imgargentinap" src="/assets/logos_argentinaPrograma/LogosInti.png" alt="Inti" target="_blank">
                 </a>
             </span>
 
@@ -28,25 +28,25 @@
 
             <span class="logo img-fluid" style="margin-left: 15px;">
                 <a  [href]="service.github"  class="navbar-brand has-logo">
-                    <img id="imggit" src="/assets/logos_redes/GitHub-Mark/PNG/GitHub-Mark-Light-120px-plus.png" alt="Github">
+                    <img id="imggit" src="/assets/logos_redes/GitHub-Mark/PNG/GitHub-Mark-Light-120px-plus.png" alt="Github" target="_blank">
                 </a>
             </span>
 
             <span class="logo img-fluid">
                 <a [href]="service.linkelid" class="navbar-brand has-logo">
-                    <img id="imglinkelid" src="/assets/logos_redes/LinkedIn-Logos/LI-In-Bug.png" alt="LinkedIn">
+                    <img id="imglinkelid" src="/assets/logos_redes/LinkedIn-Logos/LI-In-Bug.png" alt="LinkedIn" target="_blank">
                 </a>
             </span>
 
             <span class="logo img-fluid">
                 <a [href]="service.twitter" class="navbar-brand has-logo">
-                    <img id="imgtwitter" src="/assets/logos_redes/Twitter_Logo.png" alt="Twitter" >
+                    <img id="imgtwitter" src="/assets/logos_redes/Twitter_Logo.png" alt="Twitter" target="_blank">
                 </a>
             </span>
 
             <span>
                 <a  routerLink="/inicio/login" *ngIf="service.onlyRead==true;" (click)='service.onlyRead=false; service.usuarioNot = false' class="navbar-brand has-logo nav-header-guest__link nav-header-guest__link--login btn btn-primary"  target="_self" data-track-action="CLICK" data-track-id="login">Admin Login</a>
-                
+
            <!--     <a routerLink="/inicio" *ngIf="service.onlyRead==false;" (click)='service.logOutForm(); logOut()' class="navbar-brand has-logo nav-header-guest__link nav-header-guest__link--login btn btn-primary" data-track-action="CLICK" data-track-id="logout" id="logout">Logout</a>  -->
                 <a routerLink="/inicio" *ngIf="service.onlyRead==false;" (click)='service.logOutForm(); logout(); service.usuarioNot = false' class="navbar-brand has-logo nav-header-guest__link nav-header-guest__link--login btn btn-primary" data-track-action="CLICK" data-track-id="logout" id="logout">Logout</a>
 

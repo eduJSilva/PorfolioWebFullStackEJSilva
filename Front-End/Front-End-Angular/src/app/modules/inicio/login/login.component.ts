@@ -16,6 +16,12 @@ export class LoginComponent implements OnInit {
   form: FormGroup;
   private errorMessage: number = 0;
   mensajeIncorrecto: any = "Usuario/Contraseña-->Incorrecto";
+  loading = false;
+  currentTime = 0;
+  interval = setInterval(() => {
+    this.currentTime = this.currentTime + 10;
+    console.log(this.currentTime);
+}, 1000);
 
 
   constructor(
@@ -50,13 +56,17 @@ export class LoginComponent implements OnInit {
     return this.form.get('username');
   }
 
+
+
   onEnviar(event: Event) {
+    clearInterval(this.interval);
     console.log(this.form.value);
     this.service.datosUsuario = this.form.value;
     event.preventDefault;
     this.autenticacionService
       .iniciarSesion(this.form.value)
       .subscribe((data) => {
+        this.loading = true;
         console.log('Datos del Token-->' + JSON.stringify(data));
         this.token = 'Bearer ' + data;
         this.ruta.navigate(['portfolio']);

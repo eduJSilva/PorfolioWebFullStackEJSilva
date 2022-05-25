@@ -12,7 +12,6 @@ export class AppService {
 
   //Servidor TomCat de Sprintboot
   //url: string = 'http://localhost:8080/';
-
   url: string = 'https://porfolioeduardojsilva.herokuapp.com/';
 
   github: string = 'https://github.com/eduJSilva';

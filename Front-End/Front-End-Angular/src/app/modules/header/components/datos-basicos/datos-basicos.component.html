@@ -43,13 +43,13 @@
       <div class="card-body">
         <h2 id="telefono" class="card-title">
           <i class="fa-brands fa-whatsapp"></i>
-          <a href="https://wa.me/549{{ user[0].telefono }}">{{
+          <a href="https://wa.me/549{{ user[0].telefono }}" target="_blank">{{
             user[0].telefono
           }}</a>
         </h2>
         <h2 id="email" class="card-title">
           <i class="fa-duotone fa-at"></i>
-          <a href="mailto:{{ user[0].email }}"> {{ user[0].email }}</a>
+          <a href="mailto:{{ user[0].email }}" target="_blank"> {{ user[0].email }}</a>
         </h2>
       </div>
     </div>
@@ -60,7 +60,7 @@
       <div class="card-text">
         <ul class="list-group list-group-flush">
           <li class="list-group-item">
-            <a href="{{ user[0].linkInstitucionUno }}">
+            <a href="{{ user[0].linkInstitucionUno }}" target="_blank">
               <div>
                 <img src="{{ user[0].logoInstitucionUno }}" />
                 <h2>{{ user[0].institucionUno }}</h2>
@@ -69,7 +69,7 @@
           </li>
 
           <li class="list-group-item">
-            <a href="{{ user[0].linkInstitucionDos }}">
+            <a href="{{ user[0].linkInstitucionDos }}" target="_blank">
               <div>
                 <img src="{{ user[0].logoInstitucionDos }}" />
                 <h2>{{ user[0].institucionDos }}</h2>
