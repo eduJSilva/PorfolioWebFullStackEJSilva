@@ -17,6 +17,9 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { InterceptorService } from './service/interceptor.service';
 import { RegistroconfirmadoComponent } from './modules/inicio/registroconfirmado/registroconfirmado.component';
 import { SesionExpiredComponent } from './modules/inicio/sesion-expired/sesion-expired.component';
+import { ResetPasswordComponent } from './modules/inicio/reset-password/reset-password.component';
+import { FormsModule } from '@angular/forms';
+import { NewPasswordComponent } from './modules/inicio/new-password/new-password.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +31,8 @@ import { SesionExpiredComponent } from './modules/inicio/sesion-expired/sesion-e
     PortfolioComponent,
     RegistroconfirmadoComponent,
     SesionExpiredComponent,
+    ResetPasswordComponent,
+    NewPasswordComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +42,8 @@ import { SesionExpiredComponent } from './modules/inicio/sesion-expired/sesion-e
     FooterModule,
     RouterModule,
     ReactiveFormsModule,
-   
+    FormsModule,
+
 
     BrowserAnimationsModule,
   ],

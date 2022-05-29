@@ -20,6 +20,16 @@ url="https://porfolioeduardojsilva.herokuapp.com/api/auth/login";
 //urlRegistro="http://localhost:8080/api/auth/register";
 urlRegistro="https://porfolioeduardojsilva.herokuapp.com/api/auth/register";
 
+//urlResetPassword="http://localhost:8080/api/auth/password/resetlink";
+urlResetPassword="https://porfolioeduardojsilva.herokuapp.com/api/auth/password/resetlink";
+
+//urlPasswordResetDatos="http://localhost:8080/api/user/password/list/token";
+urlPasswordResetDatos="https://porfolioeduardojsilva.herokuapp.com/api/user/password/list/token";
+
+
+//urlNewPassword="http://localhost:8080/api/auth/password/reset";
+urlNewPassword="https://porfolioeduardojsilva.herokuapp.com/api/auth/password/reset";
+
 
 currentUserSubject: BehaviorSubject<any>;
 
@@ -45,6 +55,19 @@ currentUserSubject: BehaviorSubject<any>;
       return data;
      }))
    }
+
+   resetPassword(email: any): Observable<any> {
+      return this.http.post(this.urlResetPassword, email);
+  }
+
+  newPassword(password: any): Observable<any> {
+    return this.http.post(this.urlNewPassword, password);
+
+  }
+
+  getPasswordResetDatos(): Observable<any> {
+    return this.http.get(this.urlPasswordResetDatos);
+  }
 
    get UsuarioAutenticado(){
      return this.currentUserSubject.value;

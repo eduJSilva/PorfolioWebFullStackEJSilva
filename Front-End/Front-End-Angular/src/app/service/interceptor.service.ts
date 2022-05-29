@@ -51,6 +51,8 @@ export class InterceptorService implements HttpInterceptor {
         if (error.status == 417) {
           this.service.loading = false;
           this.service.usuarioNot = true;
+          this.service.error417 = true;
+
         }
 
         if (error.status == 409) {

@@ -11,12 +11,14 @@ import { AcercaDeFormComponent } from './modules/section/components/acerca-de/ac
 import { RegistroconfirmadoComponent } from './modules/inicio/registroconfirmado/registroconfirmado.component';
 import { PaginaLogoutComponent } from './modules/header/components/barra-superior/pagina-logout/pagina-logout.component';
 import { SesionExpiredComponent } from './modules/inicio/sesion-expired/sesion-expired.component';
+import { NewPasswordComponent } from './modules/inicio/new-password/new-password.component';
 
 const routes: Routes = [
   { path: 'inicio' || '', component: InicioComponent },
   { path: 'inicio/login', component: LoginComponent },
   { path: 'inicio/register', component: RegisterComponent },
   { path: 'inicio/register/confirmado', component: RegistroconfirmadoComponent},
+  { path: 'inicio/newpassword', component: NewPasswordComponent},
   { path: 'inicio/logout', component: PaginaLogoutComponent, canActivate: [GuardGuard] },
   { path: 'inicio/sesionexpired', component: SesionExpiredComponent, canActivate: [GuardGuard] },
   {path: 'portfolio', component: PortfolioComponent, canActivate: [GuardGuard],},

@@ -25,6 +25,7 @@ export class AppService {
   onlyRead: boolean = false;
   sesionexpire: boolean = false;
   error406: boolean = false;
+  error417: boolean = false;
 
   datosUsuario: any;
   sesionFinalizada!: boolean;
@@ -58,6 +59,9 @@ export class AppService {
   showFormProyectoDelete!: boolean;
 
   loading = false;
+
+  resetpassword:boolean=false;
+  newpassword:boolean = false;
 
   formGroupDirective!: FormGroupDirective;
 

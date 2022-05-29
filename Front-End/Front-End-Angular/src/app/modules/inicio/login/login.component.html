@@ -1,4 +1,4 @@
-<div class="text-center">
+<div *ngIf="service.resetpassword==false" class="text-center">
   <div #inicio class="form-signin">
 
     <h2 class="h3 mb-3 fw-normal">Iniciar sesión</h2>
@@ -70,6 +70,11 @@
       <p class="alert alert-danger" id="incorrecto" *ngIf="service.usuarioNot">{{mensajeIncorrecto}}</p>
     </form>
 
+    <div style="text-align:center">
+      <button href="#resetpassword" type="button" class="w-50 btn btn-sm btn-secondary"
+        (click)="form.reset(); service.resetpassword = true">Reset Password</button>
+    </div>
+
     <!--REGISTRO DE USUARIO
       <div>
           <br>
@@ -78,10 +83,15 @@
     </div>
 
   -->
-
+    <br>
     <div>
-      <a routerLink="/inicio"><button (click)=" this.service.loading = false; service.onlyRead=true; service.usuarioNot = false">INICIO</button></a>
+      <a routerLink="/inicio"><button
+          (click)="service.resetpassword = false; this.service.loading = false; service.onlyRead=true; service.usuarioNot = false">INICIO</button></a>
     </div>
 
   </div>
+</div>
+
+<div id="resetpassword">
+  <app-reset-password *ngIf="service.resetpassword"></app-reset-password>
 </div>
