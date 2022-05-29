@@ -57,10 +57,9 @@
 
       </div>
       <div class="form-floating">
-        <label for="exampleInputPassword1" class="form-label">Password</label>
-
+        <label for="exampleInputPassword1">Password</label>
         <div class="input-group">
-        <input type="password" formControlName="password" [ngClass]="{'is-invalid': Password?.errors && Password?.touched, 'is-valid': !Password?.errors && Password?.touched}" class="form-control" id="exampleInputPassword1" autocomplete="current-password" #vercontrasenia>
+        <input placeholder="Password" type="password" formControlName="password" [ngClass]="{'is-invalid': Password?.errors && Password?.touched, 'is-valid': !Password?.errors && Password?.touched}" class="form-control" id="exampleInputPassword1" autocomplete="current-password" #vercontrasenia>
 
         <div class="input-group-append">
           <button id="show_password" class="btn btn-primary" type="button" (click)="mostrarPassword()"> <span
