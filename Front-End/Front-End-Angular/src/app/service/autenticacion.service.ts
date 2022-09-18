@@ -12,7 +12,7 @@ export class AutenticacionService {
   //url="https://reqres.in/api/login";
   //url="https://aaa164e8-8475-49ce-be43-906818021ef8.mock.pstmn.io/login";
 
-  local = true;
+  local = false;
 
   url: string = '';
   urlRegistro: string = '';
