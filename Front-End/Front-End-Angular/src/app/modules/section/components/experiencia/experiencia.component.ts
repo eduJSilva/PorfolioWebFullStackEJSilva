@@ -61,9 +61,9 @@ export class ExperienciaComponent implements OnInit {
          console.log(element.idExperiencia)
        }
      };
- 
+
    }
- 
+
 
   getIdBorrar() {
     this.idBorrar = this.form.value.idSeleccion;
@@ -73,15 +73,21 @@ export class ExperienciaComponent implements OnInit {
   modificarExp(){
     this.service.putExperiencia(this.idModificar, this.experienciaForm.value).subscribe((data) => {
       alert('Registro modificado con exito!');
-      window.location.reload();      
+      window.location.reload();
     });
   }
 
   deleteExp(){
     this.service.deleteExperiencia(this.idBorrar).subscribe((data)=>{
       alert('Registro borrado con exito!');
-      window.location.reload(); 
+      window.location.reload();
     })
+  }
+
+  sortData() {
+    return this.experienciaList.sort((a, b) => {
+      return <any>new Date(b.inicio) - <any>new Date(a.inicio);
+    });
   }
 
   @ViewChild(ExperienciaFormComponent) formulario: any;
@@ -95,7 +101,8 @@ export class ExperienciaComponent implements OnInit {
         }
         this.experienciaList = data[0].listaDeExperiencias;
       });
-    
+      this.sortData();
+    console.log(this.experienciaList)
     });
   }
 

@@ -19,6 +19,7 @@ import { ExperienciaFormComponent } from './components/experiencia/experiencia-f
 import { ProyectosFormComponent } from './components/proyectos/proyectos-form/proyectos-form.component';
 import { SkillsFormComponent } from './components/skills/skills-form/skills-form.component';
 import { RouterModule } from '@angular/router';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { RouterModule } from '@angular/router';
     MatSliderModule,
     MatCardModule,
     GooglePlaceModule,
-    RouterModule
+    RouterModule,
+    DragDropModule,
   ],
   providers: [AppService, GooglePlaceService],
 

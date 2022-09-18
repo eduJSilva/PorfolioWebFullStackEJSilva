@@ -20,6 +20,7 @@ import { SesionExpiredComponent } from './modules/inicio/sesion-expired/sesion-e
 import { ResetPasswordComponent } from './modules/inicio/reset-password/reset-password.component';
 import { FormsModule } from '@angular/forms';
 import { NewPasswordComponent } from './modules/inicio/new-password/new-password.component';
+import { LoginUserComponent } from './modules/inicio/login usuario/login-usuario.component';
 
 @NgModule({
   declarations: [
@@ -27,12 +28,13 @@ import { NewPasswordComponent } from './modules/inicio/new-password/new-password
     InicioComponent,
     Pagina404Component,
     LoginComponent,
+    LoginUserComponent,
     RegisterComponent,
     PortfolioComponent,
     RegistroconfirmadoComponent,
     SesionExpiredComponent,
     ResetPasswordComponent,
-    NewPasswordComponent
+    NewPasswordComponent,
   ],
   imports: [
     BrowserModule,
@@ -43,9 +45,8 @@ import { NewPasswordComponent } from './modules/inicio/new-password/new-password
     RouterModule,
     ReactiveFormsModule,
     FormsModule,
-
-
     BrowserAnimationsModule,
+
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true}],
   bootstrap: [AppComponent]

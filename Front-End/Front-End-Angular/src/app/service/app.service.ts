@@ -10,9 +10,7 @@ export class AppService {
   //MOCK DE POSTMAN
   //url:string="https://aaa164e8-8475-49ce-be43-906818021ef8.mock.pstmn.io/"
 
-  //Servidor TomCat de Sprintboot
-  //url: string = 'http://localhost:8080/';
-  url: string = 'https://porfolioeduardojsilva.herokuapp.com/';
+  url:string='';
 
   github: string = 'https://github.com/eduJSilva';
   linkelid: string =

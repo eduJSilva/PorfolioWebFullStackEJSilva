@@ -12,9 +12,11 @@ import { RegistroconfirmadoComponent } from './modules/inicio/registroconfirmado
 import { PaginaLogoutComponent } from './modules/header/components/barra-superior/pagina-logout/pagina-logout.component';
 import { SesionExpiredComponent } from './modules/inicio/sesion-expired/sesion-expired.component';
 import { NewPasswordComponent } from './modules/inicio/new-password/new-password.component';
+import { LoginUserComponent } from './modules/inicio/login usuario/login-usuario.component';
 
 const routes: Routes = [
-  { path: 'inicio' || '', component: InicioComponent },
+ // { path: 'inicio' || '', component: InicioComponent },
+ { path: 'inicio' || '', component: LoginUserComponent },
   { path: 'inicio/login', component: LoginComponent },
   { path: 'inicio/register', component: RegisterComponent },
   { path: 'inicio/register/confirmado', component: RegistroconfirmadoComponent},
