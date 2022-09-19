@@ -97,7 +97,6 @@ SECTION WRAPS
 }
 
 #headerwrap h1 {
-  filter: contrast(200%);
   font-size: 80px;
   color: black;
 }
@@ -109,9 +108,78 @@ SECTION WRAPS
 
 
 #headerwrap h3 {
+  margin-top:30px;
   font-size: 20px;
   color: black;
 }
+
+@media (max-width: 767px) {
+  #headerwrap{
+    padding-top:60px;
+  }
+	#headerwrap h1 {
+	  font-size: 70px;
+	}
+  #headerwrap h2 {
+	  font-size: 30px;
+	}
+  #headerwrap h3 {
+    padding-top:0;
+	  font-size: 20px;
+	}
+  }
+
+
+  @media (max-width: 485px) {
+    #headerwrap{
+      padding-top:60px;
+    }
+    #headerwrap h1 {
+      font-size: 60px;
+    }
+    #headerwrap h2 {
+      font-size: 30px;
+    }
+    #headerwrap h3 {
+      padding-top:0;
+      font-size: 20px;
+    }
+    }
+
+    @media (max-width: 418px) {
+      #headerwrap{
+        padding-top:60px;
+      }
+      #headerwrap h1 {
+        font-size: 50px;
+      }
+      #headerwrap h2 {
+        font-size: 30px;
+      }
+      #headerwrap h3 {
+        padding-top:0;
+        font-size: 20px;
+      }
+      }
+
+
+
+@media (max-width: 354px) {
+  #headerwrap{
+    padding-top:60px;
+  }
+	#headerwrap h1 {
+	  font-size: 40px;
+	}
+  #headerwrap h2 {
+	  font-size: 30px;
+	}
+  #headerwrap h3 {
+    padding-top:0;
+	  font-size:15px;
+	}
+  }
+
 
 /* Intnro Wrap */
 
