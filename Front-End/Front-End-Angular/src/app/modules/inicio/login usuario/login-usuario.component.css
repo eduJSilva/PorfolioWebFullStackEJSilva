@@ -76,11 +76,9 @@ SECTION WRAPS
 /* Header Wrap */
 
 #headerwrap {
-
-  /*background: url(https://res.cloudinary.com/dmfuwxcez/image/upload/v1663531692/pexels-pixabay-270360_b7royk.jpg) no-repeat center top;
-  */background: url(https://res.cloudinary.com/dmfuwxcez/image/upload/o_60/v1663532201/cablesLaPaz_ld41jz.png) no-repeat center top;
-  /*background: url(https://res.cloudinary.com/dmfuwxcez/image/upload/e_make_transparent:10/v1663511006/pexels-pixabay-247791_tteq7s.jpg)no-repeat center top;
-*/
+ /* background: url(https://res.cloudinary.com/dmfuwxcez/image/upload/v1663544736/cablesLaPaz1_sfya3j.jpg) no-repeat center top;
+  background: url(https://res.cloudinary.com/dmfuwxcez/image/upload/o_60/v1663532201/cablesLaPaz_ld41jz.png) no-repeat center top;
+  */background: url(https://res.cloudinary.com/dmfuwxcez/image/upload/v1663511027/pexels-olia-danilevich-4974913_z8dddv.jpg)no-repeat center top;
   /* margin-top: 60px;*/
   padding-top:40px;
   text-align: center;
@@ -99,23 +97,20 @@ SECTION WRAPS
 }
 
 #headerwrap h1 {
-  opacity: 100%;
   filter: contrast(200%);
   font-size: 80px;
-  color: whitesmoke;
+  color: black;
 }
 
 #headerwrap h2 {
-  opacity: 100%;
   font-size: 40px;
-  color: white;
+  color: black;
 }
 
 
 #headerwrap h3 {
-  opacity: 100%;
   font-size: 20px;
-  color: white;
+  color: black;
 }
 
 /* Intnro Wrap */
@@ -333,7 +328,7 @@ sm {
 }
 
  button:hover {
-  background: rgb(41, 41, 41);
+  background: rgb(58, 54, 54);
   color: rgb(241, 255, 246);
 }
 
