@@ -78,7 +78,7 @@ SECTION WRAPS
 #headerwrap {
  /* background: url(https://res.cloudinary.com/dmfuwxcez/image/upload/v1663544736/cablesLaPaz1_sfya3j.jpg) no-repeat center top;
   background: url(https://res.cloudinary.com/dmfuwxcez/image/upload/o_60/v1663532201/cablesLaPaz_ld41jz.png) no-repeat center top;
-  */background: url(https://res.cloudinary.com/dmfuwxcez/image/upload/v1663511027/pexels-olia-danilevich-4974913_z8dddv.jpg)no-repeat center top;
+  */background: url(https://res.cloudinary.com/dmfuwxcez/image/upload/v1663555393/portada_pydaml.jpg)no-repeat center top;
   /* margin-top: 60px;*/
   padding-top:40px;
   text-align: center;
@@ -112,7 +112,7 @@ SECTION WRAPS
   font-size: 20px;
   color: black;
 }
-
+/*
 @media (max-width: 767px) {
   #headerwrap{
     padding-top:60px;
@@ -145,25 +145,27 @@ SECTION WRAPS
       font-size: 20px;
     }
     }
-
+*/
     @media (max-width: 418px) {
       #headerwrap{
         padding-top:60px;
       }
       #headerwrap h1 {
-        font-size: 50px;
+        font-size: 8vw;
+
       }
       #headerwrap h2 {
         font-size: 30px;
       }
       #headerwrap h3 {
+        margin-top:10px;
         padding-top:0;
-        font-size: 20px;
+        font-size: 5vw;
       }
       }
 
 
-
+/*
 @media (max-width: 354px) {
   #headerwrap{
     padding-top:60px;
@@ -179,7 +181,7 @@ SECTION WRAPS
 	  font-size:15px;
 	}
   }
-
+*/
 
 /* Intnro Wrap */
 

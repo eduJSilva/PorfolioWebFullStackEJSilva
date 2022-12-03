@@ -1,98 +1,102 @@
-<div class="container-width" style="background-color:black">
-<div id="headerwrap">
-  <div class="container">
-    <div class="row centered">
-      <div class="col-md-12">
-        <div>
-        <h1>Eduardo J. Silva</h1>
-        <h3><strong>Full Stack Developer</strong></h3>
-        <div>
-          <br>
-          <h2 style="margin-top:10px">PORTFOLIO</h2>
-      <!--    <button type="submit" class="btn btn-md btn-dark">Ingresar</button> -->
-        </div>
-      </div>
-
-      </div>
-    </div>
-    <!--/.row -->
-  </div>
-  <!--/.container -->
-
-<form [formGroup]="form" class="form-signin" (ngSubmit)="onEnviar($event); service.onlyRead=false">
-
-  <!--EMAIL-->
-  <div style="display: none" class="form-floating">
-    <label for="exampleInputEmail1">Email</label>
-    <input [(ngModel)]="email" (ngModelChange)="this.service.loading=false; service.usuarioNot = false" type="email"
-      formControlName="email"
-      [ngClass]="{'is-invalid': Email?.errors && Email?.touched, 'is-valid': !Email?.errors && Email?.touched}"
-      class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" autocomplete="username">
-    <div *ngIf='Email?.errors && Email?.touched'>
-      <p class="text-danger">El email es requerido.</p>
-      <p *ngIf="Email?.hasError('email')" class="text-danger">
-        El formato del email debe ser valido.
-      </p>
-    </div>
-  </div>
-
-  <div style="display: none" class="form-floating">
-    <label for="exampleInputPassword1">Password</label>
-    <div class="input-group">
-      <input [(ngModel)]="password" (ngModelChange)="this.service.loading=false; service.usuarioNot = false" placeholder="Password"
-        class="form-control" type="password" formControlName="password"
-        [ngClass]="{'is-invalid': Password?.errors && Password?.touched, 'is-valid': !Password?.errors && Password?.touched}"
-        class="form-control" id="exampleInputPassword1" autocomplete="current-password" #vercontrasenia>
-      <div class="input-group-append">
-        <button id="show_password" class="btn btn-primary" type="button" (click)="mostrarPassword()"> <span
-            class="fa fa-eye-slash icon"></span> </button>
-      </div>
-    </div>
-    <div *ngIf="Password?.errors && Password?.touched">
-      <p *ngIf="Password?.hasError('required')" class="text-danger">
-        La contraseña es requerida.
-      </p>
-      <p *ngIf="Password?.errors?.['minlength']" class="text-danger">
-        La contraseña debe tener 8 o más caracteres.
-      </p>
-    </div>
-  </div>
-
-  <div style="text-align:center">
-    <button type="submit" class="btn btn-lg btn-dark" [class.spinner]="this.service.loading"
-      [disabled]="this.service.loading">Ingresar</button>
-  </div>
-  <div>
-    <!--/.col-lg-12 -->
-    <img class="img-fluid"
-      src="https://res.cloudinary.com/dmfuwxcez/image/upload/o_95/v1663523655/Eduardo_Silva_Cursando400-removebg-preview_de4ytd.png">
-    </div>
-
-  <p class="alert alert-danger" id="incorrecto" *ngIf="service.usuarioNot">{{mensajeIncorrecto}}</p>
-</form>
-
-</div>
-<!--/.#headerwrap -->
-
-<section id="about" name="about">
-  <div id="intro">
+<div class="container-width" style="background-color:black;">
+  <div id="headerwrap">
     <div class="container">
-      <div class="row">
-        <div class="col-lg-2 col-lg-offset-1">
-          <h5>ABOUT</h5>
-        </div>
-        <div class="col-lg-12">
-          <p>Soy Full Stack Developer. Estoy interesado en acompañar proyectos creativos que permitan el crecimiento
-            institucional, su grupo humano y mi persona. Estudio programación de forma autodidacta desde hace más de 5
-            años; y ahora gracias a Argentina Programa, pude lograr la certificación Full Stack Developer Jr. Ademas de
-            este proyecto, tengo otro desarrollado en lenguaje Python con el framework Django, en la sección 'Proyectos'
-            se puede acceder al mismo.</p>
+      <div class="row centered">
+        <div class="col-md-12">
+          <div>
+            <h1 style="font-size: 8vw;">Eduardo J. Silva</h1>
+
+            <h3 style="margin-top:50px"><strong>Full Stack Developer</strong></h3>
+            <div>
+              <br>
+              <h2 style="margin-top:10px">PORTFOLIO</h2>
+              <!--    <button type="submit" class="btn btn-md btn-dark">Ingresar</button> -->
+            </div>
+          </div>
+
         </div>
       </div>
       <!--/.row -->
     </div>
     <!--/.container -->
+
+    <form [formGroup]="form" class="form-signin" (ngSubmit)="onEnviar($event); service.onlyRead=false">
+
+      <!--EMAIL-->
+      <div style="display: none" class="form-floating">
+        <label for="exampleInputEmail1">Email</label>
+        <input [(ngModel)]="email" (ngModelChange)="this.service.loading=false; service.usuarioNot = false" type="email"
+          formControlName="email"
+          [ngClass]="{'is-invalid': Email?.errors && Email?.touched, 'is-valid': !Email?.errors && Email?.touched}"
+          class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" autocomplete="username">
+        <div *ngIf='Email?.errors && Email?.touched'>
+          <p class="text-danger">El email es requerido.</p>
+          <p *ngIf="Email?.hasError('email')" class="text-danger">
+            El formato del email debe ser valido.
+          </p>
+        </div>
+      </div>
+
+      <div style="display: none" class="form-floating">
+        <label for="exampleInputPassword1">Password</label>
+        <div class="input-group">
+          <input [(ngModel)]="password" (ngModelChange)="this.service.loading=false; service.usuarioNot = false"
+            placeholder="Password" class="form-control" type="password" formControlName="password"
+            [ngClass]="{'is-invalid': Password?.errors && Password?.touched, 'is-valid': !Password?.errors && Password?.touched}"
+            class="form-control" id="exampleInputPassword1" autocomplete="current-password" #vercontrasenia>
+          <div class="input-group-append">
+            <button id="show_password" class="btn btn-primary" type="button" (click)="mostrarPassword()"> <span
+                class="fa fa-eye-slash icon"></span> </button>
+          </div>
+        </div>
+        <div *ngIf="Password?.errors && Password?.touched">
+          <p *ngIf="Password?.hasError('required')" class="text-danger">
+            La contraseña es requerida.
+          </p>
+          <p *ngIf="Password?.errors?.['minlength']" class="text-danger">
+            La contraseña debe tener 8 o más caracteres.
+          </p>
+        </div>
+      </div>
+
+      <div style="text-align:center">
+        <button type="submit" class="btn btn-lg btn-dark" [class.spinner]="this.service.loading"
+          [disabled]="this.service.loading">Ingresar</button>
+      </div>
+      <div>
+        <!--/.col-lg-12 -->
+        <img class="img-fluid"
+          src="https://res.cloudinary.com/dmfuwxcez/image/upload/o_95/v1663523655/Eduardo_Silva_Cursando400-removebg-preview_de4ytd.png">
+      </div>
+
+      <p class="alert alert-danger" id="incorrecto" *ngIf="service.usuarioNot">{{mensajeIncorrecto}}</p>
+    </form>
+
   </div>
-  <!--/ #intro -->
-</section>
+  <!--/.#headerwrap -->
+
+  <section id="about" name="about">
+    <div id="intro">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-2 col-lg-offset-1">
+            <h5>ABOUT</h5>
+          </div>
+          <div class="col-lg-12">
+            <p>Soy Full Stack Developer. Estoy interesado en acompañar proyectos creativos que permitan el crecimiento
+              institucional, su grupo humano y mi persona. Estudio programación de forma autodidacta desde hace más de 5
+              años; y ahora gracias a Argentina Programa, pude lograr la certificación Full Stack Developer Jr. Ademas
+              de
+              este proyecto, tengo otro desarrollado en lenguaje Python con el framework Django, en la sección
+              'Proyectos'
+              se puede acceder al mismo.</p>
+          </div>
+        </div>
+        <!--/.row -->
+      </div>
+      <!--/.container -->
+    </div>
+    <!--/ #intro -->
+  </section>
 </div>
+

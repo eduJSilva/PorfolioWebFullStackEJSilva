@@ -34,7 +34,7 @@ export class AutenticacionService {
 
       console.log('Entorno de Desarrollo')
     } else {
-
+/*
       this.url = 'https://porfolioeduardojsilva.herokuapp.com/api/auth/login';
       this.urlRegistro =
         'https://porfolioeduardojsilva.herokuapp.com/api/auth/register';
@@ -46,6 +46,20 @@ export class AutenticacionService {
         'https://porfolioeduardojsilva.herokuapp.com/api/auth/password/reset';
 
       this.service.url= 'https://porfolioeduardojsilva.herokuapp.com/';
+*/
+
+      this.url = 'https://portfolio-edujsilva.koyeb.app/api/auth/login';
+      this.urlRegistro =
+        'https://portfolio-edujsilva.koyeb.app/api/auth/register';
+      this.urlResetPassword =
+        'https://portfolio-edujsilva.koyeb.app/api/auth/password/resetlink';
+      this.urlPasswordResetDatos =
+        'https://portfolio-edujsilva.koyeb.app/api/user/password/list/token';
+      this.urlNewPassword =
+        'https://portfolio-edujsilva.koyeb.app/api/auth/password/reset';
+
+      this.service.url= 'https://portfolio-edujsilva.koyeb.app/';
+
 
         console.log('Entorno de Producción')
     }
