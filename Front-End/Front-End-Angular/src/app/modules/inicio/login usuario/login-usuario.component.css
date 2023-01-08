@@ -78,13 +78,11 @@ SECTION WRAPS
 #headerwrap {
  /* background: url(https://res.cloudinary.com/dmfuwxcez/image/upload/v1663544736/cablesLaPaz1_sfya3j.jpg) no-repeat center top;
   background: url(https://res.cloudinary.com/dmfuwxcez/image/upload/o_60/v1663532201/cablesLaPaz_ld41jz.png) no-repeat center top;
-  */background: url(https://res.cloudinary.com/dmfuwxcez/image/upload/v1663555393/portada_pydaml.jpg)no-repeat center top;
+  */background: url(https://res.cloudinary.com/dmfuwxcez/image/upload/v1663555393/portada_pydaml.jpg);
   /* margin-top: 60px;*/
-  padding-top:40px;
-  text-align: center;
-  background-attachment: relative;
+  padding-top:100px;
   background-position: center center;
-  min-height: 500px;
+  height:100%;
   width: 100%;
   -webkit-background-size: 100%;
   -moz-background-size: 100%;
@@ -97,7 +95,7 @@ SECTION WRAPS
 }
 
 #headerwrap h1 {
-  font-size: 80px;
+  font-size: 60px;
   color: black;
 }
 
@@ -108,8 +106,7 @@ SECTION WRAPS
 
 
 #headerwrap h3 {
-  margin-top:30px;
-  font-size: 20px;
+  font-size: 40px;
   color: black;
 }
 /*
@@ -187,8 +184,11 @@ SECTION WRAPS
 
 #intro {
   background: #2c3e50;
-  padding-top: 5px;
+  padding-top: 50px;
+  padding-bottom: 50px;
   color: white;
+  height: auto !important;
+
 }
 
 #intro h5, p {
@@ -199,13 +199,13 @@ SECTION WRAPS
   color: white;
   font-size: 20px;
   padding-right: 8px;
-  vertical-align: middle;
+ 
 }
 
 #skillswrap {
   background: #2c3e50;
   padding-top: 60px;
-  padding-bottom: 60px;
+ 
   color: white;
 }
 
@@ -439,4 +439,32 @@ p{
   border: 2px solid #ffffff;
   border-top-color: #000000;
   animation: spinner .8s linear infinite;
+}
+
+/*****************************************************/
+
+#imginti{
+  width:130px;
+  height:75px
+}
+
+#imgargentinap{
+  width:200px;
+  height:60px
+}
+
+
+#imggit{
+  width:35px;
+  height:35px
+}
+
+#imglinkelid{
+  width:35px;
+  height:35px
+}
+
+#imgtwitter{
+  width:35px;
+  height:35px
 }
