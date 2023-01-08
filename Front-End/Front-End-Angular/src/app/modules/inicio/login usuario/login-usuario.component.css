@@ -469,11 +469,23 @@ p{
   height:35px
 }
 
+#botonessociales{
 
+ display:inline-flex; 
+
+ 
+}
 
 
 @media (max-width: 418px) {
+  
   #yoprogramo{
     display: none;
   }
+  #botonessociales{
+    margin-left: 30px;
+   display:inline-flex; 
+   
+  }
+ 
 }
