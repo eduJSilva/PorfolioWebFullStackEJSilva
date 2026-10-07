@@ -8,7 +8,7 @@ Portfolio personal con panel de edición integrado.
 | Back-end | Spring Boot 4.1 · Java 21 · Spring Security 7 + JWT · JPA/Hibernate 7 |
 | Base de datos | MySQL (producción) · H2 en memoria (desarrollo) |
 | Imágenes | Cloudinary |
-| Hosting | Firebase Hosting (front) · Koyeb / Docker (API) |
+| Hosting | Vercel o Firebase Hosting (front) · Koyeb / Docker (API) |
 
 ```
 Back-End/Back-End-SpringBoot   API REST
@@ -63,8 +63,27 @@ El rol `ADMIN` se asigna directamente en la base (tabla `user_authority`); el re
 ### Front-end
 La URL de la API está en `src/environments/environment.ts`.
 
+> Orden de despliegue: primero la API nueva y el script SQL, después el front. El front nuevo
+> carga el portfolio sin login, algo que la API anterior no permite.
+
+#### Opción A · Vercel (recomendada: despliegue automático en cada push)
+1. En [vercel.com](https://vercel.com) → *Add New… → Project* → importar este repositorio.
+2. **Root Directory**: `Front-End/Front-End-Angular`. El resto (instalación, build, carpeta de salida
+   `dist/portfolio/browser` y reescritura de rutas para la SPA) ya está en `vercel.json`.
+3. *Deploy*. Cada push a `master` publica producción y cada PR genera una URL de vista previa.
+
+Si el front queda en un dominio nuevo (por ejemplo `https://<proyecto>.vercel.app`), actualizar en la API:
+- `APP_FRONTEND_URL` → ese dominio (se usa en los links de los emails de verificación y reseteo).
+- `APP_CORS_ALLOWED_ORIGINS` → agregar ese dominio (separado por comas).
+
+Vercel solo aloja el front: la API Spring Boot necesita un servicio de contenedores (Koyeb, Render,
+Railway, Fly.io…) usando el `Dockerfile` del back-end.
+
+#### Opción B · Firebase Hosting
 ```bash
 cd Front-End/Front-End-Angular
+npm ci
 npm run build
-firebase deploy
+npx firebase-tools login
+npx firebase-tools deploy --only hosting
 ```
