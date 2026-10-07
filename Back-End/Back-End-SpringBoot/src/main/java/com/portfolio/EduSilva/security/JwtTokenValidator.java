@@ -1,17 +1,14 @@
-
 package com.portfolio.EduSilva.security;
 
 import com.portfolio.EduSilva.cache.LoggedOutJwtTokenCache;
 import com.portfolio.EduSilva.event.OnUserLogoutSuccessEvent;
 import com.portfolio.EduSilva.exception.InvalidTokenRequestException;
 import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
-import io.jsonwebtoken.SignatureException;
 import io.jsonwebtoken.UnsupportedJwtException;
-import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+import io.jsonwebtoken.security.SecurityException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -19,13 +16,12 @@ import java.util.Date;
 @Component
 public class JwtTokenValidator {
 
-    private static final Logger logger = Logger.getLogger(JwtTokenValidator.class);
-    private final String jwtSecret;
+    private static final Logger logger = LoggerFactory.getLogger(JwtTokenValidator.class);
+    private final JwtTokenProvider tokenProvider;
     private final LoggedOutJwtTokenCache loggedOutTokenCache;
 
-    @Autowired
-    public JwtTokenValidator(@Value("${app.jwt.secret}") String jwtSecret, LoggedOutJwtTokenCache loggedOutTokenCache) {
-        this.jwtSecret = jwtSecret;
+    public JwtTokenValidator(JwtTokenProvider tokenProvider, LoggedOutJwtTokenCache loggedOutTokenCache) {
+        this.tokenProvider = tokenProvider;
         this.loggedOutTokenCache = loggedOutTokenCache;
     }
 
@@ -38,9 +34,9 @@ public class JwtTokenValidator {
      */
     public boolean validateToken(String authToken) {
         try {
-            Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);
+            tokenProvider.parseClaims(authToken);
 
-        } catch (SignatureException ex) {
+        } catch (SecurityException ex) {
             logger.error("Invalid JWT signature");
             throw new InvalidTokenRequestException("JWT", authToken, "Incorrect signature");
 

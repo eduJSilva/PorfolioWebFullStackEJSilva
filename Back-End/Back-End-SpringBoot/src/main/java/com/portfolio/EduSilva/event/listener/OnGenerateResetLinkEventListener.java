@@ -7,19 +7,20 @@ import com.portfolio.EduSilva.model.authapp.PasswordResetToken;
 import com.portfolio.EduSilva.model.authapp.User;
 import com.portfolio.EduSilva.service.authService.MailService;
 import freemarker.template.TemplateException;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
-import javax.mail.MessagingException;
+import jakarta.mail.MessagingException;
 import java.io.IOException;
 
 @Component
 public class OnGenerateResetLinkEventListener implements ApplicationListener<OnGenerateResetLinkEvent> {
 
-    private static final Logger logger = Logger.getLogger(OnGenerateResetLinkEventListener.class);
+    private static final Logger logger = LoggerFactory.getLogger(OnGenerateResetLinkEventListener.class);
     private final MailService mailService;
 
     @Autowired
@@ -49,7 +50,7 @@ public class OnGenerateResetLinkEventListener implements ApplicationListener<OnG
         try {
             mailService.sendResetLink(emailConfirmationUrl, recipientAddress);
         } catch (IOException | TemplateException | MessagingException e) {
-            logger.error(e);
+            logger.error("Error enviando email", e);
             throw new MailSendException(recipientAddress, "Email Verification");
         }
     }

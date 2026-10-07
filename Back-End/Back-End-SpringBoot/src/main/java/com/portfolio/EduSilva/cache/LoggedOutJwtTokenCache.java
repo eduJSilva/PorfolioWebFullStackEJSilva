@@ -4,7 +4,8 @@ package com.portfolio.EduSilva.cache;
 import com.portfolio.EduSilva.event.OnUserLogoutSuccessEvent;
 import com.portfolio.EduSilva.security.JwtTokenProvider;
 import net.jodah.expiringmap.ExpiringMap;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -25,7 +26,7 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class LoggedOutJwtTokenCache {
 
-    private static final Logger logger = Logger.getLogger(LoggedOutJwtTokenCache.class);
+    private static final Logger logger = LoggerFactory.getLogger(LoggedOutJwtTokenCache.class);
 
     private final ExpiringMap<String, OnUserLogoutSuccessEvent> tokenEventMap;
     private final JwtTokenProvider tokenProvider;

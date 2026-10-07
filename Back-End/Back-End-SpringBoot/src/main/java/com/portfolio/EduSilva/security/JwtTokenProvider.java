@@ -1,35 +1,47 @@
-
 package com.portfolio.EduSilva.security;
 
 import com.portfolio.EduSilva.model.authapp.CustomUserDetails;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 
+import javax.crypto.SecretKey;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.time.Instant;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-
 
 @Component
-public class JwtTokenProvider  {
+public class JwtTokenProvider {
 
     private static final String AUTHORITIES_CLAIM = "authorities";
-    private final String jwtSecret;
+    private final SecretKey signingKey;
     private final long jwtExpirationInMs;
 
     public JwtTokenProvider(@Value("${app.jwt.secret}") String jwtSecret, @Value("${app.jwt.expiration}") long jwtExpirationInMs) {
-        this.jwtSecret = jwtSecret;
+        this.signingKey = buildSigningKey(jwtSecret);
         this.jwtExpirationInMs = jwtExpirationInMs;
+    }
+
+    /**
+     * HS512 exige una clave de al menos 512 bits. Se deriva con SHA-512 a partir del secreto
+     * configurado, de modo que cualquier valor de APP_JWT_SECRET produzca una clave válida.
+     */
+    static SecretKey buildSigningKey(String secret) {
+        try {
+            byte[] digest = MessageDigest.getInstance("SHA-512").digest(secret.getBytes(StandardCharsets.UTF_8));
+            return Keys.hmacShaKeyFor(digest);
+        } catch (NoSuchAlgorithmException e) {
+            throw new IllegalStateException("SHA-512 no disponible", e);
+        }
     }
 
     /**
@@ -40,11 +52,11 @@ public class JwtTokenProvider  {
         Instant expiryDate = Instant.now().plusMillis(jwtExpirationInMs);
         String authorities = getUserAuthorities(customUserDetails);
         return Jwts.builder()
-                .setSubject(Long.toString(customUserDetails.getId()))
-                .setIssuedAt(Date.from(Instant.now()))
-                .setExpiration(Date.from(expiryDate))
-                .signWith(SignatureAlgorithm.HS512, jwtSecret)
+                .subject(Long.toString(customUserDetails.getId()))
+                .issuedAt(Date.from(Instant.now()))
+                .expiration(Date.from(expiryDate))
                 .claim(AUTHORITIES_CLAIM, authorities)
+                .signWith(signingKey, Jwts.SIG.HS512)
                 .compact();
     }
 
@@ -55,35 +67,33 @@ public class JwtTokenProvider  {
     public String generateTokenFromUserId(Long userId) {
         Instant expiryDate = Instant.now().plusMillis(jwtExpirationInMs);
         return Jwts.builder()
-                .setSubject(Long.toString(userId))
-                .setIssuedAt(Date.from(Instant.now()))
-                .setExpiration(Date.from(expiryDate))
-                .signWith(SignatureAlgorithm.HS512, jwtSecret)
+                .subject(Long.toString(userId))
+                .issuedAt(Date.from(Instant.now()))
+                .expiration(Date.from(expiryDate))
+                .signWith(signingKey, Jwts.SIG.HS512)
                 .compact();
+    }
+
+    Claims parseClaims(String token) {
+        return Jwts.parser()
+                .verifyWith(signingKey)
+                .build()
+                .parseSignedClaims(token)
+                .getPayload();
     }
 
     /**
      * Returns the user id encapsulated within the token
      */
     public Long getUserIdFromJWT(String token) {
-        Claims claims = Jwts.parser()
-                .setSigningKey(jwtSecret)
-                .parseClaimsJws(token)
-                .getBody();
-
-        return Long.parseLong(claims.getSubject());
+        return Long.parseLong(parseClaims(token).getSubject());
     }
 
     /**
      * Returns the token expiration date encapsulated within the token
      */
     public Date getTokenExpiryFromJWT(String token) {
-        Claims claims = Jwts.parser()
-                .setSigningKey(jwtSecret)
-                .parseClaimsJws(token)
-                .getBody();
-
-        return claims.getExpiration();
+        return parseClaims(token).getExpiration();
     }
 
     /**
@@ -98,17 +108,18 @@ public class JwtTokenProvider  {
      * Return the jwt authorities claim encapsulated within the token
      */
     public List<GrantedAuthority> getAuthoritiesFromJWT(String token) {
-        Claims claims = Jwts.parser()
-                .setSigningKey(jwtSecret)
-                .parseClaimsJws(token)
-                .getBody();
-        return Arrays.stream(claims.get(AUTHORITIES_CLAIM).toString().split(","))
+        Object authorities = parseClaims(token).get(AUTHORITIES_CLAIM);
+        if (authorities == null) {
+            return List.of();
+        }
+        return Arrays.stream(authorities.toString().split(","))
+                .filter(a -> !a.isBlank())
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
     }
 
     /**
-     * Private helper method to extract user authorities.
+     * Gets the user authorities from the user details
      */
     private String getUserAuthorities(CustomUserDetails customUserDetails) {
         return customUserDetails
@@ -117,5 +128,4 @@ public class JwtTokenProvider  {
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.joining(","));
     }
-
 }

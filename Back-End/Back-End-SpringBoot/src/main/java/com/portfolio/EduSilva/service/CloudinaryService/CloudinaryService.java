@@ -1,77 +1,61 @@
 package com.portfolio.EduSilva.service.CloudinaryService;
 
-import com.cloudinary.*;
+import com.cloudinary.Cloudinary;
+import com.cloudinary.Transformation;
 import com.cloudinary.utils.ObjectUtils;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.HashMap;
+import java.nio.file.Files;
 import java.util.Map;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class CloudinaryService {
 
-    Cloudinary cloudinary;
-    private Map<String, String> valuesMap = new HashMap<>();
+    private final Cloudinary cloudinary;
 
-    public CloudinaryService() {
-        valuesMap.put("cloud_name", "dmfuwxcez");
-        valuesMap.put("api_key", "357897132274419");
-        valuesMap.put("api_secret", "4n_cBuvCqt1hXZRhvbklD1LuhCA");
-        cloudinary = new Cloudinary(valuesMap);
+    public CloudinaryService(@Value("${app.cloudinary.cloud-name}") String cloudName,
+                             @Value("${app.cloudinary.api-key}") String apiKey,
+                             @Value("${app.cloudinary.api-secret}") String apiSecret) {
+        cloudinary = new Cloudinary(ObjectUtils.asMap(
+                "cloud_name", cloudName,
+                "api_key", apiKey,
+                "api_secret", apiSecret,
+                "secure", true));
     }
 
     public Map uploadPortada(MultipartFile multipartFile) throws IOException {
-
-        File file = convert(multipartFile);
-
-        // Map result = cloudinary.uploader().upload(file, ObjectUtils.emptyMap());
-        Map result = cloudinary.uploader().upload(file, ObjectUtils.asMap("transformation",
-                  new Transformation().quality("auto").fetchFormat("auto").flags("lossy").background("auto").gravity("auto").height(400).width(1000).crop("fill_pad")));
-        
-
-        file.delete();
-        return result;
+        return upload(multipartFile, new Transformation().quality("auto").fetchFormat("auto").flags("lossy")
+                .background("auto").gravity("auto").height(400).width(1000).crop("fill_pad"));
     }
 
     public Map uploadFoto(MultipartFile multipartFile) throws IOException {
-
-        File file = convert(multipartFile);
-
-        // Map result = cloudinary.uploader().upload(file, ObjectUtils.emptyMap());
-        Map result = cloudinary.uploader().upload(file, ObjectUtils.asMap("transformation",
-                new Transformation().quality("auto").fetchFormat("auto").gravity("face").height(200).width(200).crop("thumb").chain()
-                        .radius("max")));
-
-        file.delete();
-        return result;
+        return upload(multipartFile, new Transformation().quality("auto").fetchFormat("auto")
+                .gravity("face").height(400).width(400).crop("thumb"));
     }
 
     public Map uploadProyectoImagenes(MultipartFile multipartFile) throws IOException {
-
-        File file = convert(multipartFile);
-
-        // Map result = cloudinary.uploader().upload(file, ObjectUtils.emptyMap());
-        Map result = cloudinary.uploader().upload(file, ObjectUtils.asMap("transformation",
-                new Transformation().quality("auto").fetchFormat("auto").background("black").height(300).width(300).flags("lossy").crop("pad")));
-
-        file.delete();
-        return result;
+        return upload(multipartFile, new Transformation().quality("auto").fetchFormat("auto")
+                .width(1200).crop("limit"));
     }
 
     public Map delete(String id) throws IOException {
-        Map result = cloudinary.uploader().destroy(id, ObjectUtils.emptyMap());
-        return result;
+        return cloudinary.uploader().destroy(id, ObjectUtils.emptyMap());
     }
 
-    private File convert(MultipartFile multipartFile) throws IOException {
-        File file = new File(multipartFile.getOriginalFilename());
-        FileOutputStream fo = new FileOutputStream(file);
-        fo.write(multipartFile.getBytes());
-        fo.close();
-        return file;
+    private Map upload(MultipartFile multipartFile, Transformation transformation) throws IOException {
+        File file = Files.createTempFile("upload-", "-" + sanitize(multipartFile.getOriginalFilename())).toFile();
+        try {
+            multipartFile.transferTo(file);
+            return cloudinary.uploader().upload(file, ObjectUtils.asMap("transformation", transformation));
+        } finally {
+            Files.deleteIfExists(file.toPath());
+        }
     }
 
+    private static String sanitize(String name) {
+        return name == null ? "file" : name.replaceAll("[^A-Za-z0-9._-]", "_");
+    }
 }

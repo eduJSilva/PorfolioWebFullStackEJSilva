@@ -8,7 +8,6 @@ import com.portfolio.EduSilva.model.authapp.User;
 import com.portfolio.EduSilva.model.authapp.payload.PasswordResetRequest;
 import com.portfolio.EduSilva.repository.PasswordResetTokenRepository;
 import com.portfolio.EduSilva.util.Util;
-import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -73,7 +72,7 @@ public class PasswordResetTokenService {
         User user = token.getUser();
         token.setClaimed(true);
 
-        CollectionUtils.emptyIfNull(repository.findActiveTokensForUser(user))
+        java.util.Objects.requireNonNullElse(repository.findActiveTokensForUser(user), java.util.List.<PasswordResetToken>of())
                 .forEach(t -> t.setActive(false));
 
         return token;

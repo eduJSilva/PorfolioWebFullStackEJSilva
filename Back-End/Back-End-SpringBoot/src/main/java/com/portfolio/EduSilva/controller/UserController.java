@@ -16,13 +16,14 @@ import com.portfolio.EduSilva.service.authService.AuthService;
 import com.portfolio.EduSilva.service.authService.MailService;
 import com.portfolio.EduSilva.service.authService.PasswordResetTokenService;
 import com.portfolio.EduSilva.service.authService.UserService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import java.io.IOException;
 import java.util.List;
-import javax.servlet.http.HttpServletResponse;
-import org.apache.log4j.Logger;
+import jakarta.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.ResponseEntity;
@@ -34,19 +35,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
-import org.springframework.web.bind.annotation.CrossOrigin;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 
 @RestController
-//@CrossOrigin(origins = "http://localhost:4200")
-@CrossOrigin(origins = "https://porfolioeduardojsilva.web.app")
 @RequestMapping("/api/user")
-@Api(value = "User Rest API", description = "Defines endpoints for the logged in user. It's secured by default")
+@Tag(name = "User Rest API", description = "Defines endpoints for the logged in user. It's secured by default")
 public class UserController {
 
-    private static final Logger logger = Logger.getLogger(UserController.class);
+    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
     private final AuthService authService;
 
@@ -72,7 +70,7 @@ public class UserController {
      */
     @GetMapping("/me")
     @PreAuthorize("hasRole('USER')")
-    @ApiOperation(value = "Returns the current user profile")
+    @Operation(summary = "Returns the current user profile")
     public ResponseEntity getUserProfile(@CurrentUser CustomUserDetails currentUser) {
         logger.info(currentUser.getEmail() + " has role: " + currentUser.getRoles());
         return ResponseEntity.ok("acercadelUsuario");
@@ -83,42 +81,21 @@ public class UserController {
      */
     @GetMapping("/admins")
     @PreAuthorize("hasRole('ADMIN')")
-    @ApiOperation(value = "Returns the list of configured admins. Requires ADMIN Access")
+    @Operation(summary = "Returns the list of configured admins. Requires ADMIN Access")
     public ResponseEntity getAllAdmins() {
         logger.info("Inside secured resource with admin");
         return ResponseEntity.ok("acercadelAdministrador");
     }
 
     /**
-     * Returns all users in the system.
-     * @return 
-     */
-    @GetMapping("/users")
-    @ApiOperation(value = "Returns the list of configured users")
-    public  List<User> getAllUsers() {
-        return userService.verUsuarios();
-    }
-    
-        /**
-     * Returns List of Password Reset Token in the system.
-     * @return 
-     */
-    @GetMapping("/password/list/token")
-    @ApiOperation(value = "Return List of Password Token")
-    public  List<PasswordResetToken> getPasswordToken() {
-        return passTokenService.getTokenList();
-    }
-    
-    
-    /**
      * Updates the password of the current logged in user
      */
     @PostMapping("/password/update")
     @PreAuthorize("hasRole('USER')")
-    @ApiOperation(value = "Allows the user to change his password once logged in by supplying the correct current " +
+    @Operation(summary = "Allows the user to change his password once logged in by supplying the correct current " +
             "password")
     public ResponseEntity updateUserPassword(@CurrentUser CustomUserDetails customUserDetails,
-                                             @ApiParam(value = "The UpdatePasswordRequest payload") @Valid @RequestBody UpdatePasswordRequest updatePasswordRequest) {
+                                             @Parameter(description = "The UpdatePasswordRequest payload") @Valid @RequestBody UpdatePasswordRequest updatePasswordRequest) {
 
         return authService.updatePassword(customUserDetails, updatePasswordRequest)
                 .map(updatedUser -> {
@@ -134,9 +111,9 @@ public class UserController {
      * user device.
      */
     @PostMapping("/logout")
-    @ApiOperation(value = "Logs the specified user device and clears the refresh tokens associated with it")
+    @Operation(summary = "Logs the specified user device and clears the refresh tokens associated with it")
     public ResponseEntity logoutUser(@CurrentUser CustomUserDetails customUserDetails,
-                                     @ApiParam(value = "The LogOutRequest payload") @Valid @RequestBody LogOutRequest logOutRequest,  HttpServletResponse response) throws IOException {
+                                     @Parameter(description = "The LogOutRequest payload") @Valid @RequestBody LogOutRequest logOutRequest,  HttpServletResponse response) throws IOException {
         userService.logoutUser(customUserDetails, logOutRequest);
         Object credentials = SecurityContextHolder.getContext().getAuthentication().getCredentials();
 
