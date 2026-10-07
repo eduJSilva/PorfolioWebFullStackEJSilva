@@ -54,12 +54,12 @@ INSERT INTO proyecto (id_proyecto, descripcion, fecha, link, nombre_proyecto, fk
 (151, 'Cinco aplicaciones en React + Redux: máquina de citas aleatorias, previsualizador de Markdown, drum machine, calculadora y reloj Pomodoro (25 + 5).', '2022', 'https://github.com/eduJSilva?tab=repositories', 'Mini apps React + Redux', 1);
 
 INSERT INTO experiencia (id_experiencia, descripcion, empresa, fin, imagen, inicio, puesto, fk_persona) VALUES
-(11, 'Gestión de compras y abastecimiento; Cotizaciones y negociación con proveedores; Emisión y seguimiento de órdenes de compra; Desarrollo y evaluación de proveedores; Coordinación de requerimientos con almacén y áreas operativas', 'Autotrol S.A.', 'presente', NULL, '2022', 'Comprador', 1);
+(11, 'Gestión de compras y abastecimiento para mantenimiento y obras semafóricas y de luminarias; Cotizaciones y negociación con proveedores; Emisión y seguimiento de órdenes de compra; Desarrollo y evaluación de proveedores; Coordinación de requerimientos con almacén y áreas operativas', 'Autotrol S.A.', 'presente', NULL, '2022', 'Comprador', 1);
 
 INSERT INTO proyecto (id_proyecto, descripcion, fecha, link, nombre_proyecto, fk_persona) VALUES
 (152, 'ERP para PyMEs industriales y de servicios: compras (requerimiento → orden de compra), stock y almacenes, ventas (cotización → cobro), pagos y tesorería, contabilidad y facturación electrónica AFIP (CAE y Libro IVA Digital). Perfiles y permisos por puesto, multi-organización. Stack: Java + Spring Boot, Angular, MySQL y Docker. Próximamente disponible para su comercialización.', '2026 · Próximamente', NULL, 'ERP de gestión integral', 1);
 
-UPDATE persona SET acerca_de = CONCAT('Desde 2022 me desempeño como Comprador en Autotrol S.A., gestionando el abastecimiento de la empresa. ', acerca_de) WHERE id = 1;
+UPDATE persona SET acerca_de = CONCAT('Desde 2022 me desempeño como Comprador en Autotrol S.A., gestionando el abastecimiento de la empresa en el área de mantenimiento y obras semafóricas y de luminarias. ', acerca_de) WHERE id = 1;
 
 -- Evita colisiones entre los ids sembrados y la secuencia de Hibernate
 ALTER SEQUENCE hibernate_sequence RESTART WITH 1000;
