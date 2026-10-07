@@ -26,7 +26,7 @@ INSERT INTO proyecto (id_proyecto, descripcion, fecha, link, nombre_proyecto, fk
 
 -- Experiencia actual
 INSERT INTO experiencia (id_experiencia, descripcion, empresa, fin, imagen, inicio, puesto, fk_persona) VALUES
-(@id + 6, 'Gestión de compras y abastecimiento para mantenimiento y obras semafóricas y de luminarias; Cotizaciones y negociación con proveedores; Emisión y seguimiento de órdenes de compra; Desarrollo y evaluación de proveedores; Coordinación de requerimientos con almacén y áreas operativas', 'Autotrol S.A.', 'presente', NULL, '2022', 'Comprador', 1);
+(@id + 6, 'Gestión de compras y abastecimiento para mantenimiento y obras semafóricas, de luminarias y de alumbrado público; Cotizaciones y negociación con proveedores; Emisión y seguimiento de órdenes de compra; Desarrollo y evaluación de proveedores; Coordinación de requerimientos con almacén y áreas operativas', 'Autotrol S.A.', 'presente', NULL, '2022', 'Comprador', 1);
 
 -- Proyecto propio en desarrollo
 INSERT INTO proyecto (id_proyecto, descripcion, fecha, link, nombre_proyecto, fk_persona) VALUES
@@ -35,7 +35,7 @@ INSERT INTO proyecto (id_proyecto, descripcion, fecha, link, nombre_proyecto, fk
 UPDATE hibernate_sequence SET next_val = @id + 8;
 
 -- "Sobre mí": destacar el puesto actual al comienzo
-UPDATE persona SET acerca_de = CONCAT('Desde 2022 me desempeño como Comprador en Autotrol S.A., gestionando el abastecimiento de la empresa en el área de mantenimiento y obras semafóricas y de luminarias. ', acerca_de) WHERE id = 1;
+UPDATE persona SET acerca_de = CONCAT('Desde 2022 me desempeño como Comprador en Autotrol S.A., gestionando el abastecimiento de la empresa en el área de mantenimiento y obras semafóricas, de luminarias y de alumbrado público. ', acerca_de) WHERE id = 1;
 
 -- El proyecto del portfolio apuntaba a localhost: se actualiza con el stack y el repositorio actuales
 UPDATE proyecto
