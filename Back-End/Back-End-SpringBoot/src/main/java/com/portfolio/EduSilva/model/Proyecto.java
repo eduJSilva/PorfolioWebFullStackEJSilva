@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import java.util.List;
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -25,6 +26,7 @@ public class Proyecto implements Serializable {
     private Long idProyecto;
     private String nombreProyecto;
     private String fecha;
+    @Column(columnDefinition = "TEXT")
     private String descripcion;
     private String link;
     

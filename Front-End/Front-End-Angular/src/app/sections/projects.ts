@@ -36,7 +36,7 @@ import { safeUrl } from '../shared/text';
                 }
               </div>
               <div class="project__body">
-                @if (p.fecha) { <span class="badge">{{ p.fecha }}</span> }
+                @if (p.fecha) { <span class="badge" [class.badge--primary]="isUpcoming(p)">{{ p.fecha }}</span> }
                 <h3 class="project__title">{{ p.nombreProyecto }}</h3>
                 @if (p.descripcion) { <p class="muted">{{ p.descripcion }}</p> }
                 @if (link(p); as href) {
@@ -94,6 +94,10 @@ export class Projects {
 
   protected markBroken(p: Proyecto): void {
     this.broken.update((s) => new Set(s).add(p.idProyecto));
+  }
+
+  protected isUpcoming(p: Proyecto): boolean {
+    return /pr[oó]ximamente/i.test(p.fecha ?? '');
   }
 
   protected link(p: Proyecto): string | null {
