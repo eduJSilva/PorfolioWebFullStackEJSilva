@@ -4,8 +4,8 @@ package com.portfolio.EduSilva.validation.validator;
 import com.portfolio.EduSilva.model.authapp.payload.PasswordResetRequest;
 import com.portfolio.EduSilva.validation.annotation.MatchPassword;
 
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
 
 public class MatchPasswordValidator implements ConstraintValidator<MatchPassword, PasswordResetRequest> {
 

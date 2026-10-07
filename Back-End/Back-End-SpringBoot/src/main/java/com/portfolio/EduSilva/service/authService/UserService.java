@@ -10,7 +10,8 @@ import com.portfolio.EduSilva.model.authapp.UserDevice;
 import com.portfolio.EduSilva.model.authapp.payload.LogOutRequest;
 import com.portfolio.EduSilva.model.authapp.payload.RegistrationRequest;
 import com.portfolio.EduSilva.repository.UserRepository;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,7 @@ import java.util.Set;
 @Service
 public class UserService {
 
-    private static final Logger logger = Logger.getLogger(UserService.class);
+    private static final Logger logger = LoggerFactory.getLogger(UserService.class);
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
     private final RoleService roleService;
@@ -95,11 +96,11 @@ public class UserService {
      */
     public User createUser(RegistrationRequest registerRequest) {
         User newUser = new User();
-        Boolean isNewUserAsAdmin = registerRequest.getRegisterAsAdmin();
         newUser.setEmail(registerRequest.getEmail());
         newUser.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
         newUser.setUsername(registerRequest.getUsername());
-        newUser.addRoles(getRolesForNewUser(isNewUserAsAdmin));
+        // El registro público nunca otorga el rol ADMIN (se asigna directamente en la base de datos)
+        newUser.addRoles(getRolesForNewUser(false));
         newUser.setActive(true);
         newUser.setEmailVerified(false);
         return newUser;

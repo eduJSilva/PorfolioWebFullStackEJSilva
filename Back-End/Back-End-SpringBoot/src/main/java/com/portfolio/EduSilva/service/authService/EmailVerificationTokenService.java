@@ -6,7 +6,8 @@ import com.portfolio.EduSilva.model.authapp.TokenStatus;
 import com.portfolio.EduSilva.model.authapp.User;
 import com.portfolio.EduSilva.model.authapp.token.EmailVerificationToken;
 import com.portfolio.EduSilva.repository.EmailVerificationTokenRepository;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -18,7 +19,7 @@ import java.util.UUID;
 @Service
 public class EmailVerificationTokenService {
 
-    private static final Logger logger = Logger.getLogger(EmailVerificationTokenService.class);
+    private static final Logger logger = LoggerFactory.getLogger(EmailVerificationTokenService.class);
     private final EmailVerificationTokenRepository emailVerificationTokenRepository;
     @Value("${app.token.email.verification.duration}")
     private Long emailVerificationTokenExpiryDuration;

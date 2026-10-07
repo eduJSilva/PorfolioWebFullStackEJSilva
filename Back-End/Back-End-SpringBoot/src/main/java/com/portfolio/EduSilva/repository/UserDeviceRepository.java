@@ -5,6 +5,7 @@ import com.portfolio.EduSilva.model.authapp.UserDevice;
 import com.portfolio.EduSilva.model.authapp.token.RefreshToken;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface UserDeviceRepository extends JpaRepository<UserDevice, Long> {
@@ -15,4 +16,6 @@ public interface UserDeviceRepository extends JpaRepository<UserDevice, Long> {
     Optional<UserDevice> findByRefreshToken(RefreshToken refreshToken);
 
     Optional<UserDevice> findByUserIdAndDeviceId(Long userId, String userDeviceId);
+
+    List<UserDevice> findAllByUserId(Long userId);
 }

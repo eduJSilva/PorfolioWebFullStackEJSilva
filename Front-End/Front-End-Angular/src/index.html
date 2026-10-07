@@ -1,31 +1,30 @@
 <!doctype html>
-<html lang="en">
-
+<html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>PortfolioEjS</title>
-  <link rel="icon" href="favicon.ico">
+  <meta charset="utf-8">
+  <title>Eduardo J. Silva · Full Stack Developer</title>
   <base href="/">
-
-
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
-
-
-</head>
-
-<body class="mat-typography">
-  <app-root></app-root>
-
-  <script
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBGQS50X4wEYomYbfEx0LKwQinXIR1JN1U&libraries=places&language=en"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Portfolio de Eduardo Javier Silva, Full Stack Developer (Angular + Spring Boot + MySQL). Experiencia, educación, skills y proyectos.">
+  <meta name="theme-color" content="#4f46e5">
+  <meta property="og:title" content="Eduardo J. Silva · Full Stack Developer">
+  <meta property="og:description" content="Experiencia, educación, skills y proyectos.">
+  <meta property="og:type" content="website">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <script>
+    // Aplica el tema guardado antes de pintar para evitar parpadeos
+    try {
+      var t = localStorage.getItem('portfolio.theme');
+      if (!t) t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = t;
+    } catch (e) {}
   </script>
-
+</head>
+<body>
+  <app-root></app-root>
+  <noscript>Este sitio necesita JavaScript para funcionar.</noscript>
 </body>
-
 </html>

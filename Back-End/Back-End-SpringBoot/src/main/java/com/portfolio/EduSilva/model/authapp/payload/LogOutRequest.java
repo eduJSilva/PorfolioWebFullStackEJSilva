@@ -1,19 +1,16 @@
 
 package com.portfolio.EduSilva.model.authapp.payload;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 
-@ApiModel(value = "Logout request", description = "The logout request payload")
+@Schema(name = "Logout request", description = "The logout request payload")
 public class LogOutRequest {
 
     @Valid
     @NotNull(message = "Device info cannot be null")
-    @ApiModelProperty(value = "Device info", required = true, dataType = "object", allowableValues = "A valid " +
-            "deviceInfo object")
     private DeviceInfo deviceInfo;
 
     public LogOutRequest() {

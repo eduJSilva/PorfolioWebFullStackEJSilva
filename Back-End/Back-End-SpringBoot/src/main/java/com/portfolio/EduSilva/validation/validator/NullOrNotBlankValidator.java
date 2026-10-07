@@ -3,8 +3,8 @@ package com.portfolio.EduSilva.validation.validator;
 
 import com.portfolio.EduSilva.validation.annotation.NullOrNotBlank;
 
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
 
 public class NullOrNotBlankValidator implements ConstraintValidator<NullOrNotBlank, String> {
 

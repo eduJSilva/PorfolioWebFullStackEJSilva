@@ -15,7 +15,8 @@ import com.portfolio.EduSilva.exception.UserLoginException;
 import com.portfolio.EduSilva.exception.UserLogoutException;
 import com.portfolio.EduSilva.exception.UserRegistrationException;
 import com.portfolio.EduSilva.model.authapp.payload.ApiResponse;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -39,7 +40,7 @@ import java.util.stream.Collectors;
 @RestControllerAdvice
 public class AuthControllerAdvice {
 
-    private static final Logger logger = Logger.getLogger(AuthControllerAdvice.class);
+    private static final Logger logger = LoggerFactory.getLogger(AuthControllerAdvice.class);
 
     private final MessageSource messageSource;
 
@@ -85,7 +86,7 @@ public class AuthControllerAdvice {
 
     private String resolvePathFromWebRequest(WebRequest request) {
         try {
-            return ((ServletWebRequest) request).getRequest().getAttribute("javax.servlet.forward.request_uri").toString();
+            return ((ServletWebRequest) request).getRequest().getAttribute("jakarta.servlet.forward.request_uri").toString();
         } catch (Exception ex) {
             return null;
         }

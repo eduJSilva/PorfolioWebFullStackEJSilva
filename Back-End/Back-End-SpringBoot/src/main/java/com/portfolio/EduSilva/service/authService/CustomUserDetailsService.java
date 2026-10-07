@@ -4,7 +4,8 @@ package com.portfolio.EduSilva.service.authService;
 import com.portfolio.EduSilva.model.authapp.CustomUserDetails;
 import com.portfolio.EduSilva.model.authapp.User;
 import com.portfolio.EduSilva.repository.UserRepository;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -16,7 +17,7 @@ import java.util.Optional;
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 
-    private static final Logger logger = Logger.getLogger(CustomUserDetailsService.class);
+    private static final Logger logger = LoggerFactory.getLogger(CustomUserDetailsService.class);
     private final UserRepository userRepository;
 
     @Autowired

@@ -27,7 +27,6 @@ import javax.imageio.ImageIO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -41,15 +40,12 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-
 @RestController
-//@CrossOrigin(origins = "http://localhost:4200")
-@CrossOrigin(origins = "https://porfolioeduardojsilva.web.app")
 public class Controller {
 
     @Autowired
     private IPersonaService persoServ;
-    
+
     @Autowired
     PortfolioDto dtoServ;
 
@@ -91,7 +87,6 @@ public class Controller {
         persoServ.crearPersona(pers);
     }
 
-        
     //PUT/PATCH
     //modifica parcialmente los datos de la persona mediante el metodo PATCH
     @PatchMapping("/modificar/persona")
@@ -105,10 +100,10 @@ public class Controller {
 
         //le indico que modifique los datos de la persona que tiene el id Nro. 1  
         pers.setId(1);
-        
+
         //Si los campos son nulos o estan en blanco, devuelve el valor almacenado previamente en la base de datos
         dtoServ.modificadorPersona(pers);
-     
+
         //por ultimo mediante el metodo save() de JpaRepository, modifico a la persona en cuestión. 
         persoServ.modificarPersona(pers);
     }
@@ -132,11 +127,11 @@ public class Controller {
         if (bi == null) {
             return new ResponseEntity(("imagen no válida"), HttpStatus.BAD_REQUEST);
         }
-        
+
         Map result = cloudinaryService.uploadPortada(multipartFile);
         Imagen imagen
                 = new Imagen((String) result.get("original_filename"),
-                        (String) result.get("url"),
+                        (String) result.get("secure_url"),
                         (String) result.get("public_id"));
         imagenService.save(imagen);
         return new ResponseEntity(("imagen subida"), HttpStatus.OK);
@@ -169,7 +164,7 @@ public class Controller {
         Map result = cloudinaryService.uploadFoto(multipartFile);
         foto foto
                 = new foto((String) result.get("original_filename"),
-                        (String) result.get("url"),
+                        (String) result.get("secure_url"),
                         (String) result.get("public_id"));
         fotoService.save(foto);
         return new ResponseEntity(("foto subida"), HttpStatus.OK);
@@ -203,12 +198,8 @@ public class Controller {
 
     @PostMapping("/new/educacion")
     public void agregarEducacion(@RequestBody Educacion persEdu) {
-        
-        if (persEdu.getEstado().equals("false")) {
-            persEdu.setEstado("Incompleto");
-        } else {
-            persEdu.setEstado("Graduado");
-        }
+
+        persEdu.setEstado(normalizarEstado(persEdu.getEstado()));
         eduServ.crearEducacion(persEdu);
     }
 
@@ -217,14 +208,10 @@ public class Controller {
 
         persEdu.setIdEducacion(id);
 
-        if (persEdu.getEstado().equals("false")) {
-            persEdu.setEstado("Incompleto");
-        } else {
-            persEdu.setEstado("Graduado");
-        }
+        persEdu.setEstado(normalizarEstado(persEdu.getEstado()));
 
         dtoServ.modificadorEdu(id, persEdu);
-  
+
         eduServ.crearEducacion(persEdu);
     }
 
@@ -247,9 +234,9 @@ public class Controller {
 
     @PatchMapping("/modificar/experiencia/{id}")
     public void modificarExperiencia(@PathVariable Long id, @RequestBody Experiencia persExp) {
-  
+
          dtoServ.modificadorExp(id, persExp);
-        
+
         persExp.setIdExperiencia(id);
         expServ.crearExperiencia(persExp);
     }
@@ -279,7 +266,7 @@ public class Controller {
 
     @PatchMapping("/modificar/skill/{id}")
     public void modificarSkill(@PathVariable Long id, @RequestBody Skill persExp) {
-       
+
       dtoServ.modificadorSkill(id, persExp);
 
         persExp.setIdSkill(id);
@@ -303,8 +290,10 @@ public class Controller {
     //POST
     //Agregar un nuevo proyecto a la base de datos
     @PostMapping("/new/proyecto")
-    public void agregarProyecto(@RequestBody Proyecto persProyec) {
-        proyecServ.crearProyecto(persProyec);
+    public Proyecto agregarProyecto(@RequestBody Proyecto persProyec) {
+        // El id lo genera la base de datos
+        persProyec.setIdProyecto(null);
+        return proyecServ.crearProyecto(persProyec);
     }
 
     //PUT/PATCH
@@ -343,26 +332,21 @@ public class Controller {
         ImagenProyecto imagenProyecto
                 = new ImagenProyecto(
                         (String) result.get("original_filename"),
-                        (String) result.get("url"),
+                        (String) result.get("secure_url"),
                         (String) result.get("public_id")
                 );
 
-        List<Proyecto> proyectoList = verProyectos();
-
-        int contador = 0;
-
-        imagenProyecto.setProyecto(proyectoList.get((proyectoList.size() - 1)));
-        contador++;
-
+        Proyecto proyecto = proyecServ.buscarProyecto((long) id);
+        if (proyecto == null) {
+            return new ResponseEntity("no existe el proyecto", HttpStatus.NOT_FOUND);
+        }
+        imagenProyecto.setProyecto(proyecto);
         imagenProyectoService.save(imagenProyecto);
         return new ResponseEntity(("imagen del proyecto subida"), HttpStatus.OK);
     }
 
     @PutMapping("/modificar/imagen-proyecto/{id}")
     public ResponseEntity<?> modificarImagenProyecto(@PathVariable Long id, @RequestParam MultipartFile multipartFile) throws IOException {
-
-        long l = id;
-        int i = (int) l;
 
         BufferedImage bi = ImageIO.read(multipartFile.getInputStream());
         if (bi == null) {
@@ -371,21 +355,28 @@ public class Controller {
 
         Map result = cloudinaryService.uploadProyectoImagenes(multipartFile);
 
-        List<ImagenProyecto> imgList = imagenProyectoService.list();
-
-        for (ImagenProyecto imagenProyecto1 : imgList) {
-
-            if (imagenProyecto1.getProyecto().getIdProyecto() == i) {
-
-                imagenProyecto1.setName((String) result.get("original_filename"));
-                imagenProyecto1.setImagenUrl((String) result.get("url"));
-                imagenProyecto1.setImagenId((String) result.get("public_id"));
-
-                imagenProyectoService.save(imagenProyecto1);
-
-            }
+        Proyecto proyecto = proyecServ.buscarProyecto(id);
+        if (proyecto == null) {
+            return new ResponseEntity("no existe el proyecto", HttpStatus.NOT_FOUND);
         }
-
+        List<ImagenProyecto> imagenes = imagenProyectoService.list().stream()
+                .filter(img -> img.getProyecto() != null && id.equals(img.getProyecto().getIdProyecto()))
+                .toList();
+        if (imagenes.isEmpty()) {
+            ImagenProyecto nueva = new ImagenProyecto((String) result.get("original_filename"),
+                    (String) result.get("secure_url"), (String) result.get("public_id"));
+            nueva.setProyecto(proyecto);
+            imagenProyectoService.save(nueva);
+        }
+        for (ImagenProyecto imagenProyecto1 : imagenes) {
+            if (imagenProyecto1.getImagenId() != null) {
+                cloudinaryService.delete(imagenProyecto1.getImagenId());
+            }
+            imagenProyecto1.setName((String) result.get("original_filename"));
+            imagenProyecto1.setImagenUrl((String) result.get("secure_url"));
+            imagenProyecto1.setImagenId((String) result.get("public_id"));
+            imagenProyectoService.save(imagenProyecto1);
+        }
         return new ResponseEntity(("imagen del proyecto modificada"), HttpStatus.OK);
     }
 
@@ -406,11 +397,25 @@ public class Controller {
     public void borrarProyecto(@PathVariable Long id) {
         proyecServ.borrarProyecto(id);
     }
-    
+
     @GetMapping("/time")
     @ResponseStatus(HttpStatus.OK)
     public String getCurrentTime() {
         return Instant.now().toString();
     }
 
+
+    /**
+     * Acepta tanto el formato viejo del front ("true"/"false") como el texto final
+     * ("Graduado", "En curso", "Incompleto").
+     */
+    private static String normalizarEstado(String estado) {
+        if (estado == null || estado.isBlank() || estado.equals("false")) {
+            return "Incompleto";
+        }
+        if (estado.equals("true")) {
+            return "Graduado";
+        }
+        return estado;
+    }
 }

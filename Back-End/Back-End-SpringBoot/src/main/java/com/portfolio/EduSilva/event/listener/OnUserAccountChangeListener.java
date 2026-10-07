@@ -6,19 +6,20 @@ import com.portfolio.EduSilva.exception.MailSendException;
 import com.portfolio.EduSilva.model.authapp.User;
 import com.portfolio.EduSilva.service.authService.MailService;
 import freemarker.template.TemplateException;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
-import javax.mail.MessagingException;
+import jakarta.mail.MessagingException;
 import java.io.IOException;
 
 @Component
 public class OnUserAccountChangeListener implements ApplicationListener<OnUserAccountChangeEvent> {
 
-    private static final Logger logger = Logger.getLogger(OnUserAccountChangeListener.class);
+    private static final Logger logger = LoggerFactory.getLogger(OnUserAccountChangeListener.class);
     private final MailService mailService;
 
     @Autowired
@@ -48,7 +49,7 @@ public class OnUserAccountChangeListener implements ApplicationListener<OnUserAc
         try {
             mailService.sendAccountChangeEmail(action, actionStatus, recipientAddress);
         } catch (IOException | TemplateException | MessagingException e) {
-            logger.error(e);
+            logger.error("Error enviando email", e);
             throw new MailSendException(recipientAddress, "Account Change Mail");
         }
     }

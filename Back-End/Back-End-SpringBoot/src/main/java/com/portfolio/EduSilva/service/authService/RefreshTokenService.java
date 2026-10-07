@@ -63,6 +63,13 @@ public class RefreshTokenService {
     /**
      * Delete the refresh token associated with the user device
      */
+    /**
+     * Fuerza la ejecución de los DELETE pendientes antes de insertar el nuevo dispositivo.
+     */
+    public void flush() {
+        refreshTokenRepository.flush();
+    }
+
     public void deleteById(Long id) {
         refreshTokenRepository.deleteById(id);
     }

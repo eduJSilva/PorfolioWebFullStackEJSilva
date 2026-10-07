@@ -4,8 +4,8 @@ package com.portfolio.EduSilva.validation.annotation;
 
 import com.portfolio.EduSilva.validation.validator.NullOrNotBlankValidator;
 
-import javax.validation.Constraint;
-import javax.validation.Payload;
+import jakarta.validation.Constraint;
+import jakarta.validation.Payload;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -18,7 +18,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Documented
 @Constraint(validatedBy = NullOrNotBlankValidator.class)
 public @interface NullOrNotBlank {
-    String message() default "{javax.validation.constraints.Pattern.message}";
+    String message() default "{jakarta.validation.constraints.Pattern.message}";
 
     Class<?>[] groups() default {};
 

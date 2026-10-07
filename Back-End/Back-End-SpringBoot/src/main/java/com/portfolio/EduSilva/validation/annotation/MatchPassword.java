@@ -3,8 +3,8 @@ package com.portfolio.EduSilva.validation.annotation;
 
 import com.portfolio.EduSilva.validation.validator.MatchPasswordValidator;
 
-import javax.validation.Constraint;
-import javax.validation.Payload;
+import jakarta.validation.Constraint;
+import jakarta.validation.Payload;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
