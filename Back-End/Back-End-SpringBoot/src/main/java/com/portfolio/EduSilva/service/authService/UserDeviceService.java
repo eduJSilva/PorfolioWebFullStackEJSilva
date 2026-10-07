@@ -9,6 +9,7 @@ import com.portfolio.EduSilva.repository.UserDeviceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -26,6 +27,13 @@ public class UserDeviceService {
      */
     public Optional<UserDevice> findDeviceByUserId(Long userId, String deviceId) {
         return userDeviceRepository.findByUserIdAndDeviceId(userId, deviceId);
+    }
+
+    /**
+     * Todos los dispositivos registrados del usuario (el esquema permite uno por usuario).
+     */
+    public List<UserDevice> findAllDevicesByUserId(Long userId) {
+        return userDeviceRepository.findAllByUserId(userId);
     }
 
     /**

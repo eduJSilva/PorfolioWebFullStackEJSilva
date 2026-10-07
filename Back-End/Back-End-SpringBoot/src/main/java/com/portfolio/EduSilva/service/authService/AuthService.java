@@ -183,11 +183,14 @@ public class AuthService {
      */
     public Optional<RefreshToken> createAndPersistRefreshTokenForDevice(Authentication authentication, LoginRequest loginRequest) {
         User currentUser = (User) authentication.getPrincipal();
-        String deviceId = loginRequest.getDeviceInfo().getDeviceId();
-        userDeviceService.findDeviceByUserId(currentUser.getId(), deviceId)
+        // La tabla USER_DEVICE admite un único dispositivo por usuario: se libera el anterior
+        // (de cualquier navegador) para que el nuevo login no viole la restricción única.
+        userDeviceService.findAllDevicesByUserId(currentUser.getId()).stream()
                 .map(UserDevice::getRefreshToken)
+                .filter(java.util.Objects::nonNull)
                 .map(RefreshToken::getId)
-                .ifPresent(refreshTokenService::deleteById);
+                .forEach(refreshTokenService::deleteById);
+        refreshTokenService.flush();
 
         UserDevice userDevice = userDeviceService.createUserDevice(loginRequest.getDeviceInfo());
         RefreshToken refreshToken = refreshTokenService.createRefreshToken();
