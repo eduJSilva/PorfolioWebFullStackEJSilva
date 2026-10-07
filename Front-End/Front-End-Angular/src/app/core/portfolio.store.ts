@@ -28,7 +28,9 @@ export class PortfolioStore {
     [...(this.persona()?.listaDeSkills ?? [])].sort((a, b) => b.dominio - a.dominio),
   );
   readonly proyectos = computed(() =>
-    [...(this.persona()?.listaDeProyectos ?? [])].sort((a, b) => (b.idProyecto ?? 0) - (a.idProyecto ?? 0)),
+    [...(this.persona()?.listaDeProyectos ?? [])].sort(
+      (a, b) => yearOf(b.fecha) - yearOf(a.fecha) || (b.idProyecto ?? 0) - (a.idProyecto ?? 0),
+    ),
   );
 
   load(): void {

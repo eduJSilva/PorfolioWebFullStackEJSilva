@@ -29,7 +29,7 @@ INSERT INTO skill (id_skill, dominio, nombre_skill, tipo_skill, fk_persona) VALU
 (38, 30, 'Python', 'hard', 1);
 
 INSERT INTO proyecto (id_proyecto, descripcion, fecha, link, nombre_proyecto, fk_persona) VALUES
-(148, 'Porfolio desarrollado mediante el Stack tecnológico: Angular + Springboot + Mysql', '24/04/22', 'http://localhost:4200/portfolio', 'Porfolio Full Stack Developer', 1),
+(148, 'Portfolio full stack con panel de administración: Angular 21 + Spring Boot 4 (Java 21, JWT) + MySQL, imágenes en Cloudinary.', '2026', 'https://github.com/eduJSilva/PorfolioWebFullStackEJSilva', 'Portfolio Full Stack', 1),
 (149, 'App desarrollada  mediante el Stack tecnológico: Django(framework de Python) + PostgreSQL.', '22/05/17', 'https://dfconfecciones.herokuapp.com/', 'DF Confecciones', 1);
 
 INSERT INTO imagen_proyecto (id, imagen_id, imagen_url, name, fk_proyecto) VALUES
@@ -41,6 +41,17 @@ INSERT INTO foto (id, imagen_id, imagen_url, name) VALUES
 
 INSERT INTO imagen (id, imagen_id, imagen_url, name) VALUES
 (56, 'cxzqfm83tlwx5vhcixej', 'https://res.cloudinary.com/dmfuwxcez/image/upload/v1651186141/cxzqfm83tlwx5vhcixej.jpg', 'Eduardo_Silva_Cursando400');
+
+-- Actualización 2026-10 (ver DataBase/actualizacion-2026-10.sql)
+INSERT INTO skill (id_skill, dominio, nombre_skill, tipo_skill, fk_persona) VALUES
+(39, 65, 'Java', 'hard', 1),
+(40, 60, 'Spring Boot', 'hard', 1),
+(41, 65, 'Angular', 'hard', 1),
+(42, 60, 'MySQL', 'hard', 1);
+
+INSERT INTO proyecto (id_proyecto, descripcion, fecha, link, nombre_proyecto, fk_persona) VALUES
+(150, 'Aplicación en Angular 15 + Angular Material para buscar y consultar autos usados, con datos obtenidos mediante web scraping de concesionarias.', '2023', 'https://github.com/eduJSilva/carhero', 'ScrapingCar', 1),
+(151, 'Cinco aplicaciones en React + Redux: máquina de citas aleatorias, previsualizador de Markdown, drum machine, calculadora y reloj Pomodoro (25 + 5).', '2022', 'https://github.com/eduJSilva?tab=repositories', 'Mini apps React + Redux', 1);
 
 -- Evita colisiones entre los ids sembrados y la secuencia de Hibernate
 ALTER SEQUENCE hibernate_sequence RESTART WITH 1000;
