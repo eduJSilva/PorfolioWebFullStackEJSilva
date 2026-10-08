@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://portfolio-edujsilva.koyeb.app/',
+  apiUrl: 'https://disgusted-hildy-edujsilva-d255bfbe.koyeb.app/',
 };
