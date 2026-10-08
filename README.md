@@ -56,6 +56,7 @@ docker run -p 8080:8080 --env-file .env portfolio-api
 
 Para cargar el contenido nuevo (skills Java, Spring Boot, Angular y MySQL; proyectos de GitHub)
 ejecutar una vez `DataBase/actualizacion-2026-10.sql` sobre la base de producción.
+`DataBase/quitar-jr-2026-10.sql` cambia "Full Stack Developer Jr." por "Full Stack Developer" (se puede ejecutar más de una vez).
 
 La API es compatible con la base MySQL existente (usa la misma tabla `hibernate_sequence`).
 El rol `ADMIN` se asigna directamente en la base (tabla `user_authority`); el registro público solo crea usuarios `USER`.
