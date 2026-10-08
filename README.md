@@ -8,7 +8,7 @@ Portfolio personal con panel de edición integrado.
 | Back-end | Spring Boot 4.1 · Java 21 · Spring Security 7 + JWT · JPA/Hibernate 7 |
 | Base de datos | MySQL (producción) · H2 en memoria (desarrollo) |
 | Imágenes | Cloudinary |
-| Hosting | Vercel o Firebase Hosting (front) · Koyeb / Docker (API) |
+| Hosting | Vercel — [silvaeduardojavierporfolio.vercel.app](https://silvaeduardojavierporfolio.vercel.app) — o Firebase Hosting (front) · Koyeb / Docker (API) |
 
 ```
 Back-End/Back-End-SpringBoot   API REST
@@ -72,7 +72,7 @@ La URL de la API está en `src/environments/environment.ts`.
    `dist/portfolio/browser` y reescritura de rutas para la SPA) ya está en `vercel.json`.
 3. *Deploy*. Cada push a `master` publica producción y cada PR genera una URL de vista previa.
 
-Si el front queda en un dominio nuevo (por ejemplo `https://<proyecto>.vercel.app`), actualizar en la API:
+Producción: **https://silvaeduardojavierporfolio.vercel.app**. Si el front cambia de dominio, actualizar en la API:
 - `APP_FRONTEND_URL` → ese dominio (se usa en los links de los emails de verificación y reseteo).
 - `APP_CORS_ALLOWED_ORIGINS` → agregar ese dominio (separado por comas).
 
