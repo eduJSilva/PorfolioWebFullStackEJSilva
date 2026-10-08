@@ -59,7 +59,9 @@ ejecutar una vez `DataBase/actualizacion-2026-10.sql` sobre la base de producci�
 `DataBase/quitar-jr-2026-10.sql` cambia "Full Stack Developer Jr." por "Full Stack Developer" (se puede ejecutar más de una vez).
 
 La API es compatible con la base MySQL existente (usa la misma tabla `hibernate_sequence`).
-El rol `ADMIN` se asigna directamente en la base (tabla `user_authority`); el registro público solo crea usuarios `USER`.
+El registro público solo crea usuarios `USER`. Para dar el rol `ADMIN` a un usuario existente, definir
+`APP_ADMIN_EMAIL` con su email y redesplegar: al arrancar, la API le asigna el rol (si ya lo tiene, no hace nada).
+También puede hacerse directamente en la base (tabla `user_authority`).
 
 ### Front-end
 La URL de la API está en `src/environments/environment.ts`.
