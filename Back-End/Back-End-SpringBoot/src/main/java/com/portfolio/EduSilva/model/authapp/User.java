@@ -171,8 +171,8 @@ public class User extends DateAudit {
 
     @Override
     public String toString() {
-        return "User{" + "id=" + id + ", email='" + email + '\'' + ", username='" + username + '\'' + ", password='"
-                + password + '\'' + ", first_name='" + first_name + '\'' + ", last_name='" + last_name + '\'' + ", active="
-                + active + ", roles=" + roles + ", isEmailVerified=" + isEmailVerified + '}';
+        // Nunca incluir el hash de la contraseña: este texto puede terminar en los logs
+        return "User{" + "id=" + id + ", email='" + email + '\'' + ", active=" + active
+                + ", isEmailVerified=" + isEmailVerified + '}';
     }
 }
