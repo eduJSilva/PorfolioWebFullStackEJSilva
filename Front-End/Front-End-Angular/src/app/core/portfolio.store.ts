@@ -1,6 +1,6 @@
 import { Injectable, computed, inject, signal } from '@angular/core';
-import { forkJoin, of } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { forkJoin, of, timer } from 'rxjs';
+import { catchError, retry } from 'rxjs/operators';
 import { ApiService } from './api.service';
 import { ImagenSubida, Persona } from './models';
 
@@ -14,6 +14,8 @@ export class PortfolioStore {
   readonly portadas = signal<ImagenSubida[]>([]);
   readonly loading = signal(true);
   readonly error = signal(false);
+  /** true mientras se reintenta: la API gratuita se apaga sin tráfico y tarda en despertar. */
+  readonly waking = signal(false);
 
   readonly foto = computed(() => this.fotos().at(-1)?.imagenUrl ?? 'assets/foto_de_perfil/Foto_2021.png');
   readonly portada = computed(() => this.portadas().at(-1)?.imagenUrl ?? null);
@@ -36,8 +38,17 @@ export class PortfolioStore {
   load(): void {
     this.loading.set(this.persona() === null);
     this.error.set(false);
+    this.waking.set(false);
     forkJoin({
-      personas: this.api.getPersonas(),
+      personas: this.api.getPersonas().pipe(
+        retry({
+          count: 8,
+          delay: (_err, attempt) => {
+            this.waking.set(true);
+            return timer(Math.min(2000 * attempt, 6000));
+          },
+        }),
+      ),
       fotos: this.api.getFotos().pipe(catchError(() => of([] as ImagenSubida[]))),
       portadas: this.api.getPortadas().pipe(catchError(() => of([] as ImagenSubida[]))),
     }).subscribe({
@@ -46,10 +57,12 @@ export class PortfolioStore {
         this.fotos.set(fotos);
         this.portadas.set(portadas);
         this.loading.set(false);
+        this.waking.set(false);
       },
       error: () => {
         this.error.set(true);
         this.loading.set(false);
+        this.waking.set(false);
       },
     });
   }

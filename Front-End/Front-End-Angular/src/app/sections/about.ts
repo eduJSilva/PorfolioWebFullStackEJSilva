@@ -15,39 +15,40 @@ import { safeUrl, toParagraphs } from '../shared/text';
   imports: [Icon, Logo, Modal, ReactiveFormsModule],
   template: `
     @if (store.persona(); as p) {
-      <section id="sobre-mi" class="section section--alt">
-        <div class="container">
-          <div class="section__head">
-            <div>
-              <p class="eyebrow"><app-icon name="sparkles" [size]="16" /> Sobre mí</p>
-              <h2 class="section__title">Un poco de mi historia</h2>
-            </div>
+      <section id="perfil" class="sheet">
+        <div class="wrap">
+          <header class="sheet__head">
+            <p class="sheet__no"><b>01</b>Hoja</p>
+            <h2 class="sheet__title">Perfil</h2>
             @if (auth.isAdmin()) {
-              <button type="button" class="btn btn--ghost btn--sm" (click)="openEditor()"><app-icon name="pencil" [size]="16" /> Editar</button>
+              <button type="button" class="btn btn--sm" (click)="openEditor()"><app-icon name="pencil" [size]="14" /> Editar</button>
             }
-          </div>
+          </header>
 
           <div class="about">
             <div class="about__text">
-              @for (paragraph of paragraphs(); track $index) {
-                <p>{{ paragraph }}</p>
+              @for (paragraph of paragraphs(); track $index; let first = $first) {
+                <p [class.about__lead]="first && paragraph.length <= 360">{{ paragraph }}</p>
               } @empty {
                 <p class="muted">Todavía no hay una descripción cargada.</p>
               }
             </div>
-            <aside class="about__aside">
-              <div class="stats">
-                @for (stat of stats(); track stat.label) {
-                  <div class="stat card">
-                    <strong>{{ stat.value }}</strong>
-                    <span class="muted">{{ stat.label }}</span>
+
+            <aside class="about__side">
+              <dl class="readings">
+                @for (r of readings(); track r.label) {
+                  <div class="reading">
+                    <dt class="mono">{{ r.label }}</dt>
+                    <dd>{{ r.value }}</dd>
+                    <span class="reading__ticks" aria-hidden="true"></span>
                   </div>
                 }
-              </div>
+              </dl>
+
               @if (instituciones().length) {
-                <div class="card">
-                  <h3 class="about__subtitle">Instituciones</h3>
-                  <ul class="inst">
+                <div class="refs">
+                  <p class="mono refs__title">Referencias</p>
+                  <ul>
                     @for (inst of instituciones(); track inst.nombre) {
                       <li>
                         <app-logo [src]="inst.logo" [name]="inst.nombre" />
@@ -67,12 +68,12 @@ import { safeUrl, toParagraphs } from '../shared/text';
       </section>
 
       @if (auth.isAdmin()) {
-        <app-modal title="Editar “Sobre mí”" [open]="editing()" (closed)="editing.set(false)">
+        <app-modal title="Editar perfil" [open]="editing()" (closed)="editing.set(false)">
           <div class="form">
             <div class="field">
               <label for="acerca">Descripción</label>
-              <textarea id="acerca" class="textarea" rows="10" [formControl]="text"></textarea>
-              <span class="hint">Separá los párrafos con una línea en blanco.</span>
+              <textarea id="acerca" class="textarea" rows="12" [formControl]="text"></textarea>
+              <span class="hint">Separá los párrafos con una línea en blanco. El primero se destaca.</span>
             </div>
             <div class="form-actions">
               <button type="button" class="btn btn--ghost" (click)="editing.set(false)">Cancelar</button>
@@ -84,17 +85,28 @@ import { safeUrl, toParagraphs } from '../shared/text';
     }
   `,
   styles: `
-    .about { display: grid; grid-template-columns: 1.5fr 1fr; gap: 40px; align-items: start; }
-    .about__text { display: grid; gap: 16px; font-size: 1.05rem; color: var(--text-muted); }
-    .about__text p:first-child { color: var(--text); font-size: 1.15rem; }
-    .about__aside { display: grid; gap: 20px; }
-    .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-    .stat { padding: 18px 12px; text-align: center; display: grid; gap: 2px; }
-    .stat strong { font-family: var(--font-display); font-size: 1.8rem; background: var(--gradient); -webkit-background-clip: text; background-clip: text; color: transparent; }
-    .stat span { font-size: 0.8rem; }
-    .about__subtitle { font-size: 1rem; margin-bottom: 14px; }
-    .inst { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
-    .inst li { display: flex; align-items: center; gap: 12px; font-weight: 500; }
+    .about { display: grid; grid-template-columns: 1.6fr 1fr; gap: clamp(32px, 6vw, 88px); align-items: start; }
+    .about__text { display: grid; gap: 18px; font-size: 1.04rem; color: var(--ink-2); max-width: 64ch; }
+    .about__lead {
+      font-family: var(--serif); font-size: clamp(1.6rem, 2.8vw, 2.2rem); line-height: 1.22; color: var(--ink);
+      margin-bottom: 10px;
+    }
+    .readings { margin: 0; display: grid; gap: 0; border-top: 1px solid var(--ink); }
+    .reading {
+      display: grid; grid-template-columns: 1fr auto; align-items: baseline; gap: 12px; padding: 14px 0 10px;
+      border-bottom: 1px solid var(--rule); position: relative;
+    }
+    .reading dt { color: var(--ink-2); font-size: 0.68rem; }
+    .reading dd { margin: 0; font: 400 2.6rem/1 var(--serif); }
+    .reading__ticks {
+      position: absolute; left: 0; right: 0; bottom: -1px; height: 6px;
+      background: repeating-linear-gradient(90deg, var(--ink-3) 0 1px, transparent 1px 12px);
+      opacity: 0.5;
+    }
+    .refs { margin-top: 36px; }
+    .refs__title { color: var(--ink-3); margin-bottom: 12px; font-size: 0.66rem; }
+    .refs ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+    .refs li { display: flex; align-items: center; gap: 12px; }
     @media (max-width: 860px) { .about { grid-template-columns: 1fr; } }
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -111,14 +123,14 @@ export class About {
 
   protected readonly paragraphs = computed(() => toParagraphs(this.store.persona()?.acercaDe));
 
-  protected readonly stats = computed(() => {
+  protected readonly readings = computed(() => {
     const exps = this.store.experiencias();
     const firstYear = Math.min(...exps.map((e) => yearOf(e.inicio)).filter((y) => y > 0 && y < 9999));
     const years = Number.isFinite(firstYear) ? new Date().getFullYear() - firstYear : 0;
     return [
-      { value: years ? `${years}+` : '—', label: 'años de experiencia' },
-      { value: String(this.store.proyectos().length), label: 'proyectos' },
-      { value: String(this.store.skills().length), label: 'skills' },
+      { value: years ? `${years}+` : '—', label: 'Años de trayectoria' },
+      { value: String(this.store.proyectos().length).padStart(2, '0'), label: 'Proyectos' },
+      { value: String(this.store.skills().length).padStart(2, '0'), label: 'Ítems de stack' },
     ];
   });
 
@@ -140,7 +152,7 @@ export class About {
     runSave(
       this.api.updateAcercaDe(personaId, this.text.value.trim()),
       { busy: this.busy, store: this.store, toast: this.toast },
-      'Descripción actualizada.',
+      'Perfil actualizado.',
       () => this.editing.set(false),
     );
   }

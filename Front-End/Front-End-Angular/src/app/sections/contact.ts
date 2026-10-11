@@ -1,67 +1,93 @@
-import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../core/auth.service';
 import { SOCIAL_LINKS } from '../core/links';
 import { PortfolioStore } from '../core/portfolio.store';
 import { Icon } from '../shared/icon';
+import { revisionLabel } from './navbar';
 
 @Component({
   selector: 'app-contact',
   imports: [Icon, RouterLink],
   template: `
     @if (store.persona(); as p) {
-      <section id="contacto" class="section">
-        <div class="container">
+      <section id="contacto" class="sheet">
+        <div class="wrap">
+          <header class="sheet__head">
+            <p class="sheet__no"><b>06</b>Hoja</p>
+            <h2 class="sheet__title">Contacto</h2>
+          </header>
+
           <div class="contact">
-            <p class="eyebrow" style="justify-content: center"><app-icon name="mail" [size]="16" /> Contacto</p>
-            <h2 class="section__title">¿Trabajamos juntos?</h2>
-            <p class="muted contact__lead">
-              Si te interesa mi perfil o tenés un proyecto en mente, escribime y te respondo a la brevedad.
-            </p>
-            <div class="contact__actions">
+            <p class="contact__call">¿Tenés un proyecto o una propuesta? <em>Hablemos.</em></p>
+
+            <dl class="channels">
               @if (p.email) {
-                <a class="btn btn--primary" [href]="'mailto:' + p.email"><app-icon name="mail" [size]="18" /> {{ p.email }}</a>
+                <div class="channel">
+                  <dt class="mono">Email</dt>
+                  <dd>
+                    <a [href]="'mailto:' + p.email">{{ p.email }}</a>
+                    <button type="button" class="btn btn--sm" (click)="copy(p.email)">{{ copied() ? 'Copiado' : 'Copiar' }}</button>
+                  </dd>
+                </div>
               }
               @if (whatsapp(); as wa) {
-                <a class="btn btn--ghost" [href]="wa" target="_blank" rel="noopener"><app-icon name="whatsapp" [size]="18" /> WhatsApp</a>
+                <div class="channel">
+                  <dt class="mono">WhatsApp</dt>
+                  <dd><a [href]="wa" target="_blank" rel="noopener">Escribir mensaje</a><app-icon name="external" [size]="14" /></dd>
+                </div>
               }
-              <a class="btn btn--ghost" [href]="social.linkedin" target="_blank" rel="noopener"><app-icon name="linkedin" [size]="18" /> LinkedIn</a>
-            </div>
+              <div class="channel">
+                <dt class="mono">LinkedIn</dt>
+                <dd><a [href]="social.linkedin" target="_blank" rel="noopener">Ver perfil</a><app-icon name="external" [size]="14" /></dd>
+              </div>
+              <div class="channel">
+                <dt class="mono">GitHub</dt>
+                <dd><a [href]="social.github" target="_blank" rel="noopener">eduJSilva</a><app-icon name="external" [size]="14" /></dd>
+              </div>
+            </dl>
           </div>
         </div>
       </section>
 
-      <footer class="footer">
-        <div class="container footer__inner">
-          <p class="muted">© {{ year }} {{ p.nombre }} {{ p.apellido }} · Hecho con Angular + Spring Boot</p>
-          <div class="footer__links">
-            <a class="icon-btn" [href]="social.github" target="_blank" rel="noopener" aria-label="GitHub"><app-icon name="github" [size]="18" /></a>
-            <a class="icon-btn" [href]="social.linkedin" target="_blank" rel="noopener" aria-label="LinkedIn"><app-icon name="linkedin" [size]="18" /></a>
-            <a class="icon-btn" [href]="social.x" target="_blank" rel="noopener" aria-label="X (Twitter)"><app-icon name="x" [size]="18" /></a>
-            @if (!auth.isAdmin()) {
-              <a class="icon-btn" routerLink="/login" aria-label="Acceso administrador" title="Acceso administrador"><app-icon name="login" [size]="18" /></a>
-            }
-          </div>
+      <footer class="foot">
+        <div class="wrap foot__grid mono">
+          <span>© {{ year }} {{ p.nombre }} {{ p.apellido }}</span>
+          <span>Rev. {{ revision }}</span>
+          <span>Hoja 06 / 06</span>
+          @if (!auth.isAdmin()) {
+            <a routerLink="/login" class="foot__login" title="Acceso de administración" aria-label="Acceso de administración">
+              <app-icon name="login" [size]="14" />
+            </a>
+          }
         </div>
       </footer>
     }
   `,
   styles: `
-    .contact {
-      max-width: 720px; margin-inline: auto; text-align: center; padding: 56px 28px; border-radius: var(--radius-lg);
-      background:
-        radial-gradient(400px 200px at 0% 0%, color-mix(in srgb, var(--primary) 16%, transparent), transparent),
-        radial-gradient(400px 200px at 100% 100%, color-mix(in srgb, var(--accent) 16%, transparent), transparent),
-        var(--bg-elevated);
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow);
+    .contact { display: grid; grid-template-columns: 1.2fr 1fr; gap: clamp(32px, 6vw, 80px); align-items: start; }
+    .contact__call { font: 400 clamp(2.4rem, 5.2vw, 4.4rem)/1 var(--serif); letter-spacing: -0.01em; }
+    .contact__call em { color: var(--signal); }
+    .channels { margin: 0; border-top: 1px solid var(--ink); }
+    .channel {
+      display: grid; grid-template-columns: 110px 1fr; gap: 16px; align-items: center; padding: 16px 0;
+      border-bottom: 1px solid var(--rule);
     }
-    .contact__lead { margin: 12px auto 28px; max-width: 520px; font-size: 1.05rem; }
-    .contact__actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-    .footer { border-top: 1px solid var(--border); padding-block: 28px; }
-    .footer__inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
-    .footer__inner p { font-size: 0.9rem; }
-    .footer__links { display: flex; gap: 8px; }
+    .channel dt { color: var(--ink-3); font-size: 0.66rem; }
+    .channel dd { margin: 0; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; font-size: 1.02rem; word-break: break-word; }
+    .channel dd a { text-decoration: none; border-bottom: 1px solid var(--ink-3); }
+    .channel dd a:hover { border-color: var(--signal); color: var(--signal); }
+    .foot { border-top: 1px solid var(--ink); background: var(--paper); }
+    .foot__grid {
+      display: grid; grid-template-columns: 1fr auto auto auto; gap: 24px; align-items: center;
+      padding-block: 16px; color: var(--ink-3); font-size: 0.66rem;
+    }
+    .foot__login { color: var(--ink-3); display: inline-flex; }
+    .foot__login:hover { color: var(--ink); }
+    @media (max-width: 860px) {
+      .contact { grid-template-columns: 1fr; }
+      .foot__grid { grid-template-columns: 1fr auto; }
+    }
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -70,6 +96,8 @@ export class Contact {
   protected readonly auth = inject(AuthService);
   protected readonly social = SOCIAL_LINKS;
   protected readonly year = new Date().getFullYear();
+  protected readonly revision = revisionLabel();
+  protected readonly copied = signal(false);
 
   protected readonly whatsapp = computed(() => {
     const tel = this.store.persona()?.telefono?.replace(/\D/g, '');
@@ -77,4 +105,11 @@ export class Contact {
     // Números argentinos guardados sin código de país
     return `https://wa.me/${tel.startsWith('54') ? tel : '549' + tel}`;
   });
+
+  protected copy(email: string): void {
+    navigator.clipboard?.writeText(email).then(() => {
+      this.copied.set(true);
+      setTimeout(() => this.copied.set(false), 2000);
+    });
+  }
 }
