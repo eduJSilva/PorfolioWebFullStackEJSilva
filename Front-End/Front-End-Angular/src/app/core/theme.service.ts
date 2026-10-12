@@ -13,6 +13,7 @@ export class ThemeService {
     effect(() => {
       const theme = this.theme();
       this.document.documentElement.dataset['theme'] = theme;
+      this.document.querySelector('meta[name="theme-color"]')?.setAttribute('content', theme === 'dark' ? '#121316' : '#f1ede3');
       try {
         localStorage.setItem(THEME_KEY, theme);
       } catch {

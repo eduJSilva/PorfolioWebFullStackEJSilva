@@ -18,13 +18,20 @@ import { Icon } from '../../shared/icon';
     <app-navbar />
     <main id="contenido">
       <app-hero />
+      @if (store.waking() && !store.persona()) {
+        <section class="sheet">
+          <div class="wrap status" role="status">
+            <span class="signal"><i></i><i class="on wait blink"></i><i></i></span>
+            <p class="mono">Encendiendo el servidor… puede tardar unos segundos.</p>
+          </div>
+        </section>
+      }
       @if (store.error() && !store.persona()) {
-        <section class="section">
-          <div class="container" style="text-align: center">
-            <div class="alert alert--error" style="justify-content: center; margin-bottom: 20px" role="alert">
-              <app-icon name="alert" /> No se pudo cargar el portfolio. El servidor puede estar iniciándose.
-            </div>
-            <button type="button" class="btn btn--primary" (click)="store.load()"><app-icon name="refresh" [size]="18" /> Reintentar</button>
+        <section class="sheet">
+          <div class="wrap status" role="alert">
+            <span class="signal"><i class="on stop"></i><i></i><i></i></span>
+            <p class="mono">No se pudo cargar el portfolio.</p>
+            <button type="button" class="btn" (click)="store.load()"><app-icon name="refresh" [size]="14" /> Reintentar</button>
           </div>
         </section>
       }
@@ -37,6 +44,11 @@ import { Icon } from '../../shared/icon';
         <app-contact />
       }
     </main>
+  `,
+  styles: `
+    .status { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+    .blink { animation: blink 1s steps(2) infinite; }
+    @keyframes blink { 50% { opacity: 0.2; } }
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

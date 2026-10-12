@@ -8,6 +8,7 @@ import { ToastService } from '../core/toast.service';
 import { PersonaForm } from '../admin/persona-form';
 import { Icon } from '../shared/icon';
 import { ImageUpload } from '../shared/image-upload';
+import { revisionLabel } from './navbar';
 
 @Component({
   selector: 'app-hero',
@@ -15,45 +16,61 @@ import { ImageUpload } from '../shared/image-upload';
   template: `
     @if (store.persona(); as p) {
       <section id="inicio" class="hero">
-        @if (store.portada(); as portada) {
-          <div class="hero__cover" [style.background-image]="'url(' + portada + ')'" aria-hidden="true"></div>
-        }
-        <div class="container hero__inner">
-          <div class="hero__text reveal">
-            <span class="badge badge--primary hero__status"><span class="dot"></span> Bienvenido/a a mi portfolio</span>
-            <h1 class="hero__title">
-              Hola, soy <span class="gradient-text">{{ p.nombre }} {{ p.apellido }}</span>
+        <div class="wrap hero__grid">
+          <div class="hero__main reveal">
+            <p class="mono hero__kicker">
+              <span class="signal"><i class="on stop"></i><i class="on wait"></i><i class="on go"></i></span>
+              Portfolio personal
+            </p>
+            <h1 class="hero__name">
+              <span>{{ firstName() }}</span>
+              <span class="hero__name-2"><em>{{ middleName() }}</em> {{ p.apellido }}</span>
             </h1>
             <p class="hero__role">{{ p.puesto }}</p>
-            @if (location()) {
-              <p class="hero__meta muted"><app-icon name="pin" [size]="16" /> {{ location() }}</p>
-            }
-            <div class="hero__cta">
-              <a href="#proyectos" class="btn btn--primary">Ver proyectos <app-icon name="arrowDown" [size]="18" /></a>
-              <a href="#contacto" class="btn btn--ghost">Contactame</a>
-            </div>
-            <div class="hero__social">
-              <a class="icon-btn" [href]="social.github" target="_blank" rel="noopener" aria-label="GitHub"><app-icon name="github" [size]="18" /></a>
-              <a class="icon-btn" [href]="social.linkedin" target="_blank" rel="noopener" aria-label="LinkedIn"><app-icon name="linkedin" [size]="18" /></a>
-              @if (p.email) {
-                <a class="icon-btn" [href]="'mailto:' + p.email" aria-label="Email"><app-icon name="mail" [size]="18" /></a>
-              }
+            <div class="hero__links">
+              <a href="#proyectos" class="arrow-link">Ver proyectos <app-icon name="arrowDown" [size]="14" /></a>
+              <a href="#contacto" class="arrow-link">Contacto <app-icon name="arrowDown" [size]="14" /></a>
+              <a [href]="social.github" target="_blank" rel="noopener" class="arrow-link">GitHub <app-icon name="external" [size]="14" /></a>
+              <a [href]="social.linkedin" target="_blank" rel="noopener" class="arrow-link">LinkedIn <app-icon name="external" [size]="14" /></a>
             </div>
             @if (auth.isAdmin()) {
-              <div class="admin-actions" style="margin-top: 24px">
-                <button type="button" class="btn btn--ghost btn--sm" (click)="editing.set('datos')"><app-icon name="pencil" [size]="16" /> Datos personales</button>
-                <button type="button" class="btn btn--ghost btn--sm" (click)="editing.set('foto')"><app-icon name="camera" [size]="16" /> Foto</button>
-                <button type="button" class="btn btn--ghost btn--sm" (click)="editing.set('portada')"><app-icon name="image" [size]="16" /> Portada</button>
+              <div class="admin-actions hero__admin">
+                <button type="button" class="btn btn--sm" (click)="editing.set('datos')"><app-icon name="pencil" [size]="14" /> Datos</button>
+                <button type="button" class="btn btn--sm" (click)="editing.set('foto')"><app-icon name="camera" [size]="14" /> Foto</button>
+                <button type="button" class="btn btn--sm" (click)="editing.set('portada')"><app-icon name="image" [size]="14" /> Portada</button>
               </div>
             }
           </div>
-          <div class="hero__photo reveal">
-            <div class="hero__ring">
+
+          <aside class="hero__side reveal">
+            <figure class="frame">
               <img [src]="photoFailed() ? fallbackPhoto : store.foto()" [alt]="'Foto de ' + p.nombre + ' ' + p.apellido"
-                width="320" height="320" (error)="photoFailed.set(true)" />
-            </div>
-          </div>
+                width="360" height="420" (error)="photoFailed.set(true)" />
+              <span class="frame__mark frame__mark--tl"></span>
+              <span class="frame__mark frame__mark--tr"></span>
+              <span class="frame__mark frame__mark--bl"></span>
+              <span class="frame__mark frame__mark--br"></span>
+            </figure>
+            <table class="title-block">
+              <tbody>
+                <tr><th>Autor</th><td colspan="3">{{ p.nombre }} {{ p.apellido }}</td></tr>
+                <tr><th>Especialidad</th><td colspan="3">{{ p.puesto }}</td></tr>
+                @if (location()) {
+                  <tr><th>Ubicación</th><td colspan="3">{{ location() }}</td></tr>
+                }
+                @if (stack()) {
+                  <tr><th>Stack</th><td colspan="3">{{ stack() }}</td></tr>
+                }
+                <tr><th>Rev.</th><td>{{ revision }}</td><th>Hoja</th><td>01 / 06</td></tr>
+              </tbody>
+            </table>
+          </aside>
         </div>
+        @if (store.portada(); as portada) {
+          @if (!coverFailed()) {
+            <img class="hero__strip" [src]="portada" alt="" aria-hidden="true" loading="lazy" (error)="coverFailed.set(true)" />
+          }
+        }
       </section>
 
       @if (auth.isAdmin()) {
@@ -65,49 +82,57 @@ import { ImageUpload } from '../shared/image-upload';
       }
     } @else if (store.loading()) {
       <section class="hero">
-        <div class="container hero__inner">
-          <div class="hero__text">
-            <div class="skeleton" style="height: 28px; width: 220px; margin-bottom: 20px"></div>
-            <div class="skeleton" style="height: 64px; width: 90%; margin-bottom: 16px"></div>
-            <div class="skeleton" style="height: 28px; width: 60%"></div>
+        <div class="wrap hero__grid" aria-busy="true">
+          <div>
+            <div class="skeleton" style="height: 14px; width: 180px; margin-bottom: 28px"></div>
+            <div class="skeleton" style="height: 120px; width: 90%; margin-bottom: 20px"></div>
+            <div class="skeleton" style="height: 28px; width: 50%"></div>
           </div>
-          <div class="hero__photo"><div class="skeleton hero__ring" style="border-radius: 50%"></div></div>
+          <div class="skeleton" style="aspect-ratio: 6 / 7"></div>
         </div>
       </section>
     }
   `,
   styles: `
-    .hero { position: relative; overflow: hidden; padding-block: 72px 96px; }
-    .hero::before, .hero::after {
-      content: ''; position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.35; z-index: -1;
+    .hero { padding-block: clamp(48px, 8vw, 104px) clamp(56px, 8vw, 96px); }
+    .hero__grid { display: grid; grid-template-columns: 1.45fr 1fr; gap: clamp(32px, 6vw, 80px); align-items: end; }
+    .hero__kicker { display: flex; align-items: center; gap: 12px; color: var(--ink-2); margin-bottom: clamp(20px, 3vw, 36px); }
+    .hero__name {
+      font-family: var(--serif); font-size: clamp(3.6rem, 10.5vw, 8.8rem); line-height: 0.88; letter-spacing: -0.025em;
+      display: grid;
     }
-    .hero::before { width: 480px; height: 480px; background: var(--primary); top: -160px; left: -120px; }
-    .hero::after { width: 420px; height: 420px; background: var(--accent); bottom: -180px; right: -80px; }
-    .hero__cover {
-      position: absolute; inset: 0; z-index: -2; background-size: cover; background-position: center; opacity: 0.08;
-      mask-image: linear-gradient(to bottom, black, transparent);
+    .hero__name-2 { padding-left: clamp(0px, 6vw, 88px); }
+    .hero__name em { color: var(--signal); }
+    .hero__role {
+      margin-top: clamp(20px, 3vw, 32px); max-width: 30ch; font-family: var(--serif); font-style: italic;
+      font-size: clamp(1.4rem, 2.6vw, 2rem); line-height: 1.2; color: var(--ink-2);
     }
-    .hero__inner { display: grid; grid-template-columns: 1.3fr 1fr; align-items: center; gap: 48px; }
-    .hero__status { margin-bottom: 20px; }
-    .dot { width: 8px; height: 8px; border-radius: 50%; background: currentColor; box-shadow: 0 0 0 4px color-mix(in srgb, currentColor 25%, transparent); }
-    .hero__title { font-size: clamp(2.3rem, 4.5vw + 1rem, 4rem); font-weight: 700; }
-    .gradient-text { background: var(--gradient); -webkit-background-clip: text; background-clip: text; color: transparent; }
-    .hero__role { margin-top: 14px; font-size: clamp(1.15rem, 1vw + 1rem, 1.45rem); font-weight: 500; }
-    .hero__meta { display: flex; align-items: center; gap: 6px; margin-top: 8px; }
-    .hero__cta { display: flex; gap: 12px; margin-top: 32px; flex-wrap: wrap; }
-    .hero__social { display: flex; gap: 10px; margin-top: 28px; }
-    .hero__photo { display: grid; place-items: center; }
-    .hero__ring {
-      width: min(340px, 75vw); aspect-ratio: 1; border-radius: 50%; padding: 6px; background: var(--gradient);
-      box-shadow: var(--shadow-lg);
+    .hero__links { display: flex; flex-wrap: wrap; gap: 14px 24px; margin-top: clamp(28px, 4vw, 44px); }
+    .hero__admin { margin-top: 28px; }
+    .frame { position: relative; margin: 0 0 18px; padding: 10px; }
+    .frame img {
+      width: 100%; aspect-ratio: 6 / 7; object-fit: cover; filter: grayscale(1) contrast(1.05);
+      transition: filter 0.6s var(--ease);
     }
-    .hero__ring img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; border: 6px solid var(--bg); }
+    .frame:hover img { filter: none; }
+    .frame__mark { position: absolute; width: 18px; height: 18px; border-color: var(--ink); border-style: solid; }
+    .frame__mark--tl { top: 0; left: 0; border-width: 1px 0 0 1px; }
+    .frame__mark--tr { top: 0; right: 0; border-width: 1px 1px 0 0; }
+    .frame__mark--bl { bottom: 0; left: 0; border-width: 0 0 1px 1px; }
+    .frame__mark--br { bottom: 0; right: 0; border-width: 0 1px 1px 0; }
+    .title-block { width: 100%; border-collapse: collapse; background: var(--sheet); font-size: 0.86rem; }
+    .title-block th, .title-block td { border: 1px solid var(--ink); padding: 6px 10px; text-align: left; vertical-align: top; }
+    .title-block th {
+      width: 1%; white-space: nowrap; font: 500 0.62rem var(--mono); letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--ink-2); background: var(--paper-2);
+    }
+    .hero__strip {
+      display: block; width: 100%; height: clamp(90px, 14vw, 160px); margin-top: clamp(48px, 7vw, 88px); object-fit: cover;
+      filter: grayscale(1) contrast(1.1); opacity: 0.85; border-block: 1px solid var(--ink);
+    }
     @media (max-width: 860px) {
-      .hero { padding-block: 40px 72px; }
-      .hero__inner { grid-template-columns: 1fr; text-align: center; }
-      .hero__photo { order: -1; }
-      .hero__ring { width: min(220px, 60vw); }
-      .hero__meta, .hero__cta, .hero__social, .admin-actions { justify-content: center; }
+      .hero__grid { grid-template-columns: 1fr; }
+      .hero__side { max-width: 420px; }
     }
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -119,15 +144,31 @@ export class Hero {
   private readonly toast = inject(ToastService);
 
   protected readonly social = SOCIAL_LINKS;
+  protected readonly revision = revisionLabel();
   protected readonly editing = signal<'datos' | 'foto' | 'portada' | null>(null);
   protected readonly uploading = signal(false);
   protected readonly photoFailed = signal(false);
+  protected readonly coverFailed = signal(false);
   protected readonly fallbackPhoto = 'assets/foto_de_perfil/Foto_2021.png';
+
+  private readonly names = computed(() => (this.store.persona()?.nombre ?? '').split(/\s+/).filter(Boolean));
+  protected readonly firstName = computed(() => this.names()[0] ?? '');
+  protected readonly middleName = computed(() => this.names().slice(1).join(' '));
 
   protected readonly location = computed(() => {
     const p = this.store.persona();
     return [p?.ciudad, p?.provincia].filter(Boolean).join(', ');
   });
+
+  /** Las tres habilidades técnicas con mayor dominio. */
+  protected readonly stack = computed(() =>
+    this.store
+      .skills()
+      .filter((s) => s.tipoSkill !== 'soft')
+      .slice(0, 3)
+      .map((s) => s.nombreSkill)
+      .join(' · '),
+  );
 
   protected upload(request: Observable<string>, message: string): void {
     this.uploading.set(true);
@@ -135,8 +176,9 @@ export class Hero {
       next: () => {
         this.uploading.set(false);
         this.editing.set(null);
-        this.toast.success(message);
         this.photoFailed.set(false);
+        this.coverFailed.set(false);
+        this.toast.success(message);
         this.store.load();
       },
       error: () => {

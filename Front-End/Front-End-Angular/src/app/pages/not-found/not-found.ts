@@ -8,7 +8,7 @@ import { Icon } from '../../shared/icon';
   template: `
     <main class="auth-page">
       <div class="auth-card reveal" style="text-align: center">
-        <p class="eyebrow" style="justify-content: center">Error 404</p>
+        <p class="mono muted" style="margin-bottom: 8px">Error 404 · Hoja inexistente</p>
         <h1>Página no encontrada</h1>
         <p class="muted" style="margin: 8px 0 24px">La dirección que buscás no existe o fue movida.</p>
         <a routerLink="/" class="btn btn--primary"><app-icon name="arrowLeft" [size]="18" /> Ir al portfolio</a>
